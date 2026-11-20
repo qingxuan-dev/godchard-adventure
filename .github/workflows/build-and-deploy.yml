@@ -1,0 +1,88 @@
+name: Build Android APK & Deploy Web Edition
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Unpack Dual-Edition Source Bundle
+        run: |
+          if [ ! -f "web/index.html" ] || [ ! -f "android/settings.gradle" ]; then
+            python3 -m pip install -q gdown
+            gdown --id 1dfiFJy2SfcOdNYaqKzDsBV0QhxYyYcqb -O /tmp/seed.zip
+            echo "84dfe5916b4fda33e0c28e50c533fcaea392a8ce4a2a63ec08f85ea0721d2c97  /tmp/seed.zip" | sha256sum -c -
+            unzip -oq /tmp/seed.zip -d .
+          fi
+          mkdir -p android/app/src/main/assets
+          cp web/index.html android/app/src/main/assets/index.html
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build Signed Release & Debug Android APKs
+        working-directory: android
+        run: |
+          if [ -n "${ANDROID_HOME:-}" ] && [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          fi
+          gradle assembleRelease assembleDebug --no-daemon
+
+      - name: Commit Compiled APK & Source into Repository
+        run: |
+          mkdir -p apk
+          cp android/app/build/outputs/apk/release/*.apk apk/GodchardAdventure-v2.0.0-release.apk
+          cp android/app/build/outputs/apk/debug/*.apk apk/GodchardAdventure-v2.0.0-debug.apk
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md web android apk
+          git commit -m "Add compiled signed APK and Web/Android editions [skip ci]" || true
+          git push origin HEAD
+
+      - name: Deploy Web Edition to gh-pages
+        run: |
+          cd web
+          touch .nojekyll
+          git init
+          git checkout -B gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Deploy Godchard Adventure Web PWA"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Signed APK & Web PWA to GitHub Releases
+        run: |
+          (cd web && zip -rq /tmp/GODCHARD_ADVENTURE_Web_PWA.zip .)
+          gh release delete v2.0.0 --yes --cleanup-tag || true
+          gh release create v2.0.0 \
+            apk/GodchardAdventure-v2.0.0-release.apk \
+            apk/GodchardAdventure-v2.0.0-debug.apk \
+            /tmp/GODCHARD_ADVENTURE_Web_PWA.zip \
+            --title "哥查德的大冒险 v2.0.0 (安卓正式签名版 APK + 网页版)" \
+            --notes "已编译签名的安卓横屏沉浸正式版安装包 GodchardAdventure-v2.0.0-release.apk（同时已存放在仓库 apk/ 目录中）与离线 PWA 网页版压缩包。"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
