@@ -36,29 +36,79 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Gradle 8.7
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
-
-      - name: Build Signed Release & Debug Android APKs
-        working-directory: android
+      - name: Compile, Align & Sign Android APK via Android SDK Tools
         run: |
-          if [ -n "${ANDROID_HOME:-}" ] && [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
-            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          set -euo pipefail
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          if [ ! -f "$SDK_ROOT/platforms/android-34/android.jar" ] && [ ! -f "$SDK_ROOT/platforms/android-35/android.jar" ]; then
+            yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+            "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0"
           fi
-          gradle assembleRelease assembleDebug --no-daemon
+          BUILD_TOOLS="$(ls -d "$SDK_ROOT"/build-tools/* | sort -V | tail -n 1)"
+          PLATFORM_DIR="$(ls -d "$SDK_ROOT"/platforms/android-* | sort -V | tail -n 1)"
+          ANDROID_JAR="$PLATFORM_DIR/android.jar"
+
+          rm -rf /tmp/apk_build
+          mkdir -p /tmp/apk_build/gen /tmp/apk_build/classes /tmp/apk_build/dex apk
+
+          sed 's|<manifest xmlns:android="http://schemas.android.com/apk/res/android">|<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.godchard.adventure">|' \
+            android/app/src/main/AndroidManifest.xml > /tmp/apk_build/AndroidManifest.xml
+
+          "$BUILD_TOOLS/aapt2" compile --dir android/app/src/main/res -o /tmp/apk_build/res.zip
+
+          "$BUILD_TOOLS/aapt2" link \
+            -o /tmp/apk_build/unsigned-unaligned.apk \
+            -I "$ANDROID_JAR" \
+            --manifest /tmp/apk_build/AndroidManifest.xml \
+            -A android/app/src/main/assets \
+            --java /tmp/apk_build/gen \
+            --min-sdk-version 24 \
+            --target-sdk-version 34 \
+            --version-code 20 \
+            --version-name "2.0.0" \
+            --auto-add-overlay \
+            /tmp/apk_build/res.zip
+
+          javac -encoding UTF-8 -source 11 -target 11 \
+            -cp "$ANDROID_JAR" \
+            -d /tmp/apk_build/classes \
+            $(find /tmp/apk_build/gen android/app/src/main/java -name "*.java")
+
+          "$BUILD_TOOLS/d8" \
+            --lib "$ANDROID_JAR" \
+            --min-api 24 \
+            --release \
+            --output /tmp/apk_build/dex \
+            $(find /tmp/apk_build/classes -name "*.class")
+
+          (cd /tmp/apk_build/dex && zip -uj /tmp/apk_build/unsigned-unaligned.apk classes.dex)
+
+          "$BUILD_TOOLS/zipalign" -p -f 4 \
+            /tmp/apk_build/unsigned-unaligned.apk \
+            /tmp/apk_build/aligned.apk
+
+          "$BUILD_TOOLS/apksigner" sign \
+            --ks android/app/godchard-release-key.jks \
+            --ks-pass pass:godchard250 \
+            --ks-key-alias godchard \
+            --key-pass pass:godchard250 \
+            --v1-signing-enabled true \
+            --v2-signing-enabled true \
+            --v3-signing-enabled true \
+            --out apk/GodchardAdventure-v2.0.0-release.apk \
+            /tmp/apk_build/aligned.apk
+
+          "$BUILD_TOOLS/apksigner" verify --verbose apk/GodchardAdventure-v2.0.0-release.apk
+          ls -lh apk/GodchardAdventure-v2.0.0-release.apk
 
       - name: Commit Compiled APK & Source into Repository
         run: |
-          mkdir -p apk
-          cp android/app/build/outputs/apk/release/*.apk apk/GodchardAdventure-v2.0.0-release.apk
-          cp android/app/build/outputs/apk/debug/*.apk apk/GodchardAdventure-v2.0.0-debug.apk
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md web android apk
-          git commit -m "Add compiled signed APK and Web/Android editions [skip ci]" || true
-          git push origin HEAD
+          git pull --rebase origin main || true
+          git add README.md web android apk/GodchardAdventure-v2.0.0-release.apk
+          git commit -m "Add compiled signed Android APK and Web/Android editions [skip ci]" || true
+          git push origin HEAD:main
 
       - name: Deploy Web Edition to gh-pages
         run: |
@@ -80,9 +130,8 @@ jobs:
           gh release delete v2.0.0 --yes --cleanup-tag || true
           gh release create v2.0.0 \
             apk/GodchardAdventure-v2.0.0-release.apk \
-            apk/GodchardAdventure-v2.0.0-debug.apk \
             /tmp/GODCHARD_ADVENTURE_Web_PWA.zip \
             --title "哥查德的大冒险 v2.0.0 (安卓正式签名版 APK + 网页版)" \
-            --notes "已编译签名的安卓横屏沉浸正式版安装包 GodchardAdventure-v2.0.0-release.apk（同时已存放在仓库 apk/ 目录中）与离线 PWA 网页版压缩包。"
+            --notes "已编译签名的安卓横屏沉浸正式版安装包 GodchardAdventure-v2.0.0-release.apk（同时已直接存放在仓库 apk/ 目录中）与离线 PWA 网页版压缩包。"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
