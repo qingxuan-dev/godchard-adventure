@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.godchard.adventure'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.godchard.adventure"
+        minSdk 24
+        targetSdk 34
+        versionCode 20
+        versionName "2.0.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("godchard-release-key.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD") ?: "godchard250"
+            keyAlias System.getenv("KEY_ALIAS") ?: "godchard"
+            keyPassword System.getenv("KEY_PASSWORD") ?: "godchard250"
+            enableV1Signing true
+            enableV2Signing true
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "GodchardAdventure-v${variant.versionName}-${variant.buildType.name}.apk"
+        }
+    }
+}
+
+dependencies {
+    // 零第三方臃肿依赖：直接使用 Android 原生 SDK WebView + Vibrator + SharedPreferences，安装包仅约 3MB！
+}
