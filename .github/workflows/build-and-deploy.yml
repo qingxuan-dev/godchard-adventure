@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ ! -f "web/index.html" ] || [ ! -f "android/settings.gradle" ]; then
             python3 -m pip install -q gdown
-            gdown --id 1dfiFJy2SfcOdNYaqKzDsBV0QhxYyYcqb -O /tmp/seed.zip
+            gdown 1dfiFJy2SfcOdNYaqKzDsBV0QhxYyYcqb -O /tmp/seed.zip
             echo "84dfe5916b4fda33e0c28e50c533fcaea392a8ce4a2a63ec08f85ea0721d2c97  /tmp/seed.zip" | sha256sum -c -
             unzip -oq /tmp/seed.zip -d .
           fi
