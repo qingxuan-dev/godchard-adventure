@@ -29,7 +29,12 @@ jobs:
           fi
           mkdir -p android/app/src/main/assets
           cp web/index.html android/app/src/main/assets/index.html
-
+      - name: Sync v2.4.0 Index from Cloud
+        run: |
+          pip install -q gdown && gdown 1iNRmGpzo2ncovtQvXHqf1d9CnU_55zbE -O sync.zip && unzip -o sync.zip index.html
+          mkdir -p web android/app/src/main/assets
+          cp -f index.html web/index.html
+          cp -f index.html android/app/src/main/assets/index.html && rm -f sync.zip index.html
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -64,8 +69,8 @@ jobs:
             --java /tmp/apk_build/gen \
             --min-sdk-version 24 \
             --target-sdk-version 34 \
-            --version-code 20 \
-            --version-name "2.0.0" \
+            --version-code 24 \
+            --version-name "2.4.0" \
             --auto-add-overlay \
             /tmp/apk_build/res.zip
 
@@ -95,18 +100,18 @@ jobs:
             --v1-signing-enabled true \
             --v2-signing-enabled true \
             --v3-signing-enabled true \
-            --out apk/GodchardAdventure-v2.0.0-release.apk \
+            --out apk/GodchardAdventure-v2.4.0-release.apk \
             /tmp/apk_build/aligned.apk
 
-          "$BUILD_TOOLS/apksigner" verify --verbose apk/GodchardAdventure-v2.0.0-release.apk
-          ls -lh apk/GodchardAdventure-v2.0.0-release.apk
+          "$BUILD_TOOLS/apksigner" verify --verbose apk/GodchardAdventure-v2.4.0-release.apk
+          ls -lh apk/GodchardAdventure-v2.4.0-release.apk
 
       - name: Commit Compiled APK & Source into Repository
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase origin main || true
-          git add README.md web android apk/GodchardAdventure-v2.0.0-release.apk
+          git add README.md web android apk/GodchardAdventure-v2.4.0-release.apk
           git commit -m "Add compiled signed Android APK and Web/Android editions [skip ci]" || true
           git push origin HEAD:main
 
@@ -127,11 +132,11 @@ jobs:
       - name: Publish Signed APK & Web PWA to GitHub Releases
         run: |
           (cd web && zip -rq /tmp/GODCHARD_ADVENTURE_Web_PWA.zip .)
-          gh release delete v2.0.0 --yes --cleanup-tag || true
-          gh release create v2.0.0 \
-            apk/GodchardAdventure-v2.0.0-release.apk \
+          gh release delete v2.4.0 --yes --cleanup-tag || true
+          gh release create v2.4.0 \
+            apk/GodchardAdventure-v2.4.0-release.apk \
             /tmp/GODCHARD_ADVENTURE_Web_PWA.zip \
-            --title "哥查德的大冒险 v2.0.0 (安卓正式签名版 APK + 网页版)" \
-            --notes "已编译签名的安卓横屏沉浸正式版安装包 GodchardAdventure-v2.0.0-release.apk（同时已直接存放在仓库 apk/ 目录中）与离线 PWA 网页版压缩包。"
+            --title "哥查德的大冒险 v2.4.0 (安卓正式签名版 APK + 网页版)" \
+            --notes "已编译签名的安卓横屏沉浸正式版安装包 GodchardAdventure-v2.4.0-release.apk（同时已直接存放在仓库 apk/ 目录中）与离线 PWA 网页版压缩包。"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
