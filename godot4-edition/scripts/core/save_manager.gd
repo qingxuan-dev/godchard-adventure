@@ -6,6 +6,9 @@ const SAVE_PATH: String = "user://gotchard_adventure_save_v4.json"
 var lang: String = "zh"
 var volume: float = 0.8
 var sensitivity: float = 1.0
+var pad_scale: float = 1.0
+var pad_opacity: float = 0.86
+var pad_swap: bool = false
 var unlocked_max: int = 1
 var last_lv: int = 1
 var coins: int = 0
@@ -30,6 +33,9 @@ func load_save() -> void:
 		lang = str(d.get("lang", "zh"))
 		volume = float(d.get("volume", 0.8))
 		sensitivity = float(d.get("sensitivity", 1.0))
+		pad_scale = float(d.get("pad_scale", 1.0))
+		pad_opacity = float(d.get("pad_opacity", 0.86))
+		pad_swap = bool(d.get("pad_swap", false))
 		unlocked_max = int(d.get("unlocked_max", 1))
 		last_lv = int(d.get("last_lv", 1))
 		coins = int(d.get("coins", 0))
@@ -46,7 +52,7 @@ func persist() -> void:
 	var payload = {
 		"lang": lang,
 		"volume": volume,
-		"sensitivity": sensitivity,
+		"sensitivity": sensitivity, "pad_scale": pad_scale, "pad_opacity": pad_opacity, "pad_swap": pad_swap,
 		"unlocked_max": unlocked_max,
 		"last_lv": last_lv,
 		"coins": coins,
