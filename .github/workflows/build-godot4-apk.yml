@@ -1,0 +1,26 @@
+name: Build Godot 4 Native APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-godot4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build and Publish Native Godot 4 APK
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 -m venv /tmp/gd
+          /tmp/gd/bin/pip install -q gdown
+          /tmp/gd/bin/gdown 1m0MixuZAO4ziTFadvAiGjmrcgvpSDNWf -O pkg.zip
+          unzip -oq pkg.zip
+          bash ci_build_godot4_apk.sh
