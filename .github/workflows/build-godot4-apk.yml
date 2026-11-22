@@ -25,4 +25,5 @@ jobs:
           unzip -oq pkg.zip
           sed -i 's/min_sdk="24"/min_sdk=""/g; s/target_sdk="34"/target_sdk=""/g' godot4_project/export_presets.cfg
           sed -i 's/--clobber/|| true/g' ci_build_godot4_apk.sh
+          echo 'textures/vram_compression/import_etc2_astc=true' >> godot4_project/project.godot
           bash ci_build_godot4_apk.sh
