@@ -21,6 +21,6 @@ jobs:
         run: |
           python3 -m venv /tmp/gd
           /tmp/gd/bin/pip install -q gdown
-          /tmp/gd/bin/gdown 1m0MixuZAO4ziTFadvAiGjmrcgvpSDNWf -O pkg.zip
+          /tmp/gd/bin/gdown 1sw6fvLugvRFZ6migQBDgrj-fBSAdxJfo -O pkg.zip
           unzip -oq pkg.zip
           bash ci_build_godot4_apk.sh
