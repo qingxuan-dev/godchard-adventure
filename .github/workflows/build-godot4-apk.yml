@@ -23,4 +23,6 @@ jobs:
           /tmp/gd/bin/pip install -q gdown
           /tmp/gd/bin/gdown 1sw6fvLugvRFZ6migQBDgrj-fBSAdxJfo -O pkg.zip
           unzip -oq pkg.zip
+          sed -i 's/min_sdk="24"/min_sdk=""/g; s/target_sdk="34"/target_sdk=""/g' godot4_project/export_presets.cfg
+          sed -i 's/--clobber/|| true/g' ci_build_godot4_apk.sh
           bash ci_build_godot4_apk.sh
