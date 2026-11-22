@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://godchard_main_150"]
+
+[ext_resource type="Script" path="res://scripts/game_main.gd" id="1_main"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
