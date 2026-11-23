@@ -85,6 +85,7 @@ func _draw() -> void:
 	var vh: float = maxf(1.0, size.y)
 	draw_rect(Rect2(0.0, 0.0, vw, vh), Color("#040824"), true)
 
+	# Cover-fit 16:9 art onto any forced-landscape aspect ratio without black bars or distortion
 	var scale_f: float = maxf(vw / 960.0, vh / 540.0)
 	var dw: float = 960.0 * scale_f
 	var dh: float = 540.0 * scale_f
@@ -95,6 +96,7 @@ func _draw() -> void:
 		var bg_tex: Texture2D = textures["title_bg_wide"]
 		draw_texture_rect(bg_tex, Rect2(ox, oy, dw, dh), false)
 
+	# Cyber searchlight beams
 	var beam_xs: Array[float] = [190.0, 470.0, 790.0]
 	var beam_cols: Array[Color] = [Color(0.0, 0.96, 1.0, 0.055), Color(1.0, 0.16, 0.71, 0.05), Color(0.75, 0.52, 0.99, 0.05)]
 	for bi in range(3):
@@ -108,6 +110,7 @@ func _draw() -> void:
 		])
 		draw_colored_polygon(pts, beam_cols[bi])
 
+	# Distant cyber traffic streaks
 	for tr_var in traffic:
 		var tr: Dictionary = tr_var
 		var tx: float = ox + (float(tr["x"]) - 60.0) * scale_f
@@ -115,6 +118,7 @@ func _draw() -> void:
 		var tc: Color = tr["col"]
 		draw_rect(Rect2(tx, ty, 12.0 * scale_f, 2.0 * scale_f), Color(tc.r, tc.g, tc.b, 0.55), true)
 
+	# Twinkling stars & shooting meteors
 	for st_var in stars:
 		var st: Dictionary = st_var
 		var sx: float = ox + float(st["x"]) * scale_f
@@ -128,6 +132,7 @@ func _draw() -> void:
 			var ssz: float = float(st["sz"]) * scale_f
 			draw_rect(Rect2(sx, sy, ssz, ssz), Color(sc.r, sc.g, sc.b, tw * 0.85), true)
 
+	# Soft drifting night clouds
 	for cl_var in clouds:
 		var cl: Dictionary = cl_var
 		var ck: String = str(cl["key"])
@@ -140,6 +145,7 @@ func _draw() -> void:
 				Color(0.65, 0.78, 1.0, float(cl["alpha"]))
 			)
 
+	# Rooftop warrior's golden orb pulse & rising pixel embers at (608, 242)
 	var orb_pos: Vector2 = Vector2(ox + 608.0 * scale_f, oy + 242.0 * scale_f)
 	var glow_r: float = (34.0 + sin(t_sec * 4.2) * 8.0) * scale_f
 	draw_circle(orb_pos, glow_r, Color(0.98, 0.75, 0.14, 0.14))
@@ -155,6 +161,7 @@ func _draw() -> void:
 		var esz: float = float(em["sz"]) * scale_f
 		draw_rect(Rect2(ex, ey, esz, esz), Color(0.99, 0.88, 0.28, ea), true)
 
+	# Smooth soft gradient strips on far-left edge so zero hard vertical seam touches the moon
 	for gi in range(8):
 		var gx0: float = float(gi) * (vw * 0.052)
 		var gw0: float = vw * 0.054

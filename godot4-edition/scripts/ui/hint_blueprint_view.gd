@@ -56,6 +56,7 @@ func _draw() -> void:
 	draw_rect(Rect2(0.0, 0.0, w, h), Color("#030926"), true)
 	draw_rect(Rect2(1.0, 1.0, w - 2.0, h - 2.0), Color(0.0, 0.96, 1.0, 0.38), false, 2.0)
 
+	# Blueprint grid lines
 	var gx_step: float = 24.0
 	var cx_line: float = gx_step
 	while cx_line < w:
@@ -184,6 +185,7 @@ func _draw() -> void:
 				var q1: Vector2 = p0.lerp(mid, t1).lerp(mid.lerp(p1, t1), t1)
 				draw_line(q0, q1, Color("#fde047"), 2.0)
 
+	# Scrollbar indicator for wide stages
 	if total_span > view_span + 1.0:
 		var bar_w: float = maxf(36.0, (view_span / total_span) * (w - 24.0))
 		var bar_x: float = 12.0 + pan_norm * (w - 24.0 - bar_w)
