@@ -3,8 +3,20 @@
 [ext_resource type="Script" path="res://scripts/game_main.gd" id="1_main"]
 
 [node name="Main" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_main")
+
+[node name="StageLockedBox" type="Control" parent="."]
+visible = false
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_filter = 2
+texture_filter = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+layer = 10
