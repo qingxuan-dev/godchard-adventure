@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxyc3a1kbb0pa"
+uid="uid://cho5dp1h4yy1s"
 path="res://.godot/imported/s2_turret.png-66ebf38ad858049ff892382d29fc92f2.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yogrf0q6glda"
+uid="uid://c00ni3ug6wj65"
 path="res://.godot/imported/hint_ill_boss.jpg-74f37ac3033ea7ac669b1f19375987a4.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lt6kmi5ylfmv"
+uid="uid://bxcr7e2p312fk"
 path="res://.godot/imported/s3_mon_tanuki_log.png-320dc2b6f868c99d0261e2285cec901e.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

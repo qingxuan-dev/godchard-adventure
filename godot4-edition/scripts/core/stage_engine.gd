@@ -85,6 +85,7 @@ var shake_timer: float = 0.0
 var shake_dur: float = 0.2
 var shake_mag: float = 0.0
 var hit_stop_timer: float = 0.0
+var pipe_warp_cd: float = 0.0
 var shield_flash_timer: float = 0.0
 
 var death_modal_delay: float = -1.0
@@ -176,6 +177,7 @@ func reset_attempt() -> void:
 	time_elapsed = 0.0
 	move_time = 0.0
 	hit_stop_timer = 0.0
+	pipe_warp_cd = 0.0
 	alchemy_regen_timer = 0.0
 	consumed_alchemy_pool = []
 	timer_left = float(props["timer"]) if props.has("timer") else -1.0
@@ -324,7 +326,7 @@ func _spawn_core_obj(o: Dictionary, idx: int) -> void:
 			"x": sx0, "y": sy0, "base_x": sx0, "base_y": sy0,
 			"w": float(o.get("w", 1.0)) * GridMath.TILE,
 			"h": oh * GridMath.TILE,
-			"skin": str(o.get("skin", "steel")),
+			"skin": str(o.get("skin", "")),
 			"bullet_break": bool(o.get("bulletBreak", false)),
 			"mirror_break": bool(o.get("mirrorBreak", false)),
 			"move_dx_px": float(o.get("moveDx", 0.0)) * GridMath.TILE,
@@ -359,8 +361,8 @@ func _spawn_core_obj(o: Dictionary, idx: int) -> void:
 		var is_inv: bool = bool(o.get("invis", false))
 		solids.append({
 			"key": key, "t": "qblock",
-			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, 0.9),
-			"w": 0.95 * GridMath.TILE, "h": 0.9 * GridMath.TILE,
+			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, 0.95),
+			"w": 0.95 * GridMath.TILE, "h": 0.95 * GridMath.TILE,
 			"invis": is_inv,
 			"revealed": (not is_inv) or bool(revealed_invis_keys.get(key, false)),
 			"used": false,
@@ -626,12 +628,16 @@ func find_trail_snapshot(target_t: float) -> Dictionary:
 			return h
 	return {}
 
-func try_trigger_golden_body() -> bool:
+func try_trigger_golden_body(auto_saved: bool = false) -> bool:
 	if shop.trigger_golden_body(player):
 		emit_sfx("shield_up")
 		add_shock_ring(float(player["x"]) + 14.0, float(player["y"]) + 20.0, Color("#fde047"), 56.0, 0.34)
 		spawn_particles(float(player["x"]) + 14.0, float(player["y"]) + 20.0, Color("#fde047"), 22)
-		emit_toast("★ 不灭金身已开启 (10s，落入深坑依然必死)！", "GOLDEN BODY ACTIVE (10S · PITS STILL KILL)!", "ui_btn_gold", "#fde047")
+		emit_toast(
+			"✨ 不灭金身自动护主 · 10秒无视陷阱怪物（落坑必死）！" if auto_saved else "★ 不灭金身已开启 (10s，落入深坑依然必死)！",
+			"GOLDEN BODY AUTO-GUARD (10S · PITS KILL)!" if auto_saved else "GOLDEN BODY ACTIVE (10S · PITS STILL KILL)!",
+			"ui_btn_gold", "#fde047"
+		)
 		hud_dirty = true
 		return true
 	return false
@@ -646,12 +652,15 @@ func kill_player(ignore_shield: bool = true, cause: String = "general") -> void:
 		player["golden_timer"] = 0.0
 		player["invuln_timer"] = 0.0
 
-	if not is_pit_or_reset and not ignore_shield and int(player.get("gold_charges", 0)) > 0 and float(player.get("golden_timer", 0.0)) <= 0.0:
-		if try_trigger_golden_body():
+	if not is_pit_or_reset and cause != "timer" and cause != "fake_flag" and cause != "shop" and int(player.get("gold_charges", 0)) > 0 and float(player.get("golden_timer", 0.0)) <= 0.0:
+		if try_trigger_golden_body(true):
 			return
 
 	if not is_pit_or_reset and not ignore_shield and bool(player.get("shield", false)):
 		player["shield"] = false
+		if bool(player.get("from_shop_shield", false)) and shop != null:
+			player["from_shop_shield"] = false
+			shop.mark_used_in_stage("aegis_shield")
 		player["invuln_timer"] = 1.25
 		player["vy"] = -250.0 * float(player["grav_dir"])
 		spring_impulse_scale(1.28, 0.75)
@@ -905,7 +914,7 @@ func perform_melee_slash() -> void:
 	melee_arcs.append({
 		"x": (float(player["x"]) + float(player["w"]) - 8.0) if dir > 0 else (float(player["x"]) - 66.0),
 		"y": float(player["y"]) - 16.0,
-		"w": 74.0, "h": 68.0, "dir": dir, "life": 0.19, "max_life": 0.19
+		"w": 74.0, "h": 68.0, "dir": dir, "crit": sword_up, "life": 0.19, "max_life": 0.19
 	})
 
 	var hit_any: bool = false
@@ -1136,6 +1145,8 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 	var world_dt: float = 0.0 if world_frozen else (dt * 0.38 if world_slow else dt * loop_mul)
 
 	time_elapsed += dt
+	if pipe_warp_cd > 0.0:
+		pipe_warp_cd = maxf(0.0, pipe_warp_cd - dt)
 
 	if bool(inp.get("layer_pressed", false)):
 		Sector1And2Mechanics.try_shift_dual_layer(self, false)
@@ -1363,6 +1374,9 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 			emit_toast("携带信号电池期间无法投弹！", "CANNOT USE BOMBS WHILE CARRYING BATTERY!", "s2_battery", "#fde047")
 		elif int(player["bombs"]) > 0:
 			player["bombs"] = int(player["bombs"]) - 1
+			if bool(player.get("shop_bomb_pending", false)) and shop != null:
+				player["shop_bomb_pending"] = false
+				shop.mark_used_in_stage("bomb_pack")
 			spring_impulse_scale(1.12, 0.92)
 			emit_sfx("shoot")
 			bombs.append({
@@ -2183,7 +2197,9 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 			entities.remove_at(i)
 			hud_dirty = true
 		elif et == "pipe":
-			if bool(inp.get("down_pressed", false)) or bool(inp.get("down", false)):
+			if pipe_warp_cd <= 0.0 and (bool(inp.get("down_pressed", false)) or bool(inp.get("down", false))):
+				pipe_warp_cd = 0.45
+				inp["down_pressed"] = false
 				emit_sfx("spring")
 				unlock_ach("pipe_traveler")
 				add_afterimage(Color("#4ade80"))
@@ -2192,6 +2208,10 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 				player["vx"] = 0.0
 				player["vy"] = 0.0
 				p_rect.position = Vector2(float(player["x"]), float(player["y"]))
+				add_shock_ring(float(player["x"]) + 14.0, float(player["y"]) + 20.0, Color("#4ade80"), 40.0, 0.26)
+				spawn_particles(float(player["x"]) + 14.0, float(player["y"]) + 20.0, Color("#4ade80"), 16)
+				emit_toast("管道空间跃迁！", "PIPE WARP!", "pipe", "#4ade80")
+				break
 		elif et == "shop":
 			if bool(inp.get("down_pressed", false)):
 				var pr: int = int(e.get("price", 3))

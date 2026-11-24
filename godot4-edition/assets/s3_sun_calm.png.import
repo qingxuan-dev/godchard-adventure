@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8m7p0ijuspd3"
+uid="uid://cdog7hhv5ece"
 path="res://.godot/imported/s3_sun_calm.png-bdaec94db4c855fe81dde333c858e76f.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

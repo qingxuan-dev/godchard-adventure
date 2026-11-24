@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chpe6ps3dke50"
+uid="uid://bel0newp51k1y"
 path="res://.godot/imported/ach_iceclock.png-53bc4d00fdf4da4435ef18e2b9ca292a.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

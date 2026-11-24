@@ -1473,9 +1473,9 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 	eng.echo_clones = []
 	var echo_mode: String = str(props.get("echoMode", ""))
 	if echo_mode != "":
-		var delays: Array[float] = [1.7, 3.4] if echo_mode == "dual_coop" else [float(props.get("echoDelay", 1.75))]
+		var delays: Array = [1.7, 3.4] if echo_mode == "dual_coop" else [float(props.get("echoDelay", 1.75))]
 		for d_idx in range(delays.size()):
-			var d_sec: float = delays[d_idx]
+			var d_sec: float = float(delays[d_idx])
 			if eng.time_elapsed >= d_sec:
 				var snap: Dictionary = eng.find_trail_snapshot(eng.time_elapsed - d_sec)
 				if not snap.is_empty():

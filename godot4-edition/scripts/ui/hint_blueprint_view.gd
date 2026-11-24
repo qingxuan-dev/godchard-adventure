@@ -6,6 +6,7 @@ var textures: Dictionary = {}
 var font: Font = null
 var pan_norm: float = 0.0
 var dragging: bool = false
+var drag_touch_idx: int = -1
 var drag_start_x: float = 0.0
 var drag_start_pan: float = 0.0
 var anim_t: float = 0.0
@@ -30,6 +31,29 @@ func step_anim(dt: float) -> void:
 	if visible:
 		queue_redraw()
 
+func handle_touch_pan(event: InputEvent) -> bool:
+	if not is_visible_in_tree():
+		return false
+	var gr: Rect2 = get_global_rect()
+	if event is InputEventScreenTouch:
+		var st: InputEventScreenTouch = event as InputEventScreenTouch
+		if st.pressed and gr.has_point(st.position):
+			drag_touch_idx = st.index
+			drag_start_x = st.position.x
+			drag_start_pan = pan_norm
+			return true
+		elif not st.pressed and st.index == drag_touch_idx:
+			drag_touch_idx = -1
+			return true
+	elif event is InputEventScreenDrag:
+		var sd: InputEventScreenDrag = event as InputEventScreenDrag
+		if sd.index == drag_touch_idx:
+			var dx: float = sd.position.x - drag_start_x
+			pan_norm = clampf(drag_start_pan - dx / maxf(120.0, size.x * 0.75), 0.0, 1.0)
+			queue_redraw()
+			return true
+	return false
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb: InputEventMouseButton = event as InputEventMouseButton
@@ -45,10 +69,6 @@ func _gui_input(event: InputEvent) -> void:
 		var dx: float = mm.position.x - drag_start_x
 		pan_norm = clampf(drag_start_pan - dx / maxf(120.0, size.x * 0.75), 0.0, 1.0)
 		queue_redraw()
-	elif event is InputEventScreenDrag:
-		var sd: InputEventScreenDrag = event as InputEventScreenDrag
-		pan_norm = clampf(pan_norm - sd.relative.x / maxf(120.0, size.x * 0.75), 0.0, 1.0)
-		queue_redraw()
 
 func _draw() -> void:
 	var w: float = maxf(200.0, size.x)
@@ -56,7 +76,6 @@ func _draw() -> void:
 	draw_rect(Rect2(0.0, 0.0, w, h), Color("#030926"), true)
 	draw_rect(Rect2(1.0, 1.0, w - 2.0, h - 2.0), Color(0.0, 0.96, 1.0, 0.38), false, 2.0)
 
-	# Blueprint grid lines
 	var gx_step: float = 24.0
 	var cx_line: float = gx_step
 	while cx_line < w:
@@ -185,7 +204,6 @@ func _draw() -> void:
 				var q1: Vector2 = p0.lerp(mid, t1).lerp(mid.lerp(p1, t1), t1)
 				draw_line(q0, q1, Color("#fde047"), 2.0)
 
-	# Scrollbar indicator for wide stages
 	if total_span > view_span + 1.0:
 		var bar_w: float = maxf(36.0, (view_span / total_span) * (w - 24.0))
 		var bar_x: float = 12.0 + pan_norm * (w - 24.0 - bar_w)

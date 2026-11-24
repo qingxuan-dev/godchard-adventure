@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbwiitswu87cm"
+uid="uid://p4rxcm48es7v"
 path="res://.godot/imported/hero_jump2.png-4b6f0b48a2b0b666ec0f09cf96f9ed1c.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

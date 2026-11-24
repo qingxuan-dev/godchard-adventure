@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgf2lxnqelohh"
+uid="uid://c44bj0l84gfql"
 path="res://.godot/imported/s3_bomb_trophy.png-d9552a6525aab8ee6a6c05264556e006.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

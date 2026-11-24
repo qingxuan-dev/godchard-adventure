@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi84rxc18othq"
+uid="uid://qjc4f6j8bjpm"
 path="res://.godot/imported/s2_plat_sub_block.png-e638f56e885ecca2ccee0423c274a651.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c44dwgu1ymuhw"
+uid="uid://idm0pfg8o85d"
 path="res://.godot/imported/s3_mon_manju.png-79eeff3c33967d6535a729439f7b17a4.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

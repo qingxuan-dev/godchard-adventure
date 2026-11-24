@@ -14,7 +14,7 @@ var auto_landscape: bool = true
 var pad_mode: String = "auto"
 var pad_scale: float = 1.0
 var pad_swap: bool = false
-var pad_opacity: float = 0.85
+var pad_opacity: float = 0.94
 var sensitivity: float = 1.0
 var vibrate_on: bool = true
 var seen_cgs: Dictionary = {}
@@ -74,7 +74,7 @@ func load_from_disk(is_mobile_default: bool = true) -> void:
 		pad_mode = "auto" if is_mobile_default else "hide"
 	pad_scale = clampf(float(d.get("pad_scale", 1.0)), 0.7, 1.5)
 	pad_swap = bool(d.get("pad_swap", false))
-	pad_opacity = clampf(float(d.get("pad_opacity", 0.85)), 0.15, 1.0)
+	pad_opacity = clampf(float(d.get("pad_opacity", 0.94)), 0.25, 1.0)
 	sensitivity = clampf(float(d.get("sensitivity", 1.0)), 0.5, 1.5)
 	vibrate_on = bool(d.get("vibrate_on", true))
 	if typeof(d.get("seen_cgs", null)) == TYPE_DICTIONARY:

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo2ff7nwk2d6s"
+uid="uid://b1i8s0r876puh"
 path="res://.godot/imported/s3_mon_mole.png-4bc1124744d65d5047be955c36da2ee1.ctex"
 metadata={
 "vram_texture": false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
