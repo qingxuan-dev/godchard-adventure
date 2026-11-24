@@ -74,6 +74,12 @@ func buy_or_toggle(item_id: String, player: Dictionary, in_game: bool) -> Dictio
 				elif item_id == "bullet_plus" and bool(player.get("from_shop_bullet", false)):
 					player["bullet_up"] = false
 					player["from_shop_bullet"] = false
+				elif item_id == "aegis_shield" and bool(player.get("from_shop_shield", false)):
+					player["shield"] = false
+					player["from_shop_shield"] = false
+				elif item_id == "bomb_pack" and bool(player.get("shop_bomb_pending", false)):
+					player["bombs"] = maxi(0, int(player.get("bombs", 0)) - 1)
+					player["shop_bomb_pending"] = false
 				elif item_id == "golden_body":
 					player["gold_charges"] = 0
 					player["golden_timer"] = 0.0
@@ -82,12 +88,12 @@ func buy_or_toggle(item_id: String, player: Dictionary, in_game: bool) -> Dictio
 func apply_stage_buffs(p: Dictionary) -> void:
 	if p.is_empty() or not is_unlocked():
 		return
-	if is_active("bomb_pack") and not has_used_in_stage("bomb_pack"):
+	if is_active("bomb_pack") and not has_used_in_stage("bomb_pack") and not bool(p.get("shop_bomb_pending", false)):
 		p["bombs"] = int(p.get("bombs", 0)) + 1
-		mark_used_in_stage("bomb_pack")
-	if is_active("aegis_shield") and not has_used_in_stage("aegis_shield"):
+		p["shop_bomb_pending"] = true
+	if is_active("aegis_shield") and not has_used_in_stage("aegis_shield") and not bool(p.get("shield", false)):
 		p["shield"] = true
-		mark_used_in_stage("aegis_shield")
+		p["from_shop_shield"] = true
 	if is_active("bullet_plus") and not has_used_in_stage("bullet_plus"):
 		if not bool(p.get("bullet_up", false)):
 			p["from_shop_bullet"] = true
@@ -96,10 +102,9 @@ func apply_stage_buffs(p: Dictionary) -> void:
 	if is_active("sword_plus") and not has_used_in_stage("sword_plus"):
 		p["sword_up"] = true
 		mark_used_in_stage("sword_plus")
-	if is_active("golden_body") and not has_used_in_stage("golden_body"):
+	if is_active("golden_body") and not has_used_in_stage("golden_body") and int(p.get("gold_charges", 0)) <= 0 and float(p.get("golden_timer", 0.0)) <= 0.0:
 		p["gold_charges"] = 1
 		p["golden_timer"] = 0.0
-		mark_used_in_stage("golden_body")
 	if is_active("wall_phase") and not has_used_in_stage("wall_phase"):
 		p["has_wall_phase"] = true
 		mark_used_in_stage("wall_phase")
