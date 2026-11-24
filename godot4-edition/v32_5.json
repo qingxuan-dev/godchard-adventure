@@ -1,18 +1,1 @@
-{"hook": ["import json", "da = json.load(open('godot4-edition/v353_a.json', encoding='utf-8'))", "db = json.load(open('godot4-edition/v353_b.json', encoding='utf-8'))", "open('godot4-edition/v353_prep.py', 'w', encoding='utf-8').write(da['a'] + db['b'])", "s = open('ci_build_godot4_apk.sh', encoding='utf-8').read()", "s = s.replace('echo \"=== [4/6]', 'python3 \"$REPO_DIR/godot4-edition/v353_prep.py\" pre \"$REPO_DIR\" \"$WORK_DIR/godot4_project\"\\necho \"=== [4/6]', 1)", "i6 = s.index('echo \"=== [6/6]')", "open('ci_build_godot4_apk.sh', 'w', encoding='utf-8').write(s[:i6] + db['t'])"]}    "if subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'gdown']).returncode != 0:",
-    "    subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '--break-system-packages', 'gdown'], check=True)",
-    "ids = ['1MnuVgUAx9LjgyfXJt8BI3raFFh6gR0Cz', '1-_bErh604ccuUQJ3KO2dZdh2DYCRXWZL', '1OCK_1778VzA_aycoImozjpGCN1ljW3wc', '15-_Cy3MaGArS3gQWEbL8f2p9Bq4MG5BW', '1BNkbTh5TkzLE9p-SKJSQSM3_W9gptAOp']",
-    "for i, fid in enumerate(ids, 1):",
-    "    zp = f'v33_p{i}.zip'",
-    "    subprocess.run([sys.executable, '-m', 'gdown', fid, '-O', zp], check=True)",
-    "    subprocess.run(['unzip', '-oq', zp], check=True)",
-    "    os.remove(zp)",
-    "os.chmod('ci_build_godot4_apk.sh', 0o755)",
-    "print('=== v3.3.0 ALL 4 PARTS UNPACKED & READY ===')"    ,
-    "f1 = 'v33_godot4_project/scripts/sectors/sector_1_2_mechanics.gd'",
-    "s1 = open(f1, encoding='utf-8').read().replace('var delays: Array[float] =', 'var delays: Array =').replace('var d_sec: float = delays[d_idx]', 'var d_sec: float = float(delays[d_idx])')",
-    "open(f1, 'w', encoding='utf-8').write(s1)",
-    "f2 = 'v33_godot4_project/scripts/game_main.gd'",
-    "s2 = open(f2, encoding='utf-8').read().replace('ui.is_mobile_platform = true', 'ui.is_mobile_platform = true\\n\\tsave.pad_mode = \"auto\"', 1)",
-    "open(f2, 'w', encoding='utf-8').write(s2)"
-  ]
-}
+{"hook": ["import json", "da = json.load(open('godot4-edition/v353_a.json', encoding='utf-8'))", "db = json.load(open('godot4-edition/v353_b.json', encoding='utf-8'))", "open('godot4-edition/v353_prep.py', 'w', encoding='utf-8').write(da['a'] + db['b'])", "s = open('ci_build_godot4_apk.sh', encoding='utf-8').read()", "s = s.replace('echo \"=== [4/6]', 'python3 \"$REPO_DIR/godot4-edition/v353_prep.py\" pre \"$REPO_DIR\" \"$WORK_DIR/godot4_project\"\\necho \"=== [4/6]', 1)", "i6 = s.index('echo \"=== [6/6]')", "open('ci_build_godot4_apk.sh', 'w', encoding='utf-8').write(s[:i6] + db['t'])"]}
