@@ -4,14 +4,13 @@
     "import os, sys, subprocess",
     "if subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'gdown']).returncode != 0:",
     "    subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '--break-system-packages', 'gdown'], check=True)",
-    "ids = ['1MnuVgUAx9LjgyfXJt8BI3raFFh6gR0Cz', '1-_bErh604ccuUQJ3KO2dZdh2DYCRXWZL', '1OCK_1778VzA_aycoImozjpGCN1ljW3wc', '15-_Cy3MaGArS3gQWEbL8f2p9Bq4MG5BW']",
+    "ids = ['1MnuVgUAx9LjgyfXJt8BI3raFFh6gR0Cz', '1-_bErh604ccuUQJ3KO2dZdh2DYCRXWZL', '1OCK_1778VzA_aycoImozjpGCN1ljW3wc', '15-_Cy3MaGArS3gQWEbL8f2p9Bq4MG5BW', '1BNkbTh5TkzLE9p-SKJSQSM3_W9gptAOp']",
     "for i, fid in enumerate(ids, 1):",
     "    zp = f'v33_p{i}.zip'",
     "    subprocess.run([sys.executable, '-m', 'gdown', fid, '-O', zp], check=True)",
     "    subprocess.run(['unzip', '-oq', zp], check=True)",
     "    os.remove(zp)",
     "os.chmod('ci_build_godot4_apk.sh', 0o755)",
-    "print('=== v3.3.0 ALL 4 PARTS UNPACKED & READY ===')",
-    "import sys; sys.path.insert(0, 'godot4-edition'); import v352_apply"
+    "print('=== v3.3.0 ALL 4 PARTS UNPACKED & READY ===')"    
   ]
 }
