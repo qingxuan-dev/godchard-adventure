@@ -11,6 +11,12 @@
     "    subprocess.run(['unzip', '-oq', zp], check=True)",
     "    os.remove(zp)",
     "os.chmod('ci_build_godot4_apk.sh', 0o755)",
-    "print('=== v3.3.0 ALL 4 PARTS UNPACKED & READY ===')"    
+    "print('=== v3.3.0 ALL 4 PARTS UNPACKED & READY ===')"    ,
+    "f1 = 'v33_godot4_project/scripts/sectors/sector_1_2_mechanics.gd'",
+    "s1 = open(f1, encoding='utf-8').read().replace('var delays: Array[float] =', 'var delays: Array =').replace('var d_sec: float = delays[d_idx]', 'var d_sec: float = float(delays[d_idx])')",
+    "open(f1, 'w', encoding='utf-8').write(s1)",
+    "f2 = 'v33_godot4_project/scripts/game_main.gd'",
+    "s2 = open(f2, encoding='utf-8').read().replace('ui.is_mobile_platform = true', 'ui.is_mobile_platform = true\\n\\tsave.pad_mode = \"auto\"', 1)",
+    "open(f2, 'w', encoding='utf-8').write(s2)"
   ]
 }
