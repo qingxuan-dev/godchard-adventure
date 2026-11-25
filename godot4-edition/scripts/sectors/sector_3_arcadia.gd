@@ -1,6 +1,5 @@
 class_name Sector3Arcadia
 extends RefCounted
-
 static func init_attempt_state(eng: RefCounted, cp: Dictionary) -> void:
 	eng.s3_valves = {}
 	if not cp.is_empty() and cp.has("s3_valves"):
@@ -10,7 +9,6 @@ static func init_attempt_state(eng: RefCounted, cp: Dictionary) -> void:
 	eng.s3_sundial_phase = bool(cp.get("s3_sundial_phase", false)) if not cp.is_empty() else false
 	eng.s3_boss_defeated = false
 	eng.s3_trophy_respawns = []
-
 static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) -> bool:
 	var lv_id: int = int(lv.get("id", 1))
 	if lv_id < 101:
@@ -19,7 +17,6 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 	var t: String = str(o.get("t", ""))
 	var ox: float = float(o.get("x", 0.0))
 	var oy: float = float(o.get("y", 0.0))
-
 	if t == "s3_tall_pipe":
 		var full_h: float = float(o.get("h", 5.8)) * GridMath.TILE
 		var target_h_px: float = float(o.get("targetH", 1.4)) * GridMath.TILE
@@ -44,7 +41,6 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": -1, "broken": false
 		})
 		return true
-
 	if t == "s3_cloud":
 		var cw: float = float(o.get("w", 2.2)) * GridMath.TILE
 		var ch: float = float(o.get("h", 1.15)) * GridMath.TILE
@@ -65,7 +61,6 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": -1, "broken": false
 		})
 		return true
-
 	if t == "s3_drop_block":
 		var dbh: float = float(o.get("h", 1.2))
 		var dsx: float = GridMath.gx_to_px(ox)
@@ -85,7 +80,6 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": -1, "broken": false
 		})
 		return true
-
 	if t == "s3_slide_turf":
 		var sth: float = float(o.get("h", 2.0))
 		var stx: float = GridMath.gx_to_px(ox)
@@ -102,7 +96,6 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": -1, "broken": false
 		})
 		return true
-
 	var s3_ents: Array[String] = [
 		"s3_valve", "s3_bush", "s3_flower", "s3_tanuki", "s3_manju",
 		"s3_ladybug", "s3_mole", "s3_sun", "s3_boss",
@@ -110,11 +103,9 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 	]
 	if not (t in s3_ents):
 		return false
-
 	var ent: Dictionary = o.duplicate(true)
 	ent["key"] = key
 	ent["layer"] = int(o["layer"]) if (o.has("layer") and o["layer"] != null) else -1
-
 	if t == "s3_valve":
 		ent["x"] = GridMath.gx_to_px(ox)
 		ent["y"] = GridMath.gy_to_py(oy, 1.0)
@@ -261,10 +252,8 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		ent["phase_clock"] = 0.0
 		ent["stun_timer"] = 0.0
 		ent["hit_flash"] = 0.0
-
 	eng.entities.append(ent)
 	return true
-
 static func is_cloud_safe(s: Dictionary, sundial_phase: bool) -> bool:
 	if bool(s.get("disarmed", false)) or str(s.get("mode", "")) == "safe_plat":
 		return true
@@ -272,7 +261,6 @@ static func is_cloud_safe(s: Dictionary, sundial_phase: bool) -> bool:
 		var inv: bool = bool(s.get("invert_sundial", false))
 		return (not sundial_phase) if inv else sundial_phase
 	return false
-
 static func is_solid_collidable(s: Dictionary, sundial_phase: bool) -> bool:
 	if bool(s.get("broken", false)):
 		return false
@@ -281,7 +269,6 @@ static func is_solid_collidable(s: Dictionary, sundial_phase: bool) -> bool:
 			return true
 		return is_cloud_safe(s, sundial_phase)
 	return true
-
 static func activate_valve(eng: RefCounted, e: Dictionary) -> void:
 	if e.is_empty() or bool(e.get("spun", false)):
 		return
@@ -301,7 +288,6 @@ static func activate_valve(eng: RefCounted, e: Dictionary) -> void:
 		})
 		eng.emit_toast("糟糕！拧到了诱饵假阀门，蹦出带刺白团子！", "DECOY VALVE! SPIKED MANJU AMBUSH!", "s3_mon_manju_spike", "#fb7185")
 		return
-
 	e["spun"] = true
 	var pgrp: String = str(e.get("pipe_group", ""))
 	if pgrp != "":
@@ -312,7 +298,6 @@ static func activate_valve(eng: RefCounted, e: Dictionary) -> void:
 	var cy: float = float(e["y"]) + float(e["h"]) * 0.5
 	eng.add_shock_ring(cx, cy, Color("#4ade80"), 46.0, 0.28)
 	eng.spawn_particles(cx, cy, Color("#fde047"), 16)
-
 	var hit_boss120: bool = false
 	if pgrp.begins_with("boss120"):
 		for b_var in eng.entities:
@@ -325,31 +310,24 @@ static func activate_valve(eng: RefCounted, e: Dictionary) -> void:
 		eng.emit_toast("红阀门泄压成功 · 巨管九头蛇破甲眩晕 4.6s！快砍！", "PRESSURE VENTED · PIPE-HYDRA STUNNED!", "s3_valve_red", "#4ade80")
 	else:
 		eng.emit_toast("红手轮阀门已拧开 · 关联绿管机关已切换！", "RED VALVE SPUN · PIPE SHIFTED!", "s3_valve_red", "#4ade80")
-
 static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 	var p: Dictionary = eng.player
 	if p.is_empty() or bool(p.get("dead", false)):
 		return
-
 	if float(p.get("golden_timer", 0.0)) > 0.0:
 		p["golden_timer"] = maxf(0.0, float(p["golden_timer"]) - dt)
 		p["invuln_timer"] = maxf(float(p.get("invuln_timer", 0.0)), float(p["golden_timer"]))
 		if randf() < 0.35:
 			eng.spawn_particles(float(p["x"]) + randf() * float(p["w"]), float(p["y"]) + randf() * float(p["h"]), Color("#fde047"), 1)
-
 	if float(p.get("catapult_vx_timer", 0.0)) > 0.0:
 		p["catapult_vx_timer"] = maxf(0.0, float(p["catapult_vx_timer"]) - dt)
 		p["vx"] = float(p.get("catapult_vx", p["vx"]))
-
 	if eng.lv_id < 101:
 		return
-
 	var p_rect: Rect2 = Rect2(float(p["x"]), float(p["y"]), float(p["w"]), float(p["h"]))
-
 	for s_var in eng.solids:
 		var s: Dictionary = s_var
 		var st: String = str(s.get("t", ""))
-
 		if st == "s3_tall_pipe":
 			var pgrp: String = str(s.get("pipe_group", ""))
 			var want_low: bool = bool(eng.s3_valves.get(pgrp, false))
@@ -364,24 +342,24 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				if bool(p["on_ground"]) and float(p["x"]) + float(p["w"]) > float(s["x"]) + 2.0 and float(p["x"]) < float(s["x"]) + float(s["w"]) - 2.0 and absf((float(p["y"]) + float(p["h"])) - prev_y) <= 12.0:
 					p["y"] = float(p["y"]) + (float(s["y"]) - prev_y)
 			s["lowered"] = float(s["h"]) <= float(s["target_h_px"]) + 4.0
-
 			if float(s.get("rocket_cd", 0.0)) > 0.0:
 				s["rocket_cd"] = maxf(0.0, float(s["rocket_cd"]) - world_dt)
 			if str(s.get("mode", "")) == "rocket" and not want_low and float(s.get("rocket_cd", 0.0)) <= 0.0:
 				var over_mouth: bool = (float(p["x"]) + float(p["w"]) > float(s["x"]) + 4.0) and (float(p["x"]) < float(s["x"]) + float(s["w"]) - 4.0) and (float(p["y"]) + float(p["h"]) <= float(s["y"]) + 18.0) and (float(p["y"]) + float(p["h"]) >= float(s["y"]) - 78.0)
 				if over_mouth:
 					s["rocket_cd"] = 0.55
-					p["vy"] = -755.0
+					p["vy"] = -785.0
 					p["on_ground"] = false
+					p["coyote"] = 0.0
+					p["spring_trail_timer"] = 0.46
+					eng.spring_impulse_scale(0.72, 1.34)
 					eng.emit_sfx("spring")
 					eng.add_shock_ring(float(s["x"]) + float(s["w"]) * 0.5, float(s["y"]), Color("#38bdf8"), 42.0, 0.25)
 					eng.emit_toast("高压喷泉绿管 · 冲天水柱弹射！", "PRESSURIZED WATER GEYSER!", "s3_pipe_tall", "#38bdf8")
-
 			if str(s.get("mode", "")) == "lethal_drop" and not bool(s["lowered"]):
 				if float(p["x"]) >= float(s["x"]) + float(s["w"]) - 2.0 and float(p["x"]) <= float(s["x"]) + float(s["w"]) + 36.0 and float(p["vy"]) > 510.0 and float(p["y"]) > float(s["foot_y"]) - 96.0:
 					eng.kill_player(false, "tall_pipe")
 					return
-
 		elif st == "s3_cloud":
 			if bool(s.get("broken", false)):
 				if float(s.get("respawn_timer", 0.0)) > 0.0:
@@ -406,7 +384,6 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				s["y"] = float(s["base_y"]) + sin(eng.time_elapsed * 2.6 + float(s["x"]) * 0.03) * 3.5
 				if safe_now and float(p["grav_dir"]) > 0.0 and bool(p["on_ground"]) and float(p["x"]) + float(p["w"]) > float(s["x"]) + 2.0 and float(p["x"]) < float(s["x"]) + float(s["w"]) - 2.0 and absf((float(p["y"]) + float(p["h"])) - prev_cy) <= 10.0:
 					p["y"] = float(p["y"]) + (float(s["y"]) - prev_cy)
-
 			if not safe_now and (cmode == "hidden_knife" or cmode == "sundial_knife"):
 				var dc: float = p_rect.get_center().distance_to(Vector2(float(s["x"]) + float(s["w"]) * 0.5, float(s["y"]) + float(s["h"]) * 0.5))
 				if dc < 1.9 * GridMath.TILE:
@@ -426,7 +403,6 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					eng.emit_sfx("block")
 					eng.spawn_particles(float(s["x"]) + float(s["w"]) * 0.5, float(s["y"]) + 12.0, Color("#ffffff"), 14)
 					eng.emit_toast("虚胖棉花假云 · 一踩就散！", "POOF! FAKE COTTON CLOUD!", "s3_cloud_safe", "#93c5fd")
-
 		elif st == "s3_drop_block":
 			if bool(s.get("broken", false)):
 				s["respawn_timer"] = float(s.get("respawn_timer", 0.0)) - world_dt
@@ -481,7 +457,6 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					elif float(s["y"]) > GridMath.WORLD_ORIGIN_Y + 110.0:
 						s["broken"] = true
 						s["respawn_timer"] = 2.6
-
 		elif st == "s3_slide_turf":
 			var dist_st: float = absf(p_rect.get_center().x - (float(s["x"]) + float(s["w"]) * 0.5))
 			if not bool(s.get("triggered", false)) and dist_st < float(s["trigger_dist_px"]) + float(s["w"]) * 0.5:
@@ -502,7 +477,6 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					p["x"] = float(p["x"]) + (float(s["x"]) - prev_stx)
 					p["y"] = float(p["y"]) + (float(s["y"]) - prev_sty)
 					p_rect.position = Vector2(float(p["x"]), float(p["y"]))
-
 static func detonate_trophy_bomb(eng: RefCounted, e: Dictionary) -> void:
 	var cx: float = float(e["x"]) + float(e["w"]) * 0.5
 	var cy: float = float(e["y"]) + float(e["h"]) * 0.5
@@ -529,12 +503,10 @@ static func detonate_trophy_bomb(eng: RefCounted, e: Dictionary) -> void:
 		"spawn_x": float(e.get("spawn_x", e["x"])),
 		"spawn_y": float(e.get("spawn_y", e["y"]))
 	})
-
 static func disarm_or_damage_targets(eng: RefCounted, hit_box: Rect2, dmg: int, is_sword: bool, is_upgraded_proj: bool) -> bool:
 	if eng.lv_id < 101:
 		return false
 	var hit_any: bool = false
-
 	if is_sword or is_upgraded_proj:
 		for s_var in eng.solids:
 			var s: Dictionary = s_var
@@ -551,7 +523,6 @@ static func disarm_or_damage_targets(eng: RefCounted, hit_box: Rect2, dmg: int, 
 						eng.add_float_text(float(s["x"]) + 12.0, float(s["y"]) - 10.0, "卸刀 +2G", "#4ade80")
 						eng.hud_dirty = true
 						hit_any = true
-
 	for i in range(eng.entities.size() - 1, -1, -1):
 		if i >= eng.entities.size():
 			continue
@@ -560,7 +531,6 @@ static func disarm_or_damage_targets(eng: RefCounted, hit_box: Rect2, dmg: int, 
 		if er.size.x <= 0.0 or not GridMath.aabb_overlap(hit_box, er):
 			continue
 		var et: String = str(e.get("t", ""))
-
 		if et == "s3_valve":
 			e["spin_ang"] = float(e.get("spin_ang", 0.0)) + 1.8
 			activate_valve(eng, e)
@@ -698,12 +668,10 @@ static func disarm_or_damage_targets(eng: RefCounted, hit_box: Rect2, dmg: int, 
 			if not is_sword:
 				break
 	return hit_any
-
 static func step_post_move(eng: RefCounted, _dt: float, world_dt: float) -> void:
 	var p: Dictionary = eng.player
 	if p.is_empty() or bool(p.get("dead", false)) or eng.lv_id < 101 or eng.world_frozen:
 		return
-
 	for ri in range(eng.s3_trophy_respawns.size() - 1, -1, -1):
 		var tr: Dictionary = eng.s3_trophy_respawns[ri]
 		tr["timer"] = float(tr["timer"]) - world_dt
@@ -725,16 +693,13 @@ static func step_post_move(eng: RefCounted, _dt: float, world_dt: float) -> void
 					"fuse": -1.0, "layer": -1
 				})
 			eng.s3_trophy_respawns.remove_at(ri)
-
 	var p_rect: Rect2 = Rect2(float(p["x"]), float(p["y"]), float(p["w"]), float(p["h"]))
-
 	for i in range(eng.entities.size() - 1, -1, -1):
 		if i >= eng.entities.size():
 			continue
 		var e: Dictionary = eng.entities[i]
 		var et: String = str(e.get("t", ""))
 		var er: Rect2 = Rect2(float(e.get("x", 0.0)), float(e.get("y", 0.0)), float(e.get("w", 0.0)), float(e.get("h", 0.0)))
-
 		if et == "s3_valve":
 			if float(e.get("reset_timer", 0.0)) > 0.0:
 				e["reset_timer"] = float(e["reset_timer"]) - world_dt
@@ -755,18 +720,29 @@ static func step_post_move(eng: RefCounted, _dt: float, world_dt: float) -> void
 				e["anim"] = 1.0
 				eng.emit_sfx("spring")
 				eng.trigger_shake(5.0, 0.16)
+				eng.add_shock_ring(float(e["x"]) + float(e["w"]) * 0.5, float(e["y"]), Color("#fde047"), 42.0, 0.25)
+				eng.spring_impulse_scale(0.70, 1.36)
+				p["y"] = minf(float(p["y"]), float(e["y"]) - float(p["h"]) + 8.0)
 				p["on_ground"] = false
+				p["coyote"] = 0.0
+				p["spring_trail_timer"] = 0.48
 				var cm: String = str(e.get("mode", "forward_vault"))
 				if cm == "back_fling":
-					p["vy"] = -560.0
-					p["catapult_vx"] = -430.0
-					p["catapult_vx_timer"] = 0.34
+					p["vy"] = -835.0
+					p["catapult_vx"] = -455.0
+					p["catapult_vx_timer"] = 0.48
+					p["spring_trail_timer"] = 0.54
+					eng.emit_toast("反向木夹弹射 · 嗖地把你往后高抛！", "REVERSE CATAPULT FLING!", "s3_catapult_trap", "#fb923c")
 				elif cm == "high_secret":
-					p["vy"] = -860.0
+					p["vy"] = -935.0
+					p["spring_trail_timer"] = 0.56
+					eng.emit_toast("强力木夹冲天弹射！", "SKYWARD CATAPULT LAUNCH!", "s3_catapult_trap", "#4ade80")
 				else:
-					p["vy"] = -610.0
-					p["catapult_vx"] = 420.0
-					p["catapult_vx_timer"] = 0.38
+					p["vy"] = -845.0
+					p["catapult_vx"] = 565.0
+					p["catapult_vx_timer"] = 0.96
+					p["spring_trail_timer"] = 0.56
+					eng.emit_toast("飞跃木夹助推 · 横跨大峡谷！", "LONG-JUMP CATAPULT BOOST!", "s3_catapult_trap", "#38bdf8")
 		elif et == "s3_bomb_trophy":
 			var fuse: float = float(e.get("fuse", -1.0))
 			if fuse < 0.0 and GridMath.aabb_overlap(p_rect, er):

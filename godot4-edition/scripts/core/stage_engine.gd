@@ -1,13 +1,10 @@
 class_name StageEngine
 extends RefCounted
-
 var levels_by_id: Dictionary = {}
 var save: SaveManager
 var shop: ShopSystem
-
 var lv_id: int = 1
 var lv_data: Dictionary = {}
-
 var player: Dictionary = {}
 var solids: Array = []
 var entities: Array = []
@@ -15,21 +12,18 @@ var bullets: Array = []
 var enemy_shots: Array = []
 var bombs: Array = []
 var melee_arcs: Array = []
-
 var particles: Array = []
 var shock_rings: Array = []
 var afterimages: Array = []
 var float_texts: Array = []
 var holo_shards: Array = []
 var ko_effects: Array = []
-
 var active_checkpoint: Dictionary = {}
 var revealed_invis_keys: Dictionary = {}
 var broken_solid_keys: Dictionary = {}
 var filled_slot_keys: Dictionary = {}
 var consumed_carry_keys: Dictionary = {}
 var purified_save_keys: Dictionary = {}
-
 var active_layer: int = 0
 var signal_groups: Dictionary = {}
 var polarity_groups: Dictionary = {}
@@ -42,12 +36,10 @@ var plat_freeze_timer: float = 0.0
 var beat_extend_bonus: float = 0.0
 var in_time_bubble: bool = false
 var s2_bomb_regen: float = 0.0
-
 var s3_valves: Dictionary = {}
 var s3_sundial_phase: bool = false
 var s3_boss_defeated: bool = false
 var s3_trophy_respawns: Array = []
-
 var time_elapsed: float = 0.0
 var move_time: float = 0.0
 var timer_left: float = -1.0
@@ -72,13 +64,11 @@ var consumed_alchemy_pool: Array = []
 var history_trail: Array = []
 var last_trail_record_t: float = -1.0
 var shadow_clone: Dictionary = {}
-
 var attempt_deaths: int = 0
 var total_lv_deaths: int = 0
 var adaptive_stacks: int = 0
 var loop_progress: int = 1
 var xray_level: bool = false
-
 var cam_x: float = 0.0
 var cam_y: float = 0.0
 var shake_timer: float = 0.0
@@ -86,48 +76,38 @@ var shake_dur: float = 0.2
 var shake_mag: float = 0.0
 var hit_stop_timer: float = 0.0
 var pipe_warp_cd: float = 0.0
+var jump_buffer_timer: float = 0.0
 var shield_flash_timer: float = 0.0
-
 var death_modal_delay: float = -1.0
 var pending_death_cause: String = ""
 var pending_death_modal_cause: String = ""
 var pending_win_result: Dictionary = {}
 var hud_dirty: bool = true
-
 var sfx_queue: Array[String] = []
 var toast_queue: Array = []
 var ach_queue: Array[String] = []
-
 func _init(p_levels: Array, p_save: SaveManager, p_shop: ShopSystem) -> void:
 	save = p_save
 	shop = p_shop
 	for lv_var in p_levels:
 		var lv: Dictionary = lv_var
 		levels_by_id[int(lv.get("id", 1))] = lv
-
 func emit_sfx(name: String) -> void:
 	sfx_queue.append(name)
-
 func emit_toast(zh: String, en: String, icon: String = "ui_hint", color_hex: String = "#00f5ff") -> void:
 	toast_queue.append({ "zh": zh, "en": en, "icon": icon, "color": color_hex })
-
 func unlock_ach(ach_id: String) -> void:
 	if save.unlock_ach(ach_id):
 		ach_queue.append(ach_id)
 		emit_sfx("ach_unlock")
-
 func is_magic_sword_enabled() -> bool:
 	return save.magic_sword_unlocked or save.is_stage_cleared(50) or lv_id >= 51 or bool(player.get("sword_up", false))
-
 func is_dual_layer_active() -> bool:
 	return Sector1And2Mechanics.is_dual_layer_stage(lv_data)
-
 func is_hint_unlocked() -> bool:
 	return save.get_stage_max_deaths(lv_id, attempt_deaths, total_lv_deaths) >= 5
-
 func get_max_deaths() -> int:
 	return save.get_stage_max_deaths(lv_id, attempt_deaths, total_lv_deaths)
-
 func start_stage(stage_id: int) -> void:
 	lv_id = clampi(stage_id, 1, 150)
 	lv_data = levels_by_id.get(lv_id, levels_by_id.get(1, {}))
@@ -147,10 +127,8 @@ func start_stage(stage_id: int) -> void:
 	pending_win_result = {}
 	pending_death_modal_cause = ""
 	death_modal_delay = -1.0
-	# Strictly reset per-stage 1-use shop allowance ONLY when newly entering a stage!
 	shop.reset_for_new_stage()
 	reset_attempt()
-
 func manual_fresh_restart() -> void:
 	active_checkpoint = {}
 	revealed_invis_keys = {}
@@ -160,7 +138,6 @@ func manual_fresh_restart() -> void:
 	purified_save_keys = {}
 	loop_progress = 1
 	reset_attempt()
-
 func _shuffle_gem_order() -> Array:
 	var perms: Array = [
 		["red", "green", "blue"], ["red", "blue", "green"],
@@ -168,7 +145,6 @@ func _shuffle_gem_order() -> Array:
 		["blue", "red", "green"], ["blue", "green", "red"]
 	]
 	return perms[randi() % perms.size()]
-
 func reset_attempt() -> void:
 	if lv_data.is_empty():
 		return
@@ -178,6 +154,7 @@ func reset_attempt() -> void:
 	move_time = 0.0
 	hit_stop_timer = 0.0
 	pipe_warp_cd = 0.0
+	jump_buffer_timer = 0.0
 	alchemy_regen_timer = 0.0
 	consumed_alchemy_pool = []
 	timer_left = float(props["timer"]) if props.has("timer") else -1.0
@@ -212,17 +189,14 @@ func reset_attempt() -> void:
 	death_modal_delay = -1.0
 	pending_death_modal_cause = ""
 	pending_win_result = {}
-
 	filled_slot_keys = active_checkpoint.get("filled_slot_keys", {}).duplicate(true) if not active_checkpoint.is_empty() else {}
 	consumed_carry_keys = active_checkpoint.get("consumed_carry_keys", {}).duplicate(true) if not active_checkpoint.is_empty() else {}
 	broken_solid_keys = active_checkpoint.get("broken_solid_keys", {}).duplicate(true) if not active_checkpoint.is_empty() else {}
-
 	var spawn_d: Dictionary = lv_data.get("spawn", { "x": 2.0, "y": 2.0 })
 	var sp_gx: float = float(active_checkpoint.get("x", spawn_d.get("x", 2.0))) if not active_checkpoint.is_empty() else float(spawn_d.get("x", 2.0))
 	var sp_gy: float = float(active_checkpoint.get("y", spawn_d.get("y", 2.0))) if not active_checkpoint.is_empty() else float(spawn_d.get("y", 2.0))
 	var spx: float = GridMath.gx_to_px(sp_gx) + 10.0
 	var spy: float = GridMath.gy_to_py(sp_gy, 0.0) - 42.0
-
 	var start_jumps: int = maxi(int(props.get("startJumps", 1)), int(active_checkpoint.get("max_jumps", 1)) if not active_checkpoint.is_empty() else 1)
 	player = {
 		"x": spx, "y": spy, "w": 28.0, "h": 42.0,
@@ -265,14 +239,11 @@ func reset_attempt() -> void:
 		"tilt_rad": 0.0,
 		"dead": false
 	}
-
 	solids = []
 	entities = []
 	Sector1And2Mechanics.init_attempt_state(self, lv_data, props, active_checkpoint)
 	Sector3Arcadia.init_attempt_state(self, active_checkpoint)
-	# Apply equipped shop buffs ONLY if not yet used in this stage!
 	shop.apply_stage_buffs(player)
-
 	var objs: Array = lv_data.get("objs", [])
 	for idx in range(objs.size()):
 		var o: Dictionary = objs[idx]
@@ -281,7 +252,6 @@ func reset_attempt() -> void:
 		if lv_id >= 51 and Sector1And2Mechanics.spawn_obj(self, o, idx, lv_data):
 			continue
 		_spawn_core_obj(o, idx)
-
 	if bool(props.get("adaptive", false)) and adaptive_stacks > 0:
 		for s_i in range(mini(4, adaptive_stacks)):
 			entities.append({
@@ -291,7 +261,6 @@ func reset_attempt() -> void:
 				"w": 0.82 * GridMath.TILE, "h": 0.88 * GridMath.TILE,
 				"falling_poop": false, "layer": -1
 			})
-
 	if bool(props.get("escalateLoop", false)) and loop_progress >= 2:
 		entities.append({
 			"key": "loop_imp", "t": "enemy", "kind": "follower",
@@ -306,17 +275,14 @@ func reset_attempt() -> void:
 					"x": GridMath.gx_to_px(fx), "y": GridMath.gy_to_py(2.0, 0.88),
 					"w": 0.82 * GridMath.TILE, "h": 0.88 * GridMath.TILE, "layer": -1
 				})
-
 	update_camera(1.0)
 	hud_dirty = true
-
 func _spawn_core_obj(o: Dictionary, idx: int) -> void:
 	var key: String = "%d_%d" % [lv_id, idx]
 	var t: String = str(o.get("t", ""))
 	var ox: float = float(o.get("x", 0.0))
 	var oy: float = float(o.get("y", 0.0))
 	var layer_val: int = int(o["layer"]) if (o.has("layer") and o["layer"] != null) else -1
-
 	if t in ["solid", "fake_wall", "vanish", "fake_plat", "destructible", "mirror", "paradox_gate", "timed_gate"]:
 		var oh: float = float(o.get("h", 1.0))
 		var sx0: float = GridMath.gx_to_px(ox)
@@ -530,12 +496,11 @@ func _spawn_core_obj(o: Dictionary, idx: int) -> void:
 			ent["ambushed"] = false
 			ent["active"] = (not active_checkpoint.is_empty()) and absf(float(active_checkpoint.get("x", -999.0)) - ox) < 0.2
 		entities.append(ent)
-
 func save_checkpoint_at(gx: float, gy: float) -> void:
 	active_checkpoint = {
 		"x": gx, "y": gy,
 		"bullet_up": bool(player.get("bullet_up", false)) and not bool(player.get("from_shop_bullet", false)),
-		"max_jumps": int(player.get("max_jumps", 1)),
+		"max_jumps": 1 if bool(player.get("from_shop_jump", false)) else int(player.get("max_jumps", 1)),
 		"has_flight": bool(player.get("has_flight", false)) and not bool(player.get("from_shop_flight", false)),
 		"layer": active_layer,
 		"signal_groups": signal_groups.duplicate(true),
@@ -551,7 +516,6 @@ func save_checkpoint_at(gx: float, gy: float) -> void:
 	}
 	emit_sfx("coin")
 	emit_toast("赛博存档信标已激活！", "CHECKPOINT ACTIVATED!", "checkpoint_on", "#00f5ff")
-
 func spring_impulse_scale(sx: float, sy: float) -> void:
 	if player.is_empty():
 		return
@@ -559,17 +523,14 @@ func spring_impulse_scale(sx: float, sy: float) -> void:
 	player["scale_y"] = sy
 	player["scale_vx"] = 0.0
 	player["scale_vy"] = 0.0
-
 func trigger_shake(mag: float, dur: float = 0.2) -> void:
 	shake_mag = maxf(shake_mag, mag)
 	shake_dur = maxf(0.05, dur)
 	shake_timer = maxf(shake_timer, dur)
 	if save.vibrate_on and mag >= 5.0:
 		Input.vibrate_handheld(24)
-
 func trigger_hit_stop(sec: float = 0.024) -> void:
 	hit_stop_timer = maxf(hit_stop_timer, sec)
-
 func spawn_particles(x: float, y: float, col: Color, count: int = 12, speed_mul: float = 1.0, grav_mul: float = 1.0) -> void:
 	if particles.size() > 260:
 		return
@@ -586,12 +547,10 @@ func spawn_particles(x: float, y: float, col: Color, count: int = 12, speed_mul:
 			"color": col,
 			"size": 2.5 + randf() * 4.0
 		})
-
 func add_shock_ring(x: float, y: float, col: Color, max_r: float = 38.0, dur: float = 0.28) -> void:
 	shock_rings.append({
 		"x": x, "y": y, "color": col, "max_r": max_r, "life": dur, "max_life": dur
 	})
-
 func add_afterimage(col: Color) -> void:
 	if player.is_empty() or afterimages.size() > 28:
 		return
@@ -602,12 +561,10 @@ func add_afterimage(col: Color) -> void:
 		"grav_dir": float(player["grav_dir"]),
 		"color": col, "life": 0.22, "max_life": 0.22
 	})
-
 func add_float_text(x: float, y: float, txt: String, color_hex: String = "#fde047") -> void:
 	float_texts.append({
 		"x": x, "y": y, "txt": txt, "color": Color(color_hex), "life": 0.72, "max_life": 0.72
 	})
-
 func shatter_fake_wall(s: Dictionary, _dir: int = 1) -> void:
 	if bool(s.get("shattered", false)):
 		return
@@ -620,14 +577,12 @@ func shatter_fake_wall(s: Dictionary, _dir: int = 1) -> void:
 	add_shock_ring(cx, cy, Color("#c084fc"), 54.0, 0.28)
 	spawn_particles(cx, cy, Color("#00f5ff"), 18)
 	emit_toast("全息假墙已识破粉碎！", "HOLO FAKE WALL SHATTERED!", "qblock", "#c084fc")
-
 func find_trail_snapshot(target_t: float) -> Dictionary:
 	for h_var in history_trail:
 		var h: Dictionary = h_var
 		if float(h["t"]) >= target_t:
 			return h
 	return {}
-
 func try_trigger_golden_body(auto_saved: bool = false) -> bool:
 	if shop.trigger_golden_body(player):
 		emit_sfx("shield_up")
@@ -641,7 +596,6 @@ func try_trigger_golden_body(auto_saved: bool = false) -> bool:
 		hud_dirty = true
 		return true
 	return false
-
 func kill_player(ignore_shield: bool = true, cause: String = "general") -> void:
 	if player.is_empty() or bool(player.get("dead", false)) or fake_phase > 0:
 		return
@@ -651,11 +605,9 @@ func kill_player(ignore_shield: bool = true, cause: String = "general") -> void:
 	if is_pit_or_reset:
 		player["golden_timer"] = 0.0
 		player["invuln_timer"] = 0.0
-
 	if not is_pit_or_reset and cause != "timer" and cause != "fake_flag" and cause != "shop" and int(player.get("gold_charges", 0)) > 0 and float(player.get("golden_timer", 0.0)) <= 0.0:
 		if try_trigger_golden_body(true):
 			return
-
 	if not is_pit_or_reset and not ignore_shield and bool(player.get("shield", false)):
 		player["shield"] = false
 		if bool(player.get("from_shop_shield", false)) and shop != null:
@@ -676,7 +628,6 @@ func kill_player(ignore_shield: bool = true, cause: String = "general") -> void:
 		unlock_ach("shield_saver")
 		hud_dirty = true
 		return
-
 	player["dead"] = true
 	grave_pos = Vector2(float(player["x"]) - 10.0, minf(GridMath.WORLD_ORIGIN_Y - 46.0, float(player["y"]) - 6.0))
 	has_grave = true
@@ -687,15 +638,12 @@ func kill_player(ignore_shield: bool = true, cause: String = "general") -> void:
 	var dcy: float = float(player["y"]) + float(player["h"]) * 0.5
 	add_shock_ring(dcx, dcy, Color("#ff2a85"), 56.0, 0.32)
 	spawn_particles(dcx, dcy, Color("#ff2a85"), 24, 1.2)
-
 	attempt_deaths += 1
 	total_lv_deaths += 1
 	var tot_d: int = save.record_death(lv_id, total_lv_deaths)
-
 	var props: Dictionary = lv_data.get("props", {})
 	if bool(props.get("adaptive", false)) and float(player["y"]) > GridMath.WORLD_ORIGIN_Y - 3.2 * GridMath.TILE:
 		adaptive_stacks += 1
-
 	if cause == "shop":
 		unlock_ach("goblin_scam")
 	elif cause == "sign":
@@ -711,11 +659,9 @@ func kill_player(ignore_shield: bool = true, cause: String = "general") -> void:
 		unlock_ach("deaths_100")
 	if attempt_deaths >= 5 or total_lv_deaths >= 5:
 		unlock_ach("five_deaths")
-
 	pending_death_cause = cause if cause != "" else "general"
 	death_modal_delay = 0.42
 	hud_dirty = true
-
 func trigger_fake_flag(flag_ent: Dictionary) -> void:
 	if fake_phase > 0:
 		return
@@ -737,7 +683,6 @@ func trigger_fake_flag(flag_ent: Dictionary) -> void:
 	fake_timer = 0.0
 	emit_sfx("fake_win")
 	spawn_particles(float(flag_ent["x"]) + 20.0, float(flag_ent["y"]) + 20.0, Color("#fde047"), 28)
-
 func trigger_level_win() -> void:
 	if not pending_win_result.is_empty() or fake_phase > 0:
 		return
@@ -750,7 +695,6 @@ func trigger_level_win() -> void:
 		emit_toast("轮回升级 %d/%d！" % [loop_progress, req_loops], "LOOP %d/%d!" % [loop_progress, req_loops], "ach_iceclock", "#fde047")
 		reset_attempt()
 		return
-
 	emit_sfx("real_win")
 	var res: Dictionary = save.mark_stage_cleared(lv_id, attempt_deaths)
 	if int(res["iq"]) <= 0:
@@ -762,13 +706,11 @@ func trigger_level_win() -> void:
 	var retro: Array[String] = save.retro_sync_achievements()
 	for aid in retro:
 		ach_queue.append(aid)
-
 	res["stage_id"] = lv_id
 	res["attempt_deaths"] = attempt_deaths
 	res["time_elapsed"] = maxf(0.1, time_elapsed)
 	pending_win_result = res
 	hud_dirty = true
-
 func _record_consumed_alchemy(ent: Dictionary) -> void:
 	var t: String = str(ent.get("t", ""))
 	if not (t in ["poison_item", "antidote_pad", "bomb_pickup", "flower", "amanita"]):
@@ -784,7 +726,6 @@ func _record_consumed_alchemy(ent: Dictionary) -> void:
 	clone["ambush_moved"] = 0.0
 	clone["ambush_active"] = false
 	consumed_alchemy_pool.append(clone)
-
 func grant_loot(loot_type: String, bx: float, by: float) -> void:
 	var lt: String = loot_type
 	if lt == "random":
@@ -864,7 +805,6 @@ func grant_loot(loot_type: String, bx: float, by: float) -> void:
 	elif lt == "gem_blue":
 		collect_gem("blue")
 	hud_dirty = true
-
 func collect_gem(col_name: String) -> void:
 	for e_var in entities:
 		var e: Dictionary = e_var
@@ -880,7 +820,6 @@ func collect_gem(col_name: String) -> void:
 		collected_gems.append(col_name)
 		emit_sfx("coin")
 		hud_dirty = true
-
 func perform_melee_slash() -> void:
 	if not is_magic_sword_enabled():
 		return
@@ -888,12 +827,10 @@ func perform_melee_slash() -> void:
 		return
 	if float(player.get("melee_cd", 0.0)) > 0.0:
 		return
-
 	player["melee_cd"] = 0.25
 	player["melee_anim"] = 0.23
 	player["attack_anim"] = 0.23
 	spring_impulse_scale(1.20, 0.86)
-
 	var dir: int = 1 if int(player["facing"]) >= 0 else -1
 	var sword_up: bool = bool(player.get("sword_up", false))
 	var slash_w: float = 108.0 if sword_up else 70.0
@@ -901,7 +838,6 @@ func perform_melee_slash() -> void:
 	var slash_x: float = (float(player["x"]) + float(player["w"]) * 0.35) if dir > 0 else (float(player["x"]) + float(player["w"]) * 0.65 - slash_w)
 	var slash_y: float = float(player["y"]) - (16.0 if sword_up else 10.0)
 	var slash_box: Rect2 = Rect2(slash_x, slash_y, slash_w, slash_h)
-
 	if sword_up:
 		bullets.append({
 			"x": (float(player["x"]) + float(player["w"])) if dir > 0 else (float(player["x"]) - 34.0),
@@ -910,15 +846,12 @@ func perform_melee_slash() -> void:
 			"vx": float(dir) * 590.0,
 			"upgraded": true, "s3_wave": true, "reflected": false, "life": 0.52
 		})
-
 	melee_arcs.append({
 		"x": (float(player["x"]) + float(player["w"]) - 8.0) if dir > 0 else (float(player["x"]) - 66.0),
 		"y": float(player["y"]) - 16.0,
 		"w": 74.0, "h": 68.0, "dir": dir, "crit": sword_up, "life": 0.19, "max_life": 0.19
 	})
-
 	var hit_any: bool = false
-
 	for si in range(enemy_shots.size() - 1, -1, -1):
 		var sh: Dictionary = enemy_shots[si]
 		var sh_l: int = int(sh.get("layer", -1))
@@ -927,7 +860,6 @@ func perform_melee_slash() -> void:
 			add_float_text(float(sh["x"]), float(sh["y"]) - 8.0, "PARRY!", "#fde047")
 			enemy_shots.remove_at(si)
 			hit_any = true
-
 	for s_var in solids:
 		var s: Dictionary = s_var
 		if lv_id >= 51 and not Sector1And2Mechanics.is_in_active_layer(s, active_layer):
@@ -971,17 +903,14 @@ func perform_melee_slash() -> void:
 				emit_sfx("block")
 				grant_loot(str(s["loot"]), float(s["x"]) + float(s["w"]) * 0.5, float(s["y"]))
 				hit_any = true
-
 	if lv_id >= 101 and Sector3Arcadia.disarm_or_damage_targets(self, slash_box, 6 if sword_up else 3, true, true):
 		hit_any = true
-
 	var needs_alchemy_preserve: bool = false
 	for sp_var in solids:
 		var sp_d: Dictionary = sp_var
 		if str(sp_d.get("t", "")) == "destructible" and not bool(sp_d.get("broken", false)) and not bool(sp_d.get("bullet_break", false)):
 			needs_alchemy_preserve = true
 			break
-
 	for j in range(entities.size() - 1, -1, -1):
 		if j >= entities.size():
 			continue
@@ -992,7 +921,6 @@ func perform_melee_slash() -> void:
 		var er: Rect2 = Rect2(float(e.get("x", 0.0)), float(e.get("y", 0.0)), float(e.get("w", 0.0)), float(e.get("h", 0.0)))
 		if er.size.x <= 0.0 or not GridMath.aabb_overlap(slash_box, er):
 			continue
-
 		if et == "flower" or et == "amanita":
 			hit_any = true
 			emit_sfx("enemy_kill")
@@ -1057,23 +985,18 @@ func perform_melee_slash() -> void:
 			var fb: Dictionary = { "x": float(e["x"]) + 2.0, "y": float(e["y"]) + 2.0, "w": 12.0, "h": 12.0, "vx": float(dir) * 400.0, "upgraded": true, "reflected": false, "life": 0.2 }
 			Sector1And2Mechanics.handle_bullet_hit(self, fb)
 			hit_any = true
-
 	emit_sfx("melee_hit" if hit_any else "melee_slash")
-
 func step_frame(raw_dt: float, inp: Dictionary) -> void:
 	if shake_timer > 0.0:
 		shake_timer = maxf(0.0, shake_timer - raw_dt)
 	if shield_flash_timer > 0.0:
 		shield_flash_timer = maxf(0.0, shield_flash_timer - raw_dt)
-
 	_step_visual_fx(raw_dt)
-
 	if death_modal_delay >= 0.0:
 		death_modal_delay -= raw_dt
 		if death_modal_delay < 0.0 and not player.is_empty() and bool(player.get("dead", false)):
 			pending_death_modal_cause = pending_death_cause
 		return
-
 	if fake_phase > 0:
 		fake_timer += raw_dt
 		if fake_phase == 1 and fake_timer >= 0.72:
@@ -1084,11 +1007,9 @@ func step_frame(raw_dt: float, inp: Dictionary) -> void:
 			fake_phase = 0
 			kill_player(true, "fake_flag")
 		return
-
 	if hit_stop_timer > 0.0:
 		hit_stop_timer = maxf(0.0, hit_stop_timer - raw_dt)
 		return
-
 	var sub_steps: int = clampi(int(ceil(raw_dt / (1.0 / 120.0))), 1, 4)
 	var sub_dt: float = raw_dt / float(sub_steps)
 	for step_i in range(sub_steps):
@@ -1105,7 +1026,6 @@ func step_frame(raw_dt: float, inp: Dictionary) -> void:
 		_step_physics(sub_dt, step_inp)
 		if player.is_empty() or bool(player.get("dead", false)) or not pending_win_result.is_empty():
 			break
-
 func _step_visual_fx(dt: float) -> void:
 	for i in range(particles.size() - 1, -1, -1):
 		var pt: Dictionary = particles[i]
@@ -1136,38 +1056,31 @@ func _step_visual_fx(dt: float) -> void:
 		ma["life"] = float(ma["life"]) - dt
 		if float(ma["life"]) <= 0.0:
 			melee_arcs.remove_at(i)
-
 func _step_physics(dt: float, inp: Dictionary) -> void:
 	if player.is_empty() or bool(player.get("dead", false)):
 		return
 	var props: Dictionary = lv_data.get("props", {})
 	var loop_mul: float = (1.0 + float(loop_progress - 1) * 0.14) if int(props.get("loopsRequired", 0)) > 0 else 1.0
 	var world_dt: float = 0.0 if world_frozen else (dt * 0.38 if world_slow else dt * loop_mul)
-
 	time_elapsed += dt
 	if pipe_warp_cd > 0.0:
 		pipe_warp_cd = maxf(0.0, pipe_warp_cd - dt)
-
 	if bool(inp.get("layer_pressed", false)):
 		Sector1And2Mechanics.try_shift_dual_layer(self, false)
 	if bool(inp.get("gold_pressed", false)):
 		try_trigger_golden_body()
-
-	# Spring-damper squash & stretch
 	player["scale_vx"] = (float(player["scale_vx"]) + (1.0 - float(player["scale_x"])) * 230.0 * dt) * maxf(0.0, 1.0 - 17.0 * dt)
 	player["scale_vy"] = (float(player["scale_vy"]) + (1.0 - float(player["scale_y"])) * 230.0 * dt) * maxf(0.0, 1.0 - 17.0 * dt)
 	player["scale_x"] = clampf(float(player["scale_x"]) + float(player["scale_vx"]) * dt, 0.68, 1.36)
 	player["scale_y"] = clampf(float(player["scale_y"]) + float(player["scale_vy"]) * dt, 0.68, 1.38)
 	var target_tilt: float = clampf((float(player["vx"]) / 250.0) * 0.065, -0.11, 0.11) * float(player["grav_dir"])
 	player["tilt_rad"] = lerpf(float(player["tilt_rad"]), target_tilt, minf(1.0, dt * 18.0))
-
 	for s_var in solids:
 		var s: Dictionary = s_var
 		if absf(float(s.get("bump_offset", 0.0))) > 0.01:
 			s["bump_offset"] = float(s["bump_offset"]) * maxf(0.0, 1.0 - dt * 16.0)
 		if float(s.get("shatter_anim", 0.0)) > 0.0:
 			s["shatter_anim"] = maxf(0.0, float(s["shatter_anim"]) - dt * 2.4)
-
 	for e_var in entities:
 		var e: Dictionary = e_var
 		if float(e.get("spring_anim", 0.0)) > 0.0:
@@ -1176,7 +1089,6 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 			e["recoil"] = maxf(0.0, float(e["recoil"]) - dt * 5.0)
 		if float(e.get("cooldown", 0.0)) > 0.0:
 			e["cooldown"] = maxf(0.0, float(e["cooldown"]) - dt)
-
 	if bool(props.get("ruleShuffle", false)):
 		rule_timer += dt
 		if rule_timer >= 5.0:
@@ -1189,7 +1101,6 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				"flower_skull" if rule_phase_b else "cloud_safe",
 				"#4ade80" if rule_phase_b else "#00f5ff"
 			)
-
 	if (bool(props.get("poopRain", false)) or bool(props.get("authorDuel", false))) and not world_frozen:
 		poop_rain_timer += dt
 		var rain_iv: float = 2.4 if bool(props.get("authorDuel", false)) else 3.2
@@ -1202,14 +1113,12 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				"w": 0.78 * GridMath.TILE, "h": 0.82 * GridMath.TILE,
 				"falling_poop": true, "vy": 230.0, "layer": -1
 			})
-
 	if timer_left >= 0.0 and not world_frozen:
 		timer_left -= dt * timer_rate * (0.4 if world_slow else 1.0)
 		if timer_left <= 0.0:
 			timer_left = 0.0
 			kill_player(true, "timer")
 			return
-
 	if float(player["invuln_timer"]) > 0.0:
 		player["invuln_timer"] = maxf(0.0, float(player["invuln_timer"]) - dt)
 	if float(player["antidote_window"]) > 0.0:
@@ -1220,13 +1129,18 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 		player["melee_cd"] = maxf(0.0, float(player["melee_cd"]) - dt)
 	if float(player["melee_anim"]) > 0.0:
 		player["melee_anim"] = maxf(0.0, float(player["melee_anim"]) - dt)
+	if float(player.get("spring_trail_timer", 0.0)) > 0.0:
+		player["spring_trail_timer"] = maxf(0.0, float(player["spring_trail_timer"]) - dt)
+	player["afterimage_timer"] = float(player.get("afterimage_timer", 0.0)) - dt
+	if float(player["afterimage_timer"]) <= 0.0 and (float(player.get("spring_trail_timer", 0.0)) > 0.0 or bool(player.get("has_flight", false)) or absf(float(player["vy"])) > 430.0 or float(player["invuln_timer"]) > 0.4 or float(player["grav_dir"]) < 0.0):
+		player["afterimage_timer"] = 0.038 if float(player.get("spring_trail_timer", 0.0)) > 0.0 else 0.055
+		var tr_c: Color = Color("#facc15") if float(player.get("spring_trail_timer", 0.0)) > 0.0 else (Color("#c084fc") if float(player["grav_dir"]) < 0.0 else (Color("#4ade80") if float(player["invuln_timer"]) > 0.0 else Color("#00f5ff")))
+		add_afterimage(tr_c)
 	if float(player["poison_timer"]) > 0.0:
 		player["poison_timer"] = float(player["poison_timer"]) - dt
 		if float(player["poison_timer"]) <= 0.0:
 			kill_player(true, "poison")
 			return
-
-	# Anti-softlock alchemy supply auto-regen
 	var needs_bomb_wall: bool = false
 	for s_bw_var in solids:
 		var s_bw: Dictionary = s_bw_var
@@ -1255,10 +1169,8 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				emit_toast("炼金补给已自动重聚！", "ALCHEMY SUPPLIES REFILLED!", "ach_alchemy", "#c084fc")
 	else:
 		alchemy_regen_timer = 0.0
-
 	var sens: float = clampf(save.sensitivity, 0.5, 1.5)
 	var resp_mul: float = 0.68 + 0.56 * sens
-
 	if float(player.get("heavy_curse_timer", 0.0)) > 0.0:
 		player["heavy_curse_timer"] = maxf(0.0, float(player["heavy_curse_timer"]) - dt)
 	if float(player.get("reverse_curse_timer", 0.0)) > 0.0:
@@ -1276,20 +1188,16 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 						player["in_curse_jump_shot"] = true
 					else:
 						player["in_curse_mirror"] = true
-
 	var move_dir: int = (1 if bool(inp.get("right", false)) else 0) - (1 if bool(inp.get("left", false)) else 0)
 	if bool(props.get("mirrorInput", false)):
 		move_dir = -move_dir
 	if bool(player["in_curse_mirror"]) or float(player["reverse_curse_timer"]) > 0.0:
 		move_dir = -move_dir
-
 	var max_run_spd: float = (242.0 + (sens - 1.0) * 22.0) * loop_mul
 	var is_turning: bool = move_dir != 0 and absf(float(player["vx"])) > 20.0 and int(signf(float(player["vx"]))) != move_dir
 	var is_braking: bool = move_dir == 0
-
 	if move_dir != 0 and absf(float(player["vx"])) < 36.0 * sens:
 		player["vx"] = float(move_dir) * 36.0 * sens
-
 	var accel: float = 0.0
 	if is_turning:
 		accel = (5800.0 if bool(player["on_ground"]) else 4200.0) * resp_mul
@@ -1297,7 +1205,6 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 		accel = (4700.0 if bool(player["on_ground"]) else 2850.0) * resp_mul
 	else:
 		accel = (3450.0 if bool(player["on_ground"]) else 2600.0) * resp_mul
-
 	var jump_held: bool = bool(inp.get("jump_held", false))
 	var near_apex: bool = (not bool(player["on_ground"])) and (not bool(player["has_flight"])) and absf(float(player["vy"])) < 85.0 and jump_held
 	var target_vx: float = float(move_dir) * max_run_spd * (1.07 if near_apex else 1.0)
@@ -1305,35 +1212,44 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 		player["vx"] = minf(target_vx, float(player["vx"]) + accel * dt)
 	elif float(player["vx"]) > target_vx:
 		player["vx"] = maxf(target_vx, float(player["vx"]) - accel * dt)
-
 	if move_dir != 0:
 		player["facing"] = move_dir
 		player["walk_cycle"] = float(player["walk_cycle"]) + dt * (11.6 + sens * 1.4)
 	else:
 		player["walk_cycle"] = 0.0
-
 	var coyote_win: float = 0.115 + 0.030 * sens
 	if bool(player["on_ground"]):
 		player["coyote"] = coyote_win
 		player["jumps_left"] = int(player["max_jumps"])
 	else:
 		player["coyote"] = maxf(0.0, float(player["coyote"]) - dt)
-
 	var shoot_triggered: bool = bool(inp.get("shoot_pressed", false))
-	if bool(inp.get("jump_pressed", false)) or float(inp.get("jump_buffer", 0.0)) > 0.0:
+	if bool(inp.get("jump_pressed", false)):
+		jump_buffer_timer = 0.145
+	elif jump_buffer_timer > 0.0:
+		jump_buffer_timer = maxf(0.0, jump_buffer_timer - dt)
+	if jump_buffer_timer > 0.0:
 		if bool(player["has_flight"]):
+			jump_buffer_timer = 0.0
+			player["spring_trail_timer"] = 0.0
 			player["vy"] = -410.0 * float(player["grav_dir"])
 			spring_impulse_scale(0.82, 1.20)
 			emit_sfx("jump_air")
 			add_shock_ring(float(player["x"]) + 14.0, float(player["y"]) + 42.0, Color("#00f5ff"), 26.0, 0.22)
+			spawn_particles(float(player["x"]) + 14.0, float(player["y"]) + 42.0, Color("#00f5ff"), 6, 0.85)
 		elif float(player["coyote"]) > 0.0 or int(player["jumps_left"]) > 0:
 			var is_air: bool = float(player["coyote"]) <= 0.0
+			jump_buffer_timer = 0.0
+			player["spring_trail_timer"] = 0.0
+			var foot_py: float = (float(player["y"]) + float(player["h"])) if float(player["grav_dir"]) > 0.0 else float(player["y"])
 			if is_air:
 				player["jumps_left"] = int(player["jumps_left"]) - 1
 				unlock_ach("multi_jumper")
+				add_shock_ring(float(player["x"]) + 14.0, foot_py, Color("#a855f7"), 34.0, 0.25)
 				add_afterimage(Color("#a855f7"))
 			else:
 				player["jumps_left"] = maxi(0, int(player["max_jumps"]) - 1)
+				add_shock_ring(float(player["x"]) + 14.0, foot_py, Color("#00f5ff"), 24.0, 0.20)
 			player["coyote"] = 0.0
 			player["on_ground"] = false
 			var jvy: float = -425.0 if float(player["heavy_curse_timer"]) > 0.0 else -592.0
@@ -1342,16 +1258,14 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				shoot_triggered = true
 			spring_impulse_scale(0.77, 1.27)
 			emit_sfx("jump_air" if is_air else "jump")
-
+			spawn_particles(float(player["x"]) + 14.0, foot_py, Color("#c084fc") if is_air else Color("#00f5ff"), 8, 0.9)
 	if bool(inp.get("jump_released", false)):
-		if not bool(player["has_flight"]) and float(player["vy"]) * float(player["grav_dir"]) < -165.0:
+		if not bool(player["has_flight"]) and float(player.get("spring_trail_timer", 0.0)) <= 0.0 and float(player["vy"]) * float(player["grav_dir"]) < -165.0:
 			var cut_f: float = clampf(0.54 - (sens - 0.5) * 0.10, 0.42, 0.56)
 			player["vy"] = float(player["vy"]) * cut_f
-
 	if bool(inp.get("slash_pressed", false)):
 		Sector1And2Mechanics.notify_peace_doves(self, float(player["x"]) + 14.0, float(player["y"]) + 21.0)
 		perform_melee_slash()
-
 	if shoot_triggered:
 		Sector1And2Mechanics.notify_peace_doves(self, float(player["x"]) + 14.0, float(player["y"]) + 21.0)
 		player["attack_anim"] = 0.22
@@ -1367,7 +1281,6 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 			"vx": float(player["facing"]) * bspd,
 			"upgraded": bup, "s3_wave": false, "reflected": false, "life": 2.2
 		})
-
 	if bool(inp.get("bomb_pressed", false)):
 		if not carrying_item.is_empty() and str(carrying_item.get("t", "")) == "signal_battery":
 			emit_sfx("block")
@@ -1384,19 +1297,21 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				"vx": float(player["facing"]) * 275.0, "vy": -280.0 * float(player["grav_dir"]), "fuse": 0.92
 			})
 			hud_dirty = true
-
 	var grav_scale: float = 1.0
 	if not bool(player["on_ground"]) and not bool(player["has_flight"]):
 		if jump_held and absf(float(player["vy"])) < 82.0:
 			grav_scale = 0.74
 		elif float(player["vy"]) * float(player["grav_dir"]) > 45.0:
 			grav_scale = 1.07
-	player["vy"] = clampf(float(player["vy"]) + 1320.0 * grav_scale * float(player["grav_dir"]) * dt, -765.0, 765.0)
-
+	if float(player.get("catapult_vx_timer", 0.0)) > 0.0:
+		player["vx"] = float(player.get("catapult_vx", player["vx"]))
+	player["vy"] = float(player["vy"]) + 1320.0 * grav_scale * float(player["grav_dir"]) * dt
+	if float(player["grav_dir"]) > 0.0 and float(player["vy"]) > 765.0:
+		player["vy"] = 765.0
+	elif float(player["grav_dir"]) < 0.0 and float(player["vy"]) < -765.0:
+		player["vy"] = -765.0
 	if light_burst_timer > 0.0:
 		light_burst_timer = maxf(0.0, light_burst_timer - dt)
-
-	# Moving solids & breathing cloud platforms
 	move_time += world_dt
 	for s_m_var in solids:
 		var s_m: Dictionary = s_m_var
@@ -1423,21 +1338,16 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				player["x"] = float(player["x"]) + (float(s_m["x"]) - prev_sx)
 				player["y"] = float(player["y"]) + (float(s_m["y"]) - prev_sy)
 				unlock_ach("shuttle_rider")
-
 	Sector1And2Mechanics.step_pre_move(self, dt, world_dt)
 	Sector3Arcadia.step_pre_move(self, dt, world_dt)
 	if bool(player.get("dead", false)):
 		return
-
 	var active_solids: Array = _collect_active_solids()
-
 	var bounds_d: Dictionary = lv_data.get("bounds", { "minX": -2.0, "maxX": 60.0 })
 	var min_bx: float = GridMath.gx_to_px(float(bounds_d.get("minX", -2.0)))
 	var max_bx: float = GridMath.gx_to_px(float(bounds_d.get("maxX", 60.0)))
-
 	player["x"] = clampf(float(player["x"]) + float(player["vx"]) * dt, min_bx, max_bx - float(player["w"]))
 	var p_rect_x: Rect2 = Rect2(float(player["x"]), float(player["y"]), float(player["w"]), float(player["h"]))
-
 	for s_x_var in active_solids:
 		var s_x: Dictionary = s_x_var
 		var st_x: String = str(s_x.get("t", ""))
@@ -1453,21 +1363,18 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				player["x"] = float(s_x["x"]) + float(s_x["w"])
 			player["vx"] = 0.0
 			p_rect_x.position.x = float(player["x"])
-
 	player["was_on_ground"] = bool(player["on_ground"])
 	var prev_y: float = float(player["y"])
 	var pre_land_vy: float = float(player["vy"])
 	player["y"] = prev_y + float(player["vy"]) * dt
 	player["on_ground"] = false
 	var p_rect_y: Rect2 = Rect2(float(player["x"]), float(player["y"]), float(player["w"]), float(player["h"]))
-
 	for s_y_var in active_solids:
 		var s_y: Dictionary = s_y_var
 		var sr_y: Rect2 = Rect2(float(s_y["x"]), float(s_y["y"]), float(s_y["w"]), float(s_y["h"]))
 		if not GridMath.aabb_overlap(p_rect_y, sr_y):
 			continue
 		var st_y: String = str(s_y.get("t", ""))
-
 		if (st_y == "invis" or st_y == "qblock") and not bool(s_y.get("revealed", false)):
 			var hit_below: bool = float(player["grav_dir"]) > 0.0 and float(player["vy"]) < 0.0 and prev_y >= float(s_y["y"]) + float(s_y["h"]) - 12.0
 			var step_top: bool = float(player["grav_dir"]) > 0.0 and bool(s_y.get("step_reveal", false)) and float(player["vy"]) >= 0.0 and prev_y + float(player["h"]) <= float(s_y["y"]) + 15.0
@@ -1497,7 +1404,6 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				p_rect_y.position.y = float(player["y"])
 				emit_sfx("block")
 			continue
-
 		if float(player["grav_dir"]) > 0.0:
 			if float(player["vy"]) >= 0.0 and prev_y + float(player["h"]) <= float(s_y["y"]) + 16.0:
 				player["y"] = float(s_y["y"]) - float(player["h"])
@@ -1547,9 +1453,7 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				player["y"] = float(s_y["y"]) - float(player["h"])
 				player["vy"] = -30.0
 				p_rect_y.position.y = float(player["y"])
-
 	var p_rect: Rect2 = Rect2(float(player["x"]), float(player["y"]), float(player["w"]), float(player["h"]))
-
 	for s_v_var in solids:
 		var s_v: Dictionary = s_v_var
 		var st_v: String = str(s_v.get("t", ""))
@@ -1571,15 +1475,12 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 		if st_v == "cloud_plat" and bool(s_v.get("rule_swap", false)) and rule_phase_b and GridMath.aabb_overlap(p_rect, sr_v):
 			kill_player(true, "cloud_knife")
 			return
-
-	# Pit / Abyss Check (Golden Body STILL dies immediately!)
 	if float(player["y"]) > GridMath.WORLD_ORIGIN_Y + 95.0:
 		kill_player(true, "abyss")
 		return
 	if float(player["grav_dir"]) < 0.0 and float(player["y"]) < GridMath.WORLD_ORIGIN_Y - 13.0 * GridMath.TILE:
 		kill_player(true, "abyss")
 		return
-
 	if time_elapsed - last_trail_record_t >= (1.0 / 90.0):
 		last_trail_record_t = time_elapsed
 		history_trail.append({
@@ -1589,15 +1490,14 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 		})
 		while history_trail.size() > 2 and float(history_trail[0]["t"]) < time_elapsed - 9.5:
 			history_trail.pop_front()
-
+	shadow_clone = {}
 	if (bool(props.get("shadowClone", false)) or bool(props.get("shadowChaser", false))) and time_elapsed >= 1.8:
 		var snap_sc: Dictionary = find_trail_snapshot(time_elapsed - 1.8)
 		if not snap_sc.is_empty():
-			shadow_clone = { "x": float(snap_sc["x"]), "y": float(snap_sc["y"]), "w": float(player["w"]), "h": float(player["h"]), "facing": int(snap_sc["facing"]) }
+			shadow_clone = { "active": true, "x": float(snap_sc["x"]), "y": float(snap_sc["y"]), "w": float(player["w"]), "h": float(player["h"]), "facing": int(snap_sc["facing"]) }
 			if GridMath.aabb_overlap(p_rect, Rect2(float(shadow_clone["x"]) + 4.0, float(shadow_clone["y"]) + 4.0, float(shadow_clone["w"]) - 8.0, float(shadow_clone["h"]) - 8.0)):
 				kill_player(true, "shadow")
 				return
-
 	if props.has("finalEmptyRoomX") and float(player["x"]) >= GridMath.gx_to_px(float(props["finalEmptyRoomX"])):
 		if absf(float(player["vx"])) < 5.0 and bool(player["on_ground"]):
 			empty_room_still_time += dt
@@ -1606,30 +1506,23 @@ func _step_physics(dt: float, inp: Dictionary) -> void:
 				return
 		else:
 			empty_room_still_time = 0.0
-
 	_step_bullets(dt, active_solids, p_rect)
 	if bool(player.get("dead", false)):
 		return
-
 	_step_bombs(dt, active_solids)
 	if bool(player.get("dead", false)):
 		return
-
 	_step_core_entities(dt, world_dt, prev_y, active_solids, inp)
 	if bool(player.get("dead", false)) or not pending_win_result.is_empty():
 		return
-
 	Sector1And2Mechanics.step_post_move(self, dt, world_dt)
 	Sector3Arcadia.step_post_move(self, dt, world_dt)
 	if bool(player.get("dead", false)) or not pending_win_result.is_empty():
 		return
-
 	_step_enemy_shots(dt, world_dt, active_solids)
 	if bool(player.get("dead", false)):
 		return
-
 	update_camera(dt)
-
 func _collect_active_solids() -> Array:
 	var out: Array = []
 	for s_var in solids:
@@ -1650,7 +1543,6 @@ func _collect_active_solids() -> Array:
 		if st == "cloud_plat" and bool(s.get("rule_swap", false)) and rule_phase_b:
 			continue
 		out.append(s)
-
 	for e_var in entities:
 		var e: Dictionary = e_var
 		if str(e.get("t", "")) == "sign" and int(e.get("fall_state", 0)) == 2:
@@ -1661,7 +1553,6 @@ func _collect_active_solids() -> Array:
 				"revealed": true
 			})
 	return out
-
 func _step_bullets(dt: float, active_solids: Array, p_rect: Rect2) -> void:
 	for i in range(bullets.size() - 1, -1, -1):
 		var b: Dictionary = bullets[i]
@@ -1680,7 +1571,6 @@ func _step_bullets(dt: float, active_solids: Array, p_rect: Rect2) -> void:
 			if (str(fw.get("t", "")) == "fake_wall" or str(fw.get("t", "")) == "fake_plat") and not bool(fw.get("shattered", false)):
 				if GridMath.aabb_overlap(b_rect, Rect2(float(fw["x"]), float(fw["y"]), float(fw["w"]), float(fw["h"]))):
 					shatter_fake_wall(fw, int(signf(float(b["vx"]))))
-
 		var hit_flora: bool = false
 		for fl_var in entities:
 			var fl: Dictionary = fl_var
@@ -1693,20 +1583,17 @@ func _step_bullets(dt: float, active_solids: Array, p_rect: Rect2) -> void:
 		if hit_flora:
 			bullets.remove_at(i)
 			continue
-
 		var is_wave: bool = bool(b.get("s3_wave", false))
 		var b_dmg: int = 4 if is_wave else (2 if bool(b.get("upgraded", false)) else 1)
 		if lv_id >= 101 and Sector3Arcadia.disarm_or_damage_targets(self, b_rect, b_dmg, is_wave, bool(b.get("upgraded", false)) or is_wave):
 			if not is_wave:
 				bullets.remove_at(i)
 				continue
-
 		if lv_id >= 51 and Sector1And2Mechanics.handle_bullet_hit(self, b):
 			bullets.remove_at(i)
 			continue
 		if float(b.get("hold_timer", 0.0)) > 0.0:
 			continue
-
 		var removed: bool = false
 		for s_var in active_solids:
 			var s: Dictionary = s_var
@@ -1742,7 +1629,6 @@ func _step_bullets(dt: float, active_solids: Array, p_rect: Rect2) -> void:
 		if removed:
 			bullets.remove_at(i)
 			continue
-
 		for j in range(entities.size() - 1, -1, -1):
 			var e: Dictionary = entities[j]
 			var er: Rect2 = Rect2(float(e.get("x", 0.0)), float(e.get("y", 0.0)), float(e.get("w", 0.0)), float(e.get("h", 0.0)))
@@ -1805,7 +1691,6 @@ func _step_bullets(dt: float, active_solids: Array, p_rect: Rect2) -> void:
 				break
 		if removed:
 			bullets.remove_at(i)
-
 func explode_at(cx: float, cy: float, radius: float, trap_self: bool) -> void:
 	if lv_id >= 101:
 		Sector3Arcadia.disarm_or_damage_targets(self, Rect2(cx - radius, cy - radius, radius * 2.0, radius * 2.0), 6, true, true)
@@ -1843,7 +1728,6 @@ func explode_at(cx: float, cy: float, radius: float, trap_self: bool) -> void:
 			if Vector2(float(cb["x"]) + 20.0 - cx, float(cb["y"]) + 20.0 - cy).length() <= radius + 95.0:
 				cb["fuse"] = 0.24
 				unlock_ach("domino_bomber")
-
 func _step_bombs(dt: float, active_solids: Array) -> void:
 	for i in range(bombs.size() - 1, -1, -1):
 		var bm: Dictionary = bombs[i]
@@ -1866,18 +1750,15 @@ func _step_bombs(dt: float, active_solids: Array) -> void:
 			var by: float = float(bm["y"])
 			bombs.remove_at(i)
 			explode_at(bx, by, 118.0, false)
-
 func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solids: Array, inp: Dictionary) -> void:
 	var p_rect: Rect2 = Rect2(float(player["x"]), float(player["y"]), float(player["w"]), float(player["h"]))
 	var props: Dictionary = lv_data.get("props", {})
 	var bounds_d: Dictionary = lv_data.get("bounds", { "minX": -2.0, "maxX": 60.0 })
-
 	for i in range(entities.size() - 1, -1, -1):
 		if i >= entities.size():
 			continue
 		var e: Dictionary = entities[i]
 		var et: String = str(e.get("t", ""))
-
 		if et == "chain_bomb" and float(e.get("fuse", -1.0)) >= 0.0:
 			e["fuse"] = float(e["fuse"]) - dt
 			if float(e["fuse"]) <= 0.0:
@@ -1889,7 +1770,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 				if bool(player.get("dead", false)):
 					return
 				continue
-
 		if et == "launcher":
 			if not world_frozen:
 				e["cd"] = float(e.get("cd", 0.35)) - world_dt
@@ -1907,15 +1787,30 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 						"layer": -1
 					})
 			continue
-
 		if et == "missile":
-			var mdx: float = float(e["dir"]) * float(e["speed"]) * world_dt
+			var mdir: float = float(e.get("dir", 1.0))
+			var mdx: float = mdir * float(e["speed"]) * world_dt
 			e["x"] = float(e["x"]) + mdx
+			e["vx"] = mdir * float(e["speed"])
+			if not world_frozen and particles.size() < 240:
+				e["exhaust_timer"] = float(e.get("exhaust_timer", 0.0)) - world_dt
+				if float(e["exhaust_timer"]) <= 0.0:
+					e["exhaust_timer"] = 0.045
+					particles.append({
+						"x": (float(e["x"]) - 2.0) if mdir > 0.0 else (float(e["x"]) + float(e["w"]) + 2.0),
+						"y": float(e["y"]) + float(e["h"]) * 0.5 + (randf() - 0.5) * 6.0,
+						"vx": -mdir * (45.0 + randf() * 45.0),
+						"vy": (randf() - 0.5) * 18.0,
+						"grav": -20.0,
+						"life": 0.20, "max_life": 0.20,
+						"color": Color("#fb923c") if randf() < 0.5 else Color("#fde047"),
+						"size": 3.2
+					})
 			if float(e["x"]) < GridMath.gx_to_px(float(bounds_d.get("minX", -2.0))) - 180.0 or float(e["x"]) > GridMath.gx_to_px(float(bounds_d.get("maxX", 60.0))) + 180.0:
 				entities.remove_at(i)
 				continue
 			if absf(float(e["x"]) - float(e.get("spawn_x", e["x"]))) > 76.0:
-				var nose_wall: Rect2 = Rect2((float(e["x"]) + float(e["w"]) - 8.0) if float(e["dir"]) > 0.0 else float(e["x"]), float(e["y"]) + 5.0, 8.0, float(e["h"]) - 10.0)
+				var nose_wall: Rect2 = Rect2((float(e["x"]) + float(e["w"]) - 8.0) if mdir > 0.0 else float(e["x"]), float(e["y"]) + 5.0, 8.0, float(e["h"]) - 10.0)
 				var hit_cliff: bool = false
 				for sw_var in active_solids:
 					var sw: Dictionary = sw_var
@@ -1923,6 +1818,7 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 						hit_cliff = true
 						break
 				if hit_cliff:
+					spawn_particles((float(e["x"]) + float(e["w"])) if mdir > 0.0 else float(e["x"]), float(e["y"]) + float(e["h"]) * 0.5, Color("#fb923c"), 10, 0.75)
 					entities.remove_at(i)
 					continue
 			var rider_box: Rect2 = Rect2(float(e["x"]) + 4.0, float(e["y"]) - 8.0, float(e["w"]) - 10.0, 16.0)
@@ -1939,10 +1835,8 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 				kill_player(false, "missile")
 				return
 			continue
-
 		if et == "cloud_knife" and e.has("base_y") and not world_frozen:
 			e["y"] = float(e["base_y"]) + sin(time_elapsed * 2.8 + float(e["x"]) * 0.03) * 4.0
-
 		if bool(e.get("falling_poop", false)):
 			e["vy"] = float(e.get("vy", 0.0)) + 520.0 * world_dt
 			e["y"] = float(e["y"]) + float(e["vy"]) * world_dt
@@ -1952,7 +1846,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 					e["y"] = float(sp_s["y"]) - float(e["h"])
 					e["falling_poop"] = false
 					break
-
 		if et == "flower" and not world_frozen:
 			if bool(e.get("stalker", false)):
 				e["x"] = float(e["x"]) + (1.0 if float(player["x"]) > float(e["x"]) else -1.0) * 34.0 * world_dt
@@ -1966,7 +1859,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 					var step_a: float = signf(rem_a) * minf(absf(rem_a), 340.0 * world_dt)
 					e["x"] = float(e["x"]) + step_a
 					e["ambush_moved"] = float(e["ambush_moved"]) + step_a
-
 		if et == "flag" and not bool(e.get("fake", false)) and int(e.get("shy_left", 0)) > 0:
 			if p_rect.get_center().distance_to(Vector2(float(e["x"]) + float(e["w"]) * 0.5, float(e["y"]) + float(e["h"]) * 0.5)) < 76.0:
 				e["shy_left"] = int(e["shy_left"]) - 1
@@ -1974,7 +1866,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 				e["x"] = float(e["x"]) + hdir * 3.2 * GridMath.TILE
 				emit_sfx("spring")
 				unlock_ach("shy_flag_chase")
-
 		if et == "sign":
 			var smode: String = str(e.get("mode", ""))
 			var fs: int = int(e.get("fall_state", 0))
@@ -2006,7 +1897,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 				kill_player(true, "sign")
 				return
 			continue
-
 		if et == "enemy":
 			_step_s1_enemy(e, i, dt, world_dt, active_solids)
 			if i < entities.size() and entities[i] == e:
@@ -2014,12 +1904,10 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 					kill_player(false, "enemy")
 					return
 			continue
-
 		if lv_id >= 51 and not Sector1And2Mechanics.is_in_active_layer(e, active_layer) and et != "checkpoint":
 			continue
 		if et == "hourglass" and float(e.get("cooldown", 0.0)) > 0.0:
 			continue
-
 		var ew: float = float(e.get("w", 0.0))
 		var eh: float = float(e.get("h", 0.0))
 		if ew <= 0.0:
@@ -2032,7 +1920,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 		)
 		if not GridMath.aabb_overlap(p_rect, hit_box):
 			continue
-
 		if et == "flower":
 			if (bool(e.get("rule_swap", false)) and rule_phase_b) or world_frozen:
 				continue
@@ -2101,12 +1988,17 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 			entities.remove_at(i)
 			hud_dirty = true
 		elif et == "spring":
-			if float(player["grav_dir"]) > 0.0 and float(player["vy"]) >= -20.0:
-				player["vy"] = -815.0
+			if float(player["grav_dir"]) > 0.0 and float(player["vy"]) >= -25.0 and float(e.get("spring_anim", 0.0)) < 0.86:
+				player["y"] = minf(float(player["y"]), float(e["y"]) - float(player["h"]) + 10.0)
+				player["vy"] = -865.0
 				player["on_ground"] = false
-				player["spring_trail_timer"] = 0.42
+				player["coyote"] = 0.0
+				player["jumps_left"] = int(player["max_jumps"])
+				player["spring_trail_timer"] = 0.48
 				e["spring_anim"] = 1.0
 				spring_impulse_scale(0.68, 1.38)
+				add_shock_ring(float(e["x"]) + float(e["w"]) * 0.5, float(e["y"]) + 6.0, Color("#fde047"), 42.0, 0.26)
+				spawn_particles(float(e["x"]) + float(e["w"]) * 0.5, float(e["y"]) + 6.0, Color("#fde047"), 14, 1.05)
 				add_afterimage(Color("#facc15"))
 				emit_sfx("spring")
 		elif et == "gravity_pad":
@@ -2188,12 +2080,16 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 			emit_sfx("coin")
 			var pk: String = str(e.get("kind", ""))
 			if pk == "double_jump":
-				player["max_jumps"] = 2
-				player["jumps_left"] = 2
+				player["max_jumps"] = maxi(int(player.get("max_jumps", 1)), 2)
+				player["jumps_left"] = int(player["max_jumps"])
 				unlock_ach("multi_jumper")
+				add_shock_ring(float(e["x"]) + 18.0, float(e["y"]) + 18.0, Color("#4ade80"), 42.0, 0.25)
+				emit_toast("★ 二段跳已解锁 · 空中再点跳跃可二段升空！", "DOUBLE JUMP UNLOCKED!", "icon_spring", "#4ade80")
 			elif pk == "flight":
 				player["has_flight"] = true
 				unlock_ach("cyber_wings")
+				add_shock_ring(float(e["x"]) + 18.0, float(e["y"]) + 18.0, Color("#67e8f9"), 42.0, 0.25)
+				emit_toast("★ 赛博飞翼已激活 · 连按跳跃升空！", "CYBER WINGS ACTIVE!", "icon_wing", "#67e8f9")
 			entities.remove_at(i)
 			hud_dirty = true
 		elif et == "pipe":
@@ -2251,7 +2147,6 @@ func _step_core_entities(dt: float, world_dt: float, prev_y: float, active_solid
 			else:
 				trigger_level_win()
 				return
-
 func _step_s1_enemy(e: Dictionary, idx: int, dt: float, world_dt: float, active_solids: Array) -> void:
 	if world_frozen:
 		return
@@ -2286,7 +2181,6 @@ func _step_s1_enemy(e: Dictionary, idx: int, dt: float, world_dt: float, active_
 				e["vy"] = -430.0
 				e["leap_cd"] = 1.95
 				e["on_ground_enemy"] = false
-
 		var eff_dir: float = float(e["dash_dir"]) if str(e.get("dash_state", "")) == "dash" else dir
 		e["vx"] = eff_dir * spd
 		e["vy"] = float(e.get("vy", 0.0)) + 1200.0 * world_dt
@@ -2348,7 +2242,6 @@ func _step_s1_enemy(e: Dictionary, idx: int, dt: float, world_dt: float, active_
 		else:
 			e["x"] = float(e["x"]) + float(e.get("speed", 3.6)) * GridMath.TILE * world_dt
 			e["y"] = float(e["y"]) + ((float(player["y"]) - 24.0) - float(e["y"])) * 1.8 * world_dt
-
 func _step_enemy_shots(dt: float, world_dt: float, active_solids: Array) -> void:
 	if enemy_shots.is_empty() or world_frozen:
 		return
@@ -2394,7 +2287,6 @@ func _step_enemy_shots(dt: float, world_dt: float, active_solids: Array) -> void
 			enemy_shots.remove_at(k)
 			kill_player(false, "turret" if lv_id >= 51 else "enemy")
 			return
-
 func update_camera(dt: float) -> void:
 	if player.is_empty() or lv_data.is_empty():
 		return
