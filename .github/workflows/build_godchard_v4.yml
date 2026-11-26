@@ -42,7 +42,7 @@ jobs:
           )
           rm -f /tmp/payload.zip
           for FID in "${IDS[@]}"; do
-            gdown --id "${FID}" -O /tmp/chunk.bin
+            gdown "${FID}" -O /tmp/chunk.bin
             cat /tmp/chunk.bin >> /tmp/payload.zip
           done
           echo "6b10190deaa3b401dfb42784bef286e9b5b88f8ecbf25872b4fbc3e788ffac01  /tmp/payload.zip" | sha256sum -c -
