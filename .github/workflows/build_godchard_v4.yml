@@ -1,0 +1,56 @@
+name: Build Godchard Adventure v4.0
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build_godchard_v4.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-v4:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Fetch v4.0 Payload, Verify SHA256, Compile & Publish Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO_ROOT: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          python3 -m pip install -q -U gdown
+          IDS=(
+            "1SpYWc1gUw6AKFjQ9SrZdaDj_tAnWrDCW"
+            "1Xin4426ieW_UYDJ4TP85Qn0KfAzq401I"
+            "1DCGAnV9dlCEvOGmuP2Eb4qquc3QQzSbm"
+            "1CT7qbXvCIbRHoi1vzb91RDDAuCMDVTAR"
+            "1TUEJA4BA900_4BDMpmoq6-6bvYrjHHl6"
+            "1gIXU9gt7ni2Uj2Mm0zQDT_pOlHKR6lS5"
+            "1_HK2bjVdXkNEEinHHEBz05FPclhWqqm_"
+          )
+          rm -f /tmp/payload.zip
+          for FID in "${IDS[@]}"; do
+            gdown --id "${FID}" -O /tmp/chunk.bin
+            cat /tmp/chunk.bin >> /tmp/payload.zip
+          done
+          echo "6b10190deaa3b401dfb42784bef286e9b5b88f8ecbf25872b4fbc3e788ffac01  /tmp/payload.zip" | sha256sum -c -
+          unzip -oq /tmp/payload.zip -d /tmp/v4_src
+          bash /tmp/v4_src/Godchard_v4_Project/ci_compile_godot4_v4.sh
+
+      - name: Upload Compiled Release Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: GodchardAdventure-v4.0.0-AllPlatforms
+          path: /tmp/v4_src/Godchard_v4_Project/dist/*
