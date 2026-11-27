@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cehjyjnxll4w0"
-path="res://.godot/imported/cyber_destruct.png-46ad122fbbdba73e4150f2cdb2463f36.ctex"
+uid="uid://gv4_f44575626b0f"
+path="res://.godot/imported/cyber_destruct.png-f44575626b0f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cyber_destruct.png"
-dest_files=["res://.godot/imported/cyber_destruct.png-46ad122fbbdba73e4150f2cdb2463f36.ctex"]
+dest_files=["res://.godot/imported/cyber_destruct.png-f44575626b0f.ctex"]
 
 [params]
 

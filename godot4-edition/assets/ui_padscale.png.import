@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwqhuwmy1hfl8"
-path="res://.godot/imported/ui_padscale.png-bbff61bd0452202f47ab040c366a297e.ctex"
+uid="uid://gv4_97d211a485b4"
+path="res://.godot/imported/ui_padscale.png-97d211a485b4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_padscale.png"
-dest_files=["res://.godot/imported/ui_padscale.png-bbff61bd0452202f47ab040c366a297e.ctex"]
+dest_files=["res://.godot/imported/ui_padscale.png-97d211a485b4.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c67332tia8hx5"
-path="res://.godot/imported/ach_coins.png-8d0bd18c613661ff452c6cced835563f.ctex"
+uid="uid://gv4_958c1948278e"
+path="res://.godot/imported/ach_coins.png-958c1948278e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_coins.png"
-dest_files=["res://.godot/imported/ach_coins.png-8d0bd18c613661ff452c6cced835563f.ctex"]
+dest_files=["res://.godot/imported/ach_coins.png-958c1948278e.ctex"]
 
 [params]
 

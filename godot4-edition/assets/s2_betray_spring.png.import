@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gtnbak07mqqk"
-path="res://.godot/imported/s2_betray_spring.png-f035dd57c5741a76bad507802a672420.ctex"
+uid="uid://gv4_340eebb10485"
+path="res://.godot/imported/s2_betray_spring.png-340eebb10485.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_betray_spring.png"
-dest_files=["res://.godot/imported/s2_betray_spring.png-f035dd57c5741a76bad507802a672420.ctex"]
+dest_files=["res://.godot/imported/s2_betray_spring.png-340eebb10485.ctex"]
 
 [params]
 

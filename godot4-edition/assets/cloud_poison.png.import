@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1vp4g5tbaodi"
-path="res://.godot/imported/cloud_poison.png-3bd346ad3d50ff91ab85904aff02a45e.ctex"
+uid="uid://gv4_5dc2826b1130"
+path="res://.godot/imported/cloud_poison.png-5dc2826b1130.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cloud_poison.png"
-dest_files=["res://.godot/imported/cloud_poison.png-3bd346ad3d50ff91ab85904aff02a45e.ctex"]
+dest_files=["res://.godot/imported/cloud_poison.png-5dc2826b1130.ctex"]
 
 [params]
 

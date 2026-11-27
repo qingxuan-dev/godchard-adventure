@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsvqwuuh00rp0"
-path="res://.godot/imported/ui_grid.png-a857c929a13c08b801ce42560bdfedcf.ctex"
+uid="uid://gv4_456c3955c06e"
+path="res://.godot/imported/ui_grid.png-456c3955c06e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_grid.png"
-dest_files=["res://.godot/imported/ui_grid.png-a857c929a13c08b801ce42560bdfedcf.ctex"]
+dest_files=["res://.godot/imported/ui_grid.png-456c3955c06e.ctex"]
 
 [params]
 

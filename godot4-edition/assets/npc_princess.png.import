@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj8qngp5y8tlb"
-path="res://.godot/imported/npc_princess.png-6daf19ed9b1921b41c3a68f5eb4b832b.ctex"
+uid="uid://gv4_df74b53597ec"
+path="res://.godot/imported/npc_princess.png-df74b53597ec.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/npc_princess.png"
-dest_files=["res://.godot/imported/npc_princess.png-6daf19ed9b1921b41c3a68f5eb4b832b.ctex"]
+dest_files=["res://.godot/imported/npc_princess.png-df74b53597ec.ctex"]
 
 [params]
 

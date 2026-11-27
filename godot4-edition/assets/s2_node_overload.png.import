@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bihl7jxi2lyk2"
-path="res://.godot/imported/s2_node_overload.png-ae48b3e301f946560451fe89bbdd0a85.ctex"
+uid="uid://gv4_c3a7e7218fc6"
+path="res://.godot/imported/s2_node_overload.png-c3a7e7218fc6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_node_overload.png"
-dest_files=["res://.godot/imported/s2_node_overload.png-ae48b3e301f946560451fe89bbdd0a85.ctex"]
+dest_files=["res://.godot/imported/s2_node_overload.png-c3a7e7218fc6.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://shvmrfuos6wt"
-path="res://.godot/imported/s2_plat_reactor_wall.png-63736ecd46da77c0eddfebd09f750aed.ctex"
+uid="uid://gv4_44f0a13559ab"
+path="res://.godot/imported/s2_plat_reactor_wall.png-44f0a13559ab.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_plat_reactor_wall.png"
-dest_files=["res://.godot/imported/s2_plat_reactor_wall.png-63736ecd46da77c0eddfebd09f750aed.ctex"]
+dest_files=["res://.godot/imported/s2_plat_reactor_wall.png-44f0a13559ab.ctex"]
 
 [params]
 

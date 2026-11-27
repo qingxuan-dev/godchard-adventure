@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bve7wmbs5gsuk"
-path="res://.godot/imported/hint_ill_signal.jpg-4229885b4a2c94cab02ecf0090a8aba9.ctex"
+uid="uid://gv4_3a6435d8732c"
+path="res://.godot/imported/hint_ill_signal.jpg-3a6435d8732c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_signal.jpg"
-dest_files=["res://.godot/imported/hint_ill_signal.jpg-4229885b4a2c94cab02ecf0090a8aba9.ctex"]
+dest_files=["res://.godot/imported/hint_ill_signal.jpg-3a6435d8732c.ctex"]
 
 [params]
 

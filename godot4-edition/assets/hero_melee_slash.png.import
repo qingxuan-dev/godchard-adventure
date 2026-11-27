@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmmksydsflyg5"
-path="res://.godot/imported/hero_melee_slash.png-39b997b8b0f38532a13b60f88fa83390.ctex"
+uid="uid://gv4_99b3d6ff67f9"
+path="res://.godot/imported/hero_melee_slash.png-99b3d6ff67f9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hero_melee_slash.png"
-dest_files=["res://.godot/imported/hero_melee_slash.png-39b997b8b0f38532a13b60f88fa83390.ctex"]
+dest_files=["res://.godot/imported/hero_melee_slash.png-99b3d6ff67f9.ctex"]
 
 [params]
 

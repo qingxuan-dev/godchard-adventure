@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0h51n0w38e8u"
-path="res://.godot/imported/s2_saw_blade.png-f9b9477e16d5f357c02965daacbd5d92.ctex"
+uid="uid://gv4_cc169a0a996e"
+path="res://.godot/imported/s2_saw_blade.png-cc169a0a996e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_saw_blade.png"
-dest_files=["res://.godot/imported/s2_saw_blade.png-f9b9477e16d5f357c02965daacbd5d92.ctex"]
+dest_files=["res://.godot/imported/s2_saw_blade.png-cc169a0a996e.ctex"]
 
 [params]
 

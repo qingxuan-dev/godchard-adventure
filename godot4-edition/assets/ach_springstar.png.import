@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8p08j0clhknc"
-path="res://.godot/imported/ach_springstar.png-dd354fc6fbee9d4f665195dea4f4fb9c.ctex"
+uid="uid://gv4_3298974bb7b1"
+path="res://.godot/imported/ach_springstar.png-3298974bb7b1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_springstar.png"
-dest_files=["res://.godot/imported/ach_springstar.png-dd354fc6fbee9d4f665195dea4f4fb9c.ctex"]
+dest_files=["res://.godot/imported/ach_springstar.png-3298974bb7b1.ctex"]
 
 [params]
 

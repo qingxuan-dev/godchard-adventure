@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnt1a1kbrl7kx"
-path="res://.godot/imported/bg_s2_fracture.jpg-d57e4b12053edb668e822d1b5622eaba.ctex"
+uid="uid://gv4_5e6d3843e15f"
+path="res://.godot/imported/bg_s2_fracture.jpg-5e6d3843e15f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bg_s2_fracture.jpg"
-dest_files=["res://.godot/imported/bg_s2_fracture.jpg-d57e4b12053edb668e822d1b5622eaba.ctex"]
+dest_files=["res://.godot/imported/bg_s2_fracture.jpg-5e6d3843e15f.ctex"]
 
 [params]
 

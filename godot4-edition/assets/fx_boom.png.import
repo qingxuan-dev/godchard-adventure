@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwgifqlu0rkr7"
-path="res://.godot/imported/fx_boom.png-e8b99773afe6660d7149abcc6caa44df.ctex"
+uid="uid://gv4_df68a8038bba"
+path="res://.godot/imported/fx_boom.png-df68a8038bba.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/fx_boom.png"
-dest_files=["res://.godot/imported/fx_boom.png-e8b99773afe6660d7149abcc6caa44df.ctex"]
+dest_files=["res://.godot/imported/fx_boom.png-df68a8038bba.ctex"]
 
 [params]
 

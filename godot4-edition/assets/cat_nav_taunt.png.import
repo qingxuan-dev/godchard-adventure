@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcif5gu3xrat2"
-path="res://.godot/imported/cat_nav_taunt.png-a2715f0ae448af0f234aba5d59eeed3e.ctex"
+uid="uid://gv4_f2dab1b68ab1"
+path="res://.godot/imported/cat_nav_taunt.png-f2dab1b68ab1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cat_nav_taunt.png"
-dest_files=["res://.godot/imported/cat_nav_taunt.png-a2715f0ae448af0f234aba5d59eeed3e.ctex"]
+dest_files=["res://.godot/imported/cat_nav_taunt.png-f2dab1b68ab1.ctex"]
 
 [params]
 

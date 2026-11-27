@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn2tkbwdrl8ty"
-path="res://.godot/imported/spikes_red.png-b4838f7452eb258d0c0d14b7439d5167.ctex"
+uid="uid://gv4_a7e82bb70a0c"
+path="res://.godot/imported/spikes_red.png-a7e82bb70a0c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/spikes_red.png"
-dest_files=["res://.godot/imported/spikes_red.png-b4838f7452eb258d0c0d14b7439d5167.ctex"]
+dest_files=["res://.godot/imported/spikes_red.png-a7e82bb70a0c.ctex"]
 
 [params]
 

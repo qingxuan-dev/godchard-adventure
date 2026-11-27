@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://55mr37jxuxxv"
-path="res://.godot/imported/hint_ill_royal.jpg-a3519e3677582e097d9db4928c006daf.ctex"
+uid="uid://gv4_57916bee33f2"
+path="res://.godot/imported/hint_ill_royal.jpg-57916bee33f2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_royal.jpg"
-dest_files=["res://.godot/imported/hint_ill_royal.jpg-a3519e3677582e097d9db4928c006daf.ctex"]
+dest_files=["res://.godot/imported/hint_ill_royal.jpg-57916bee33f2.ctex"]
 
 [params]
 

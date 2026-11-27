@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://if8e2jbhwfxs"
-path="res://.godot/imported/ach_hourglass.png-26b526b8589d99f910882c9664703f36.ctex"
+uid="uid://gv4_1aceae495cf8"
+path="res://.godot/imported/ach_hourglass.png-1aceae495cf8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_hourglass.png"
-dest_files=["res://.godot/imported/ach_hourglass.png-26b526b8589d99f910882c9664703f36.ctex"]
+dest_files=["res://.godot/imported/ach_hourglass.png-1aceae495cf8.ctex"]
 
 [params]
 

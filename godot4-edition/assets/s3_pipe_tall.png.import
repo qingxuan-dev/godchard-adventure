@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxoutilcrjqth"
-path="res://.godot/imported/s3_pipe_tall.png-186ea66c8dee1dcece79a348f1617522.ctex"
+uid="uid://gv4_b4fa0e1101a3"
+path="res://.godot/imported/s3_pipe_tall.png-b4fa0e1101a3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_pipe_tall.png"
-dest_files=["res://.godot/imported/s3_pipe_tall.png-186ea66c8dee1dcece79a348f1617522.ctex"]
+dest_files=["res://.godot/imported/s3_pipe_tall.png-b4fa0e1101a3.ctex"]
 
 [params]
 

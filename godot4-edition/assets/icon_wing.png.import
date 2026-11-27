@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbckfu3lhffb1"
-path="res://.godot/imported/icon_wing.png-f4c1150d0f907ed614b053a220a82ea0.ctex"
+uid="uid://gv4_1b89cefd20ef"
+path="res://.godot/imported/icon_wing.png-1b89cefd20ef.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icon_wing.png"
-dest_files=["res://.godot/imported/icon_wing.png-f4c1150d0f907ed614b053a220a82ea0.ctex"]
+dest_files=["res://.godot/imported/icon_wing.png-1b89cefd20ef.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6j8fb855866j"
-path="res://.godot/imported/s2_phase_solid.png-aa9250342a4c35f28e2e794af860a967.ctex"
+uid="uid://gv4_b60a8e9a8202"
+path="res://.godot/imported/s2_phase_solid.png-b60a8e9a8202.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_phase_solid.png"
-dest_files=["res://.godot/imported/s2_phase_solid.png-aa9250342a4c35f28e2e794af860a967.ctex"]
+dest_files=["res://.godot/imported/s2_phase_solid.png-b60a8e9a8202.ctex"]
 
 [params]
 

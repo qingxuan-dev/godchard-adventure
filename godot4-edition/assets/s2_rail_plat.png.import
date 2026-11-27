@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://30tmax5738vl"
-path="res://.godot/imported/s2_rail_plat.png-3fdba91981eb726bc16cb447c83810b6.ctex"
+uid="uid://gv4_0f7701163c77"
+path="res://.godot/imported/s2_rail_plat.png-0f7701163c77.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_rail_plat.png"
-dest_files=["res://.godot/imported/s2_rail_plat.png-3fdba91981eb726bc16cb447c83810b6.ctex"]
+dest_files=["res://.godot/imported/s2_rail_plat.png-0f7701163c77.ctex"]
 
 [params]
 

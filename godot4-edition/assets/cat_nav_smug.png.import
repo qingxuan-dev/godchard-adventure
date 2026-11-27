@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi37gcavpj8bd"
-path="res://.godot/imported/cat_nav_smug.png-53aa49b25cfc4a6bc595353225785e8c.ctex"
+uid="uid://gv4_b8d9665eb352"
+path="res://.godot/imported/cat_nav_smug.png-b8d9665eb352.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cat_nav_smug.png"
-dest_files=["res://.godot/imported/cat_nav_smug.png-53aa49b25cfc4a6bc595353225785e8c.ctex"]
+dest_files=["res://.godot/imported/cat_nav_smug.png-b8d9665eb352.ctex"]
 
 [params]
 

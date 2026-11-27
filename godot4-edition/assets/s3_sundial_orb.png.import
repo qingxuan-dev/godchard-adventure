@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://woex8af5bnbj"
-path="res://.godot/imported/s3_sundial_orb.png-2a63c1b21b07ec60859b14d7232be38a.ctex"
+uid="uid://gv4_e3eddfba6c27"
+path="res://.godot/imported/s3_sundial_orb.png-e3eddfba6c27.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_sundial_orb.png"
-dest_files=["res://.godot/imported/s3_sundial_orb.png-2a63c1b21b07ec60859b14d7232be38a.ctex"]
+dest_files=["res://.godot/imported/s3_sundial_orb.png-e3eddfba6c27.ctex"]
 
 [params]
 

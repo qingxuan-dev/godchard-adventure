@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b30nwk52v0ra4"
-path="res://.godot/imported/icon_sword.png-c61f9119a5827e2535ed355ece6c3647.ctex"
+uid="uid://gv4_1f58828712a6"
+path="res://.godot/imported/icon_sword.png-1f58828712a6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icon_sword.png"
-dest_files=["res://.godot/imported/icon_sword.png-c61f9119a5827e2535ed355ece6c3647.ctex"]
+dest_files=["res://.godot/imported/icon_sword.png-1f58828712a6.ctex"]
 
 [params]
 

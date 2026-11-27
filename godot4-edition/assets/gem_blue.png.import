@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j64xmfcbggkh"
-path="res://.godot/imported/gem_blue.png-f84d4b7bcad4749cd97bf49abd927986.ctex"
+uid="uid://gv4_48a110a04cb4"
+path="res://.godot/imported/gem_blue.png-48a110a04cb4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/gem_blue.png"
-dest_files=["res://.godot/imported/gem_blue.png-f84d4b7bcad4749cd97bf49abd927986.ctex"]
+dest_files=["res://.godot/imported/gem_blue.png-48a110a04cb4.ctex"]
 
 [params]
 

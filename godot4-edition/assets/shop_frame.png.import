@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ch3dk34jj2t5y"
-path="res://.godot/imported/shop_frame.png-480acec4833ddfdee0e153b93773e001.ctex"
+uid="uid://gv4_08e18d0c1c41"
+path="res://.godot/imported/shop_frame.png-08e18d0c1c41.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/shop_frame.png"
-dest_files=["res://.godot/imported/shop_frame.png-480acec4833ddfdee0e153b93773e001.ctex"]
+dest_files=["res://.godot/imported/shop_frame.png-08e18d0c1c41.ctex"]
 
 [params]
 

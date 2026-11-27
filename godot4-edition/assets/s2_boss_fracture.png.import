@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3m0htwpasomd"
-path="res://.godot/imported/s2_boss_fracture.png-f77c14327691085675ca006c34d5372a.ctex"
+uid="uid://gv4_fa793307da43"
+path="res://.godot/imported/s2_boss_fracture.png-fa793307da43.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_boss_fracture.png"
-dest_files=["res://.godot/imported/s2_boss_fracture.png-f77c14327691085675ca006c34d5372a.ctex"]
+dest_files=["res://.godot/imported/s2_boss_fracture.png-fa793307da43.ctex"]
 
 [params]
 

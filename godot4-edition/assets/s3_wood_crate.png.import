@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cck2ranfueksk"
-path="res://.godot/imported/s3_wood_crate.png-db3359d0c8231d5254bc6492bd258de2.ctex"
+uid="uid://gv4_5cc56d9a5e3d"
+path="res://.godot/imported/s3_wood_crate.png-5cc56d9a5e3d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_wood_crate.png"
-dest_files=["res://.godot/imported/s3_wood_crate.png-db3359d0c8231d5254bc6492bd258de2.ctex"]
+dest_files=["res://.godot/imported/s3_wood_crate.png-5cc56d9a5e3d.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clei5fdxvpmnf"
-path="res://.godot/imported/fx_heal.png-55e7bbade52fcea63dd5f46d8bf0e4bb.ctex"
+uid="uid://gv4_18446d225880"
+path="res://.godot/imported/fx_heal.png-18446d225880.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/fx_heal.png"
-dest_files=["res://.godot/imported/fx_heal.png-55e7bbade52fcea63dd5f46d8bf0e4bb.ctex"]
+dest_files=["res://.godot/imported/fx_heal.png-18446d225880.ctex"]
 
 [params]
 

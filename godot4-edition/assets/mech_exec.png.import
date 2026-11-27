@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clhiur71elgn2"
-path="res://.godot/imported/mech_exec.png-c77d4f631f961c485c908c146c1c3765.ctex"
+uid="uid://gv4_208d4e6ada21"
+path="res://.godot/imported/mech_exec.png-208d4e6ada21.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_exec.png"
-dest_files=["res://.godot/imported/mech_exec.png-c77d4f631f961c485c908c146c1c3765.ctex"]
+dest_files=["res://.godot/imported/mech_exec.png-208d4e6ada21.ctex"]
 
 [params]
 

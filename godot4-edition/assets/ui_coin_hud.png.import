@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg37eaktiddlu"
-path="res://.godot/imported/ui_coin_hud.png-c646b8d15c6e80b0d3e9d12c8d14ce12.ctex"
+uid="uid://gv4_a019b072d51f"
+path="res://.godot/imported/ui_coin_hud.png-a019b072d51f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_coin_hud.png"
-dest_files=["res://.godot/imported/ui_coin_hud.png-c646b8d15c6e80b0d3e9d12c8d14ce12.ctex"]
+dest_files=["res://.godot/imported/ui_coin_hud.png-a019b072d51f.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp1gtfh0k7d3w"
-path="res://.godot/imported/ach_s2_polarity.png-eec4152fdd9bd48e6fa15b3214fc8956.ctex"
+uid="uid://gv4_83eb375b2129"
+path="res://.godot/imported/ach_s2_polarity.png-83eb375b2129.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_polarity.png"
-dest_files=["res://.godot/imported/ach_s2_polarity.png-eec4152fdd9bd48e6fa15b3214fc8956.ctex"]
+dest_files=["res://.godot/imported/ach_s2_polarity.png-83eb375b2129.ctex"]
 
 [params]
 

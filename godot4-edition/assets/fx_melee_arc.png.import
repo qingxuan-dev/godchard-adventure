@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dervouwg1he0t"
-path="res://.godot/imported/fx_melee_arc.png-d7e494fa193d6358ee6d799925ad3cd3.ctex"
+uid="uid://gv4_8b1c9edd6c8f"
+path="res://.godot/imported/fx_melee_arc.png-8b1c9edd6c8f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/fx_melee_arc.png"
-dest_files=["res://.godot/imported/fx_melee_arc.png-d7e494fa193d6358ee6d799925ad3cd3.ctex"]
+dest_files=["res://.godot/imported/fx_melee_arc.png-8b1c9edd6c8f.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsj8y210fiptp"
-path="res://.godot/imported/cat_nav_sorry.png-d355252d394b097e8c53d6da7d9d7689.ctex"
+uid="uid://gv4_12b624c9a222"
+path="res://.godot/imported/cat_nav_sorry.png-12b624c9a222.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cat_nav_sorry.png"
-dest_files=["res://.godot/imported/cat_nav_sorry.png-d355252d394b097e8c53d6da7d9d7689.ctex"]
+dest_files=["res://.godot/imported/cat_nav_sorry.png-12b624c9a222.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df7dlg762l2ce"
-path="res://.godot/imported/btn_frame_pink.png-1eb2c413551e819941af2299912d8077.ctex"
+uid="uid://gv4_5a7e16be5333"
+path="res://.godot/imported/btn_frame_pink.png-5a7e16be5333.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/btn_frame_pink.png"
-dest_files=["res://.godot/imported/btn_frame_pink.png-1eb2c413551e819941af2299912d8077.ctex"]
+dest_files=["res://.godot/imported/btn_frame_pink.png-5a7e16be5333.ctex"]
 
 [params]
 

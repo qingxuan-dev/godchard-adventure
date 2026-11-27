@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buif7velp1gg8"
-path="res://.godot/imported/ach_s2_root100.png-252e59ab3af858c28cc2c4b6bf718983.ctex"
+uid="uid://gv4_66ecbd9e9807"
+path="res://.godot/imported/ach_s2_root100.png-66ecbd9e9807.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_root100.png"
-dest_files=["res://.godot/imported/ach_s2_root100.png-252e59ab3af858c28cc2c4b6bf718983.ctex"]
+dest_files=["res://.godot/imported/ach_s2_root100.png-66ecbd9e9807.ctex"]
 
 [params]
 

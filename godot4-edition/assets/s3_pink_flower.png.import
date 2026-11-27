@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvp6ny7myqfm7"
-path="res://.godot/imported/s3_pink_flower.png-05f80da05672efbac211de47869e95d3.ctex"
+uid="uid://gv4_21a46caa5789"
+path="res://.godot/imported/s3_pink_flower.png-21a46caa5789.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_pink_flower.png"
-dest_files=["res://.godot/imported/s3_pink_flower.png-05f80da05672efbac211de47869e95d3.ctex"]
+dest_files=["res://.godot/imported/s3_pink_flower.png-21a46caa5789.ctex"]
 
 [params]
 

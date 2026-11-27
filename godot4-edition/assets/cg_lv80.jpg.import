@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnlhvbyulp484"
-path="res://.godot/imported/cg_lv80.jpg-95ce851088ec80da315e6038e0f612c1.ctex"
+uid="uid://gv4_5fe0655452cc"
+path="res://.godot/imported/cg_lv80.jpg-5fe0655452cc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cg_lv80.jpg"
-dest_files=["res://.godot/imported/cg_lv80.jpg-95ce851088ec80da315e6038e0f612c1.ctex"]
+dest_files=["res://.godot/imported/cg_lv80.jpg-5fe0655452cc.ctex"]
 
 [params]
 

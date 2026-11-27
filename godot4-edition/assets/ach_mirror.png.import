@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqpf40v3ob0vg"
-path="res://.godot/imported/ach_mirror.png-5370fa07414a92ccd0e8d234284edb4c.ctex"
+uid="uid://gv4_ed0cb41833ad"
+path="res://.godot/imported/ach_mirror.png-ed0cb41833ad.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_mirror.png"
-dest_files=["res://.godot/imported/ach_mirror.png-5370fa07414a92ccd0e8d234284edb4c.ctex"]
+dest_files=["res://.godot/imported/ach_mirror.png-ed0cb41833ad.ctex"]
 
 [params]
 

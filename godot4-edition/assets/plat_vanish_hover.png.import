@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jriav24vjcsk"
-path="res://.godot/imported/plat_vanish_hover.png-9a37b76332b6232c11a121dc6718c282.ctex"
+uid="uid://gv4_eed259fba97f"
+path="res://.godot/imported/plat_vanish_hover.png-eed259fba97f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/plat_vanish_hover.png"
-dest_files=["res://.godot/imported/plat_vanish_hover.png-9a37b76332b6232c11a121dc6718c282.ctex"]
+dest_files=["res://.godot/imported/plat_vanish_hover.png-eed259fba97f.ctex"]
 
 [params]
 

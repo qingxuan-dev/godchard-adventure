@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://babhtuowfurix"
-path="res://.godot/imported/s3_stone_cracked.png-476f4bd04590529ef7e13ff6026f6021.ctex"
+uid="uid://gv4_fb16cd459d60"
+path="res://.godot/imported/s3_stone_cracked.png-fb16cd459d60.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_stone_cracked.png"
-dest_files=["res://.godot/imported/s3_stone_cracked.png-476f4bd04590529ef7e13ff6026f6021.ctex"]
+dest_files=["res://.godot/imported/s3_stone_cracked.png-fb16cd459d60.ctex"]
 
 [params]
 

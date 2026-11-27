@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://inrcqe48jmvt"
-path="res://.godot/imported/mech_hopper.png-712eaef78a602e021ea035abf1612e79.ctex"
+uid="uid://gv4_9c451b4c556b"
+path="res://.godot/imported/mech_hopper.png-9c451b4c556b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_hopper.png"
-dest_files=["res://.godot/imported/mech_hopper.png-712eaef78a602e021ea035abf1612e79.ctex"]
+dest_files=["res://.godot/imported/mech_hopper.png-9c451b4c556b.ctex"]
 
 [params]
 

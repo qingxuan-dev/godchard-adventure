@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1hmnuvihp0wd"
-path="res://.godot/imported/s3_mon_manju_spike.png-694d1dba436945380697f7e0d79a0329.ctex"
+uid="uid://gv4_7f9b9ee41c59"
+path="res://.godot/imported/s3_mon_manju_spike.png-7f9b9ee41c59.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_mon_manju_spike.png"
-dest_files=["res://.godot/imported/s3_mon_manju_spike.png-694d1dba436945380697f7e0d79a0329.ctex"]
+dest_files=["res://.godot/imported/s3_mon_manju_spike.png-7f9b9ee41c59.ctex"]
 
 [params]
 

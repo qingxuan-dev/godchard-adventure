@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b12cy3sdls7jb"
-path="res://.godot/imported/crafting_station.png-41124500ea9665c90f93d6b03c508c78.ctex"
+uid="uid://gv4_15cefda644c9"
+path="res://.godot/imported/crafting_station.png-15cefda644c9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/crafting_station.png"
-dest_files=["res://.godot/imported/crafting_station.png-41124500ea9665c90f93d6b03c508c78.ctex"]
+dest_files=["res://.godot/imported/crafting_station.png-15cefda644c9.ctex"]
 
 [params]
 

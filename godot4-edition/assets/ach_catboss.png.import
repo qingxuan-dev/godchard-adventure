@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dedrsvy6dxcqa"
-path="res://.godot/imported/ach_catboss.png-a253501e6efcd003040b5031cc7c8dcc.ctex"
+uid="uid://gv4_6444365b91df"
+path="res://.godot/imported/ach_catboss.png-6444365b91df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_catboss.png"
-dest_files=["res://.godot/imported/ach_catboss.png-a253501e6efcd003040b5031cc7c8dcc.ctex"]
+dest_files=["res://.godot/imported/ach_catboss.png-6444365b91df.ctex"]
 
 [params]
 

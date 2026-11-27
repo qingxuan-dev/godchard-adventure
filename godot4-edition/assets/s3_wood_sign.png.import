@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgb3vutndvr3d"
-path="res://.godot/imported/s3_wood_sign.png-9ad1615938c8f0055629407d50b17b54.ctex"
+uid="uid://gv4_c2e24b5ae10a"
+path="res://.godot/imported/s3_wood_sign.png-c2e24b5ae10a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_wood_sign.png"
-dest_files=["res://.godot/imported/s3_wood_sign.png-9ad1615938c8f0055629407d50b17b54.ctex"]
+dest_files=["res://.godot/imported/s3_wood_sign.png-c2e24b5ae10a.ctex"]
 
 [params]
 

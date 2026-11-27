@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btbtdbeo3ijcy"
-path="res://.godot/imported/hint_ill_fracture.jpg-a2a11971b259a86a7ea51e72aab0761f.ctex"
+uid="uid://gv4_61fc689c30c1"
+path="res://.godot/imported/hint_ill_fracture.jpg-61fc689c30c1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_fracture.jpg"
-dest_files=["res://.godot/imported/hint_ill_fracture.jpg-a2a11971b259a86a7ea51e72aab0761f.ctex"]
+dest_files=["res://.godot/imported/hint_ill_fracture.jpg-61fc689c30c1.ctex"]
 
 [params]
 

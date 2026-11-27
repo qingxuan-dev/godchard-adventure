@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpkt0gd5nywon"
-path="res://.godot/imported/arrow_up_red.png-ab1fa95779ada0241cd64f6b9427f376.ctex"
+uid="uid://gv4_47026976b0bf"
+path="res://.godot/imported/arrow_up_red.png-47026976b0bf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/arrow_up_red.png"
-dest_files=["res://.godot/imported/arrow_up_red.png-ab1fa95779ada0241cd64f6b9427f376.ctex"]
+dest_files=["res://.godot/imported/arrow_up_red.png-47026976b0bf.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bppk3c5nbj7sw"
-path="res://.godot/imported/qblock.png-62e4d58368922b9371a92bc17e3d45eb.ctex"
+uid="uid://gv4_67cc6503d6df"
+path="res://.godot/imported/qblock.png-67cc6503d6df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/qblock.png"
-dest_files=["res://.godot/imported/qblock.png-62e4d58368922b9371a92bc17e3d45eb.ctex"]
+dest_files=["res://.godot/imported/qblock.png-67cc6503d6df.ctex"]
 
 [params]
 

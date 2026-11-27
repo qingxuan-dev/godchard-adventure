@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cml07m8yu287v"
-path="res://.godot/imported/s3_shop_gold.png-8278e91ddc8df1692d9da69a789edbe7.ctex"
+uid="uid://gv4_71a1448aeb6b"
+path="res://.godot/imported/s3_shop_gold.png-71a1448aeb6b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_shop_gold.png"
-dest_files=["res://.godot/imported/s3_shop_gold.png-8278e91ddc8df1692d9da69a789edbe7.ctex"]
+dest_files=["res://.godot/imported/s3_shop_gold.png-71a1448aeb6b.ctex"]
 
 [params]
 

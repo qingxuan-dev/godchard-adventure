@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxm5aa8g11lrl"
-path="res://.godot/imported/hint_ill_alchemy.jpg-d8ce4485151615e48d248db47109f47a.ctex"
+uid="uid://gv4_047fbe5f94bf"
+path="res://.godot/imported/hint_ill_alchemy.jpg-047fbe5f94bf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_alchemy.jpg"
-dest_files=["res://.godot/imported/hint_ill_alchemy.jpg-d8ce4485151615e48d248db47109f47a.ctex"]
+dest_files=["res://.godot/imported/hint_ill_alchemy.jpg-047fbe5f94bf.ctex"]
 
 [params]
 

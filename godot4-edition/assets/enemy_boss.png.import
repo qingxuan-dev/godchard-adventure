@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvua1bn2cb8bx"
-path="res://.godot/imported/enemy_boss.png-cda0f34ea3ca40363ca0c6c3a186cdf8.ctex"
+uid="uid://gv4_837a15e355f2"
+path="res://.godot/imported/enemy_boss.png-837a15e355f2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/enemy_boss.png"
-dest_files=["res://.godot/imported/enemy_boss.png-cda0f34ea3ca40363ca0c6c3a186cdf8.ctex"]
+dest_files=["res://.godot/imported/enemy_boss.png-837a15e355f2.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diholkgdgobdm"
-path="res://.godot/imported/mech_knight.png-c2c4f70bdc381d0889efa8591d47c4e9.ctex"
+uid="uid://gv4_c900ab8d90b6"
+path="res://.godot/imported/mech_knight.png-c900ab8d90b6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_knight.png"
-dest_files=["res://.godot/imported/mech_knight.png-c2c4f70bdc381d0889efa8591d47c4e9.ctex"]
+dest_files=["res://.godot/imported/mech_knight.png-c900ab8d90b6.ctex"]
 
 [params]
 

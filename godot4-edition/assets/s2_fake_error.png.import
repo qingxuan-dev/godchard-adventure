@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkfqdifbpqmr2"
-path="res://.godot/imported/s2_fake_error.png-dc2f6778afd9cb5451b817f923590607.ctex"
+uid="uid://gv4_21b1d5548d90"
+path="res://.godot/imported/s2_fake_error.png-21b1d5548d90.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_fake_error.png"
-dest_files=["res://.godot/imported/s2_fake_error.png-dc2f6778afd9cb5451b817f923590607.ctex"]
+dest_files=["res://.godot/imported/s2_fake_error.png-21b1d5548d90.ctex"]
 
 [params]
 

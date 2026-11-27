@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwgqgn2nq57o2"
-path="res://.godot/imported/s2_fake_save.png-21eef9d5fdf6db46201dd944b0920e0a.ctex"
+uid="uid://gv4_a7ac0f1770a3"
+path="res://.godot/imported/s2_fake_save.png-a7ac0f1770a3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_fake_save.png"
-dest_files=["res://.godot/imported/s2_fake_save.png-21eef9d5fdf6db46201dd944b0920e0a.ctex"]
+dest_files=["res://.godot/imported/s2_fake_save.png-a7ac0f1770a3.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0p4nb3hm1mu2"
-path="res://.godot/imported/logo_title.png-ea1a6773f2bc6107f1f69d7b9a974688.ctex"
+uid="uid://gv4_c5e1d8324d1f"
+path="res://.godot/imported/logo_title.png-c5e1d8324d1f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/logo_title.png"
-dest_files=["res://.godot/imported/logo_title.png-ea1a6773f2bc6107f1f69d7b9a974688.ctex"]
+dest_files=["res://.godot/imported/logo_title.png-c5e1d8324d1f.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdq31riucdktp"
-path="res://.godot/imported/mech_shroom.png-6d37f8c36e7b7746635eb7b71b7ceeb1.ctex"
+uid="uid://gv4_28a945e9d816"
+path="res://.godot/imported/mech_shroom.png-28a945e9d816.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_shroom.png"
-dest_files=["res://.godot/imported/mech_shroom.png-6d37f8c36e7b7746635eb7b71b7ceeb1.ctex"]
+dest_files=["res://.godot/imported/mech_shroom.png-28a945e9d816.ctex"]
 
 [params]
 

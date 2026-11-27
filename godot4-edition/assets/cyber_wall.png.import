@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwyo77y63ckya"
-path="res://.godot/imported/cyber_wall.png-0842630c1248cf7e948880c3d61ae8ae.ctex"
+uid="uid://gv4_cd4ae1289836"
+path="res://.godot/imported/cyber_wall.png-cd4ae1289836.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cyber_wall.png"
-dest_files=["res://.godot/imported/cyber_wall.png-0842630c1248cf7e948880c3d61ae8ae.ctex"]
+dest_files=["res://.godot/imported/cyber_wall.png-cd4ae1289836.ctex"]
 
 [params]
 

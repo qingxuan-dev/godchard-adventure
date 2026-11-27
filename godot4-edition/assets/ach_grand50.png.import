@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mq1y5j6suvlg"
-path="res://.godot/imported/ach_grand50.png-628eb7077ea96841d18f65d58da90c15.ctex"
+uid="uid://gv4_b266abd021e9"
+path="res://.godot/imported/ach_grand50.png-b266abd021e9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_grand50.png"
-dest_files=["res://.godot/imported/ach_grand50.png-628eb7077ea96841d18f65d58da90c15.ctex"]
+dest_files=["res://.godot/imported/ach_grand50.png-b266abd021e9.ctex"]
 
 [params]
 

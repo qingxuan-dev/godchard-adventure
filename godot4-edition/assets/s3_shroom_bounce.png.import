@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bawujr6o5ghcr"
-path="res://.godot/imported/s3_shroom_bounce.png-3eee2b3d701f61ba5e2ad06fbafd3eed.ctex"
+uid="uid://gv4_3c9e85249adb"
+path="res://.godot/imported/s3_shroom_bounce.png-3c9e85249adb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_shroom_bounce.png"
-dest_files=["res://.godot/imported/s3_shroom_bounce.png-3eee2b3d701f61ba5e2ad06fbafd3eed.ctex"]
+dest_files=["res://.godot/imported/s3_shroom_bounce.png-3c9e85249adb.ctex"]
 
 [params]
 

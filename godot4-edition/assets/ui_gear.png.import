@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhrfpwm1iised"
-path="res://.godot/imported/ui_gear.png-d4527592ad124be99c093d8a3b177a47.ctex"
+uid="uid://gv4_762cf70ff04a"
+path="res://.godot/imported/ui_gear.png-762cf70ff04a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_gear.png"
-dest_files=["res://.godot/imported/ui_gear.png-d4527592ad124be99c093d8a3b177a47.ctex"]
+dest_files=["res://.godot/imported/ui_gear.png-762cf70ff04a.ctex"]
 
 [params]
 

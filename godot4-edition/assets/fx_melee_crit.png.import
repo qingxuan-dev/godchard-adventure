@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckeatc188ir4e"
-path="res://.godot/imported/fx_melee_crit.png-30a49835c60e23780cbad93f9c921ce9.ctex"
+uid="uid://gv4_a13aaaea148e"
+path="res://.godot/imported/fx_melee_crit.png-a13aaaea148e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/fx_melee_crit.png"
-dest_files=["res://.godot/imported/fx_melee_crit.png-30a49835c60e23780cbad93f9c921ce9.ctex"]
+dest_files=["res://.godot/imported/fx_melee_crit.png-a13aaaea148e.ctex"]
 
 [params]
 

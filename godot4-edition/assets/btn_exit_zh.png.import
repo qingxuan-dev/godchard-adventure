@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ri0uhd145ivv"
-path="res://.godot/imported/btn_exit_zh.png-1744a271de6568ad67bcadb9852c64e4.ctex"
+uid="uid://gv4_a44adfa72ce5"
+path="res://.godot/imported/btn_exit_zh.png-a44adfa72ce5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/btn_exit_zh.png"
-dest_files=["res://.godot/imported/btn_exit_zh.png-1744a271de6568ad67bcadb9852c64e4.ctex"]
+dest_files=["res://.godot/imported/btn_exit_zh.png-a44adfa72ce5.ctex"]
 
 [params]
 

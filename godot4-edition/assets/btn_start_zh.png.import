@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl3jd2cctibor"
-path="res://.godot/imported/btn_start_zh.png-476b7ca084442c37faa62f6856f153e6.ctex"
+uid="uid://gv4_5105f5841d0b"
+path="res://.godot/imported/btn_start_zh.png-5105f5841d0b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/btn_start_zh.png"
-dest_files=["res://.godot/imported/btn_start_zh.png-476b7ca084442c37faa62f6856f153e6.ctex"]
+dest_files=["res://.godot/imported/btn_start_zh.png-5105f5841d0b.ctex"]
 
 [params]
 

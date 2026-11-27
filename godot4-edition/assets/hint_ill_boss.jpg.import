@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c00ni3ug6wj65"
-path="res://.godot/imported/hint_ill_boss.jpg-74f37ac3033ea7ac669b1f19375987a4.ctex"
+uid="uid://gv4_948cac4cd022"
+path="res://.godot/imported/hint_ill_boss.jpg-948cac4cd022.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_boss.jpg"
-dest_files=["res://.godot/imported/hint_ill_boss.jpg-74f37ac3033ea7ac669b1f19375987a4.ctex"]
+dest_files=["res://.godot/imported/hint_ill_boss.jpg-948cac4cd022.ctex"]
 
 [params]
 

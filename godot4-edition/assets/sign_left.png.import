@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ondx35jf8460"
-path="res://.godot/imported/sign_left.png-2a923d1c818aa8e8271207b0afc2ae9c.ctex"
+uid="uid://gv4_36943d285e13"
+path="res://.godot/imported/sign_left.png-36943d285e13.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/sign_left.png"
-dest_files=["res://.godot/imported/sign_left.png-2a923d1c818aa8e8271207b0afc2ae9c.ctex"]
+dest_files=["res://.godot/imported/sign_left.png-36943d285e13.ctex"]
 
 [params]
 

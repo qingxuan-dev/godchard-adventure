@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi4rxesp0kdvc"
-path="res://.godot/imported/s2_node_on.png-8178ad9ac4b0d0b9e25ed535228c960d.ctex"
+uid="uid://gv4_a20839b4fb48"
+path="res://.godot/imported/s2_node_on.png-a20839b4fb48.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_node_on.png"
-dest_files=["res://.godot/imported/s2_node_on.png-8178ad9ac4b0d0b9e25ed535228c960d.ctex"]
+dest_files=["res://.godot/imported/s2_node_on.png-a20839b4fb48.ctex"]
 
 [params]
 

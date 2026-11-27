@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byif11r8tni71"
-path="res://.godot/imported/s2_troll_hand.png-3c5ca0b21c97aebc3c7efe9b9c930002.ctex"
+uid="uid://gv4_edc2f7890c18"
+path="res://.godot/imported/s2_troll_hand.png-edc2f7890c18.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_troll_hand.png"
-dest_files=["res://.godot/imported/s2_troll_hand.png-3c5ca0b21c97aebc3c7efe9b9c930002.ctex"]
+dest_files=["res://.godot/imported/s2_troll_hand.png-edc2f7890c18.ctex"]
 
 [params]
 

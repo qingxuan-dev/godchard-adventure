@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2vhchiq5yu1q"
-path="res://.godot/imported/s3_suction_pipe.png-e73a5cfbf85b49511917c6ea8e55ca86.ctex"
+uid="uid://gv4_8536df6c65eb"
+path="res://.godot/imported/s3_suction_pipe.png-8536df6c65eb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_suction_pipe.png"
-dest_files=["res://.godot/imported/s3_suction_pipe.png-e73a5cfbf85b49511917c6ea8e55ca86.ctex"]
+dest_files=["res://.godot/imported/s3_suction_pipe.png-8536df6c65eb.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdog7hhv5ece"
-path="res://.godot/imported/s3_sun_calm.png-bdaec94db4c855fe81dde333c858e76f.ctex"
+uid="uid://gv4_0f36251558c4"
+path="res://.godot/imported/s3_sun_calm.png-0f36251558c4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_sun_calm.png"
-dest_files=["res://.godot/imported/s3_sun_calm.png-bdaec94db4c855fe81dde333c858e76f.ctex"]
+dest_files=["res://.godot/imported/s3_sun_calm.png-0f36251558c4.ctex"]
 
 [params]
 

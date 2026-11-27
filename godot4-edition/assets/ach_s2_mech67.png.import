@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2bt5vqcop80a"
-path="res://.godot/imported/ach_s2_mech67.png-dd0f5d2b60f4c17f7539045c323e96b7.ctex"
+uid="uid://gv4_4b332749649f"
+path="res://.godot/imported/ach_s2_mech67.png-4b332749649f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_mech67.png"
-dest_files=["res://.godot/imported/ach_s2_mech67.png-dd0f5d2b60f4c17f7539045c323e96b7.ctex"]
+dest_files=["res://.godot/imported/ach_s2_mech67.png-4b332749649f.ctex"]
 
 [params]
 

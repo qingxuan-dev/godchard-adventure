@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dotukkdn1lcbh"
-path="res://.godot/imported/mech_spider.png-15f258b341a1d2e567e3ed0ea4c995ef.ctex"
+uid="uid://gv4_f82d98f2d1da"
+path="res://.godot/imported/mech_spider.png-f82d98f2d1da.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_spider.png"
-dest_files=["res://.godot/imported/mech_spider.png-15f258b341a1d2e567e3ed0ea4c995ef.ctex"]
+dest_files=["res://.godot/imported/mech_spider.png-f82d98f2d1da.ctex"]
 
 [params]
 

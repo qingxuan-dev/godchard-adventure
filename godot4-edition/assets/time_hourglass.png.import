@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3821e08ywh1"
-path="res://.godot/imported/time_hourglass.png-1f254393b1db08a7e2fa3624adaafb0c.ctex"
+uid="uid://gv4_beacd807add8"
+path="res://.godot/imported/time_hourglass.png-beacd807add8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/time_hourglass.png"
-dest_files=["res://.godot/imported/time_hourglass.png-1f254393b1db08a7e2fa3624adaafb0c.ctex"]
+dest_files=["res://.godot/imported/time_hourglass.png-beacd807add8.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbmpcec8rhu2b"
-path="res://.godot/imported/s2_battery.png-05094264dae450378757931eee1a676b.ctex"
+uid="uid://gv4_398ff80b15aa"
+path="res://.godot/imported/s2_battery.png-398ff80b15aa.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_battery.png"
-dest_files=["res://.godot/imported/s2_battery.png-05094264dae450378757931eee1a676b.ctex"]
+dest_files=["res://.godot/imported/s2_battery.png-398ff80b15aa.ctex"]
 
 [params]
 

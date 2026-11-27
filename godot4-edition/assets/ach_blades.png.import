@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jlggwtyy31l"
-path="res://.godot/imported/ach_blades.png-f91b6420e0ffbebd7eebb0af76f1aa06.ctex"
+uid="uid://gv4_8640f666164d"
+path="res://.godot/imported/ach_blades.png-8640f666164d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_blades.png"
-dest_files=["res://.godot/imported/ach_blades.png-f91b6420e0ffbebd7eebb0af76f1aa06.ctex"]
+dest_files=["res://.godot/imported/ach_blades.png-8640f666164d.ctex"]
 
 [params]
 

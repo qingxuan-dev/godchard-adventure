@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bukg0j3jq521j"
-path="res://.godot/imported/ach_s2_fracture.png-b75eb2133627f887666a714c8dc60a3c.ctex"
+uid="uid://gv4_0d2443fc5229"
+path="res://.godot/imported/ach_s2_fracture.png-0d2443fc5229.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_fracture.png"
-dest_files=["res://.godot/imported/ach_s2_fracture.png-b75eb2133627f887666a714c8dc60a3c.ctex"]
+dest_files=["res://.godot/imported/ach_s2_fracture.png-0d2443fc5229.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcis1x05h8spp"
-path="res://.godot/imported/heart.png-9a2fa56e49d8a002fed7c28ce07513e0.ctex"
+uid="uid://gv4_bf60d7fe5814"
+path="res://.godot/imported/heart.png-bf60d7fe5814.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/heart.png"
-dest_files=["res://.godot/imported/heart.png-9a2fa56e49d8a002fed7c28ce07513e0.ctex"]
+dest_files=["res://.godot/imported/heart.png-bf60d7fe5814.ctex"]
 
 [params]
 

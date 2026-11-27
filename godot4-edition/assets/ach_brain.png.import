@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cm1t4e4r62l16"
-path="res://.godot/imported/ach_brain.png-7748878889a6b79a814e4412139f650d.ctex"
+uid="uid://gv4_68d78041fcd3"
+path="res://.godot/imported/ach_brain.png-68d78041fcd3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_brain.png"
-dest_files=["res://.godot/imported/ach_brain.png-7748878889a6b79a814e4412139f650d.ctex"]
+dest_files=["res://.godot/imported/ach_brain.png-68d78041fcd3.ctex"]
 
 [params]
 

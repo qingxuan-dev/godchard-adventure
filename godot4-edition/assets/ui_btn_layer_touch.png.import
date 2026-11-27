@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf0njobb0thty"
-path="res://.godot/imported/ui_btn_layer_touch.png-18fc1c07041b8f01fff3487204ebf10e.ctex"
+uid="uid://gv4_fc59bb1ef4d9"
+path="res://.godot/imported/ui_btn_layer_touch.png-fc59bb1ef4d9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_btn_layer_touch.png"
-dest_files=["res://.godot/imported/ui_btn_layer_touch.png-18fc1c07041b8f01fff3487204ebf10e.ctex"]
+dest_files=["res://.godot/imported/ui_btn_layer_touch.png-fc59bb1ef4d9.ctex"]
 
 [params]
 

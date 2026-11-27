@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b26wdqixxnawo"
-path="res://.godot/imported/flower_chomp.png-596d540db52d12973d83abd7e18a7da7.ctex"
+uid="uid://gv4_9dddc7877ae4"
+path="res://.godot/imported/flower_chomp.png-9dddc7877ae4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/flower_chomp.png"
-dest_files=["res://.godot/imported/flower_chomp.png-596d540db52d12973d83abd7e18a7da7.ctex"]
+dest_files=["res://.godot/imported/flower_chomp.png-9dddc7877ae4.ctex"]
 
 [params]
 

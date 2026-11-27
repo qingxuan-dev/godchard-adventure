@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c00xeuiiubkit"
-path="res://.godot/imported/cat_nav_nervous.png-8ad6163d3a232f81ac9b3448ff90377e.ctex"
+uid="uid://gv4_a21239934b1a"
+path="res://.godot/imported/cat_nav_nervous.png-a21239934b1a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cat_nav_nervous.png"
-dest_files=["res://.godot/imported/cat_nav_nervous.png-8ad6163d3a232f81ac9b3448ff90377e.ctex"]
+dest_files=["res://.godot/imported/cat_nav_nervous.png-a21239934b1a.ctex"]
 
 [params]
 

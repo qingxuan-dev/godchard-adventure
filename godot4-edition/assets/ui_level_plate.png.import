@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do8o2k3m2j5r1"
-path="res://.godot/imported/ui_level_plate.png-0f8c2a3433b78cc1a78bfeda644101d4.ctex"
+uid="uid://gv4_fed5e20476c7"
+path="res://.godot/imported/ui_level_plate.png-fed5e20476c7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_level_plate.png"
-dest_files=["res://.godot/imported/ui_level_plate.png-0f8c2a3433b78cc1a78bfeda644101d4.ctex"]
+dest_files=["res://.godot/imported/ui_level_plate.png-fed5e20476c7.ctex"]
 
 [params]
 

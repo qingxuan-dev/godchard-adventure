@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d16njdjy7belr"
-path="res://.godot/imported/s3_shop_phase.png-d34b67c0601f7c0291d520fdf9cf713e.ctex"
+uid="uid://gv4_0b4b1dd9d7b2"
+path="res://.godot/imported/s3_shop_phase.png-0b4b1dd9d7b2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_shop_phase.png"
-dest_files=["res://.godot/imported/s3_shop_phase.png-d34b67c0601f7c0291d520fdf9cf713e.ctex"]
+dest_files=["res://.godot/imported/s3_shop_phase.png-0b4b1dd9d7b2.ctex"]
 
 [params]
 

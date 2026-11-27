@@ -1,8 +1,29 @@
 class_name Sector1And2Mechanics
 extends RefCounted
+
 const LARGE_MECH_KINDS: Array[String] = [
 	"mech_golem", "mech_crab", "mech_tank", "mech_knight", "mech_exec", "shield_mech", "turret"
 ]
+
+const S2_SOLID_TYPES: Array[String] = [
+	"signal_gate", "signal_bridge", "phase_plat", "polarity_block", "rail_plat",
+	"conveyor", "glass_panel", "time_slice_plat", "beat_gate", "null_block",
+	"shy_brick", "moving_pit", "ceiling_crusher", "fake_error", "popup_404",
+	"weight_scale", "poison_fog_door", "ghost_train", "wood_crate", "ferry_plat"
+]
+
+const S2_ENTITY_TYPES: Array[String] = [
+	"signal_node", "decoy_btn", "electric_arc", "polarity_node",
+	"wind_zone", "heat_vent", "cool_pad", "piston", "saw_track",
+	"signal_battery", "battery_slot", "echo_pad", "echo_rec_pad",
+	"layer_term", "portal", "time_bubble", "time_node", "beat_clock",
+	"root_term", "perm_terminal", "root_item", "root_slot", "mem_shard",
+	"mimic_chest", "mimic_flag", "betray_spring", "trojan_heart",
+	"curse_totem", "troll_hand", "fake_save", "peace_dove", "peace_dove_nuke",
+	"s2_enemy", "s2_boss", "forklift", "spotlight", "spore_key",
+	"white_flower", "patch_chip", "patch_slot", "return_slot", "debt_tag", "control_orb"
+]
+
 static func is_in_active_layer(obj: Dictionary, active_layer: int) -> bool:
 	if not obj.has("layer") or obj["layer"] == null:
 		return true
@@ -10,6 +31,7 @@ static func is_in_active_layer(obj: Dictionary, active_layer: int) -> bool:
 	if lyr < 0:
 		return true
 	return lyr == active_layer
+
 static func is_dual_layer_stage(lv: Dictionary) -> bool:
 	if lv.is_empty():
 		return false
@@ -21,9 +43,10 @@ static func is_dual_layer_stage(lv: Dictionary) -> bool:
 		var o: Dictionary = o_var
 		if str(o.get("t", "")) == "layer_term":
 			return true
-		if o.has("layer") and o["layer"] != null:
+		if o.has("layer") and o["layer"] != null and int(o["layer"]) >= 0:
 			return true
 	return false
+
 static func is_signal_gate_open(s: Dictionary, signal_groups: Dictionary) -> bool:
 	var grp: String = str(s.get("group", ""))
 	var raw_val: Variant = signal_groups.get(grp, false) if grp != "" else false
@@ -33,6 +56,7 @@ static func is_signal_gate_open(s: Dictionary, signal_groups: Dictionary) -> boo
 	else:
 		active = bool(raw_val)
 	return (not active) if bool(s.get("invert", false)) else active
+
 static func is_signal_bridge_on(s: Dictionary, signal_groups: Dictionary) -> bool:
 	var grp: String = str(s.get("group", ""))
 	var raw_val: Variant = signal_groups.get(grp, false) if grp != "" else false
@@ -42,6 +66,7 @@ static func is_signal_bridge_on(s: Dictionary, signal_groups: Dictionary) -> boo
 	else:
 		active = bool(raw_val)
 	return (not active) if bool(s.get("invert", false)) else active
+
 static func is_solid_collidable(s: Dictionary, active_layer: int, signal_groups: Dictionary) -> bool:
 	if bool(s.get("broken", false)):
 		return false
@@ -50,11 +75,15 @@ static func is_solid_collidable(s: Dictionary, active_layer: int, signal_groups:
 	var t: String = str(s.get("t", ""))
 	if t == "signal_gate":
 		return not is_signal_gate_open(s, signal_groups)
+	if t == "poison_fog_door":
+		return not bool(s.get("unlocked", false)) and not is_signal_gate_open(s, signal_groups)
 	if t == "signal_bridge":
 		return is_signal_bridge_on(s, signal_groups)
 	if t == "phase_plat" or t == "null_block":
 		return str(s.get("phase_state", "solid")) != "ghost"
 	if t == "glass_panel":
+		if bool(s.get("schrodinger_ghost", false)):
+			return false
 		return bool(s.get("real", true))
 	if t == "time_slice_plat":
 		return float(s.get("solid_timer", 0.0)) > 0.0
@@ -63,6 +92,7 @@ static func is_solid_collidable(s: Dictionary, active_layer: int, signal_groups:
 	if t == "shy_brick":
 		return bool(s.get("shy_solid", true))
 	return true
+
 static func get_local_time_scale(px: float, py: float, entities: Array) -> float:
 	var mul: float = 1.0
 	for e_var in entities:
@@ -76,7 +106,8 @@ static func get_local_time_scale(px: float, py: float, entities: Array) -> float
 				if factor < mul:
 					mul = factor
 	return mul
-static func init_attempt_state(eng: RefCounted, lv: Dictionary, props: Dictionary, cp: Dictionary) -> void:
+
+static func init_attempt_state(eng: RefCounted, _lv: Dictionary, props: Dictionary, cp: Dictionary) -> void:
 	eng.active_layer = int(cp.get("layer", int(props.get("startLayer", 0)))) if not cp.is_empty() else int(props.get("startLayer", 0))
 	eng.signal_groups = {}
 	var init_sig: Dictionary = props.get("initSignals", {})
@@ -86,6 +117,7 @@ static func init_attempt_state(eng: RefCounted, lv: Dictionary, props: Dictionar
 		var cp_sig: Dictionary = cp["signal_groups"]
 		for k2 in cp_sig.keys():
 			eng.signal_groups[str(k2)] = cp_sig[k2]
+
 	eng.polarity_groups = {}
 	var init_pol: Dictionary = props.get("initPolarity", {})
 	for kp in init_pol.keys():
@@ -94,16 +126,19 @@ static func init_attempt_state(eng: RefCounted, lv: Dictionary, props: Dictionar
 		var cp_pol: Dictionary = cp["polarity_groups"]
 		for kp2 in cp_pol.keys():
 			eng.polarity_groups[str(kp2)] = str(cp_pol[kp2])
+
 	eng.seq_progress = {}
 	if not cp.is_empty() and cp.has("seq_progress"):
 		var cp_seq: Dictionary = cp["seq_progress"]
 		for ks in cp_seq.keys():
 			eng.seq_progress[str(ks)] = int(cp_seq[ks])
+
 	eng.purified_save_keys = {}
 	if not cp.is_empty() and cp.has("purified_save_keys"):
 		var cp_ps: Dictionary = cp["purified_save_keys"]
 		for kps in cp_ps.keys():
 			eng.purified_save_keys[str(kps)] = bool(cp_ps[kps])
+
 	eng.portal_cooldown = 0.0
 	eng.layer_switch_cd = 0.0
 	eng.plat_freeze_timer = 0.0
@@ -118,17 +153,28 @@ static func init_attempt_state(eng: RefCounted, lv: Dictionary, props: Dictionar
 		eng.player["reverse_curse_timer"] = 0.0
 		eng.player["in_curse_mirror"] = false
 		eng.player["in_curse_jump_shot"] = false
+
 static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) -> bool:
 	var lv_id: int = int(lv.get("id", 1))
-	var key: String = "%d_s2_%d" % [lv_id, idx]
+	var key: String = str(o.get("uuid", "%d_s2_%d" % [lv_id, idx]))
 	var layer_val: int = int(o["layer"]) if (o.has("layer") and o["layer"] != null) else -1
 	var t: String = str(o.get("t", ""))
 	var ox: float = float(o.get("x", 0.0))
 	var oy: float = float(o.get("y", 0.0))
+
+	if t == "popup_404":
+		t = "fake_error"
+	elif t == "perm_terminal":
+		t = "root_term"
+	elif t == "peace_dove_nuke":
+		t = "peace_dove"
+	elif t == "forklift":
+		t = "s2_enemy"
+
 	if t == "signal_gate":
 		var gh: float = float(o.get("h", 2.0))
 		eng.solids.append({
-			"key": key, "t": "signal_gate",
+			"uuid": key, "key": key, "t": "signal_gate",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, gh),
 			"w": float(o.get("w", 0.65)) * GridMath.TILE, "h": gh * GridMath.TILE,
 			"group": str(o.get("group", "g1")),
@@ -137,10 +183,74 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
+	if t == "poison_fog_door":
+		var pfh: float = float(o.get("h", 2.2))
+		eng.solids.append({
+			"uuid": key, "key": key, "t": "poison_fog_door",
+			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, pfh),
+			"w": float(o.get("w", 0.85)) * GridMath.TILE, "h": pfh * GridMath.TILE,
+			"group": str(o.get("group", "")),
+			"require_spore_key": bool(o.get("requireSporeKey", true)),
+			"unlocked": false,
+			"layer": layer_val, "broken": false
+		})
+		return true
+
+	if t == "weight_scale" or (t == "solid" and str(o.get("role", "")) == "weight_scale"):
+		var wsh: float = float(o.get("h", 0.75))
+		var wsx: float = GridMath.gx_to_px(ox)
+		var wsy: float = GridMath.gy_to_py(oy, wsh)
+		eng.solids.append({
+			"uuid": key, "key": key, "t": "weight_scale",
+			"x": wsx, "y": wsy, "base_x": wsx, "base_y": wsy,
+			"w": float(o.get("w", 2.6)) * GridMath.TILE, "h": wsh * GridMath.TILE,
+			"target_weight": int(o.get("targetWeight", 2)),
+			"max_weight": int(o.get("maxWeight", 5)),
+			"current_weight": 0,
+			"linked_gate_uuid": str(o.get("linkedGateUuid", "")),
+			"unlock_group": str(o.get("unlockGroup", o.get("group", ""))),
+			"layer": layer_val, "broken": false
+		})
+		return true
+
+	if t == "wood_crate":
+		var wch: float = float(o.get("h", 1.0))
+		var wcx: float = GridMath.gx_to_px(ox)
+		var wcy: float = GridMath.gy_to_py(oy, wch)
+		eng.solids.append({
+			"uuid": key, "key": key, "t": "wood_crate", "skin": "wood",
+			"x": wcx, "y": wcy, "base_x": wcx, "base_y": wcy,
+			"w": float(o.get("w", 1.0)) * GridMath.TILE, "h": wch * GridMath.TILE,
+			"pushable": bool(o.get("pushable", true)),
+			"gaze_move": bool(o.get("gazeMove", false)),
+			"weight": int(o.get("weight", 2)),
+			"layer": layer_val, "broken": false
+		})
+		return true
+
+	if t == "ghost_train" or t == "ferry_plat":
+		var gth: float = float(o.get("h", 1.1))
+		var gtx: float = GridMath.gx_to_px(ox)
+		var gty: float = GridMath.gy_to_py(oy, gth)
+		eng.solids.append({
+			"uuid": key, "key": key, "t": t,
+			"x": gtx, "y": gty, "base_x": gtx, "base_y": gty,
+			"dx_px": float(o.get("dx", 8.0)) * GridMath.TILE,
+			"dy_px": float(o.get("dy", 0.0)) * GridMath.TILE,
+			"w": float(o.get("w", 3.4)) * GridMath.TILE, "h": gth * GridMath.TILE,
+			"speed": float(o.get("speed", 1.6)),
+			"group": str(o.get("group", "ferry_1")),
+			"decoupled": false,
+			"prog": 0.0, "dir": 1.0,
+			"layer": layer_val, "broken": false
+		})
+		return true
+
 	if t == "signal_bridge":
 		var bh: float = float(o.get("h", 0.65))
 		eng.solids.append({
-			"key": key, "t": "signal_bridge",
+			"uuid": key, "key": key, "t": "signal_bridge",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, bh),
 			"w": float(o.get("w", 3.0)) * GridMath.TILE, "h": bh * GridMath.TILE,
 			"group": str(o.get("group", "g1")),
@@ -148,22 +258,25 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "phase_plat":
 		var ph: float = float(o.get("h", 0.68))
 		eng.solids.append({
-			"key": key, "t": "phase_plat",
+			"uuid": key, "key": key, "t": "phase_plat",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, ph),
 			"w": float(o.get("w", 2.4)) * GridMath.TILE, "h": ph * GridMath.TILE,
 			"period": float(o.get("period", 3.4)),
 			"duty": float(o.get("duty", 0.56)),
 			"offset": float(o.get("offset", 0.0)),
 			"lock_group": str(o.get("lockGroup", "")),
+			"clone_activate": bool(o.get("cloneActivate", false)),
 			"local_clock": 0.0,
 			"phase_state": "solid",
 			"foot_hold_protected": false,
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "polarity_block":
 		var pbh: float = float(o.get("h", 1.2))
 		var bx: float = GridMath.gx_to_px(ox)
@@ -173,7 +286,7 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		var orange_gx: float = float(o.get("orangeX", ox + 3.0))
 		var orange_gy: float = float(o.get("orangeY", oy))
 		eng.solids.append({
-			"key": key, "t": "polarity_block",
+			"uuid": key, "key": key, "t": "polarity_block",
 			"x": bx, "y": by,
 			"blue_x": GridMath.gx_to_px(blue_gx), "blue_y": GridMath.gy_to_py(blue_gy, pbh),
 			"orange_x": GridMath.gx_to_px(orange_gx), "orange_y": GridMath.gy_to_py(orange_gy, pbh),
@@ -182,12 +295,13 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "rail_plat":
 		var rh: float = float(o.get("h", 0.68))
 		var sx: float = GridMath.gx_to_px(ox)
 		var sy: float = GridMath.gy_to_py(oy, rh)
 		eng.solids.append({
-			"key": key, "t": "rail_plat",
+			"uuid": key, "key": key, "t": "rail_plat",
 			"x": sx, "y": sy, "base_x": sx, "base_y": sy,
 			"dx_px": float(o.get("dx", 0.0)) * GridMath.TILE,
 			"dy_px": float(o.get("dy", 0.0)) * GridMath.TILE,
@@ -201,10 +315,11 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "conveyor":
 		var ch: float = float(o.get("h", 0.85))
 		eng.solids.append({
-			"key": key, "t": "conveyor",
+			"uuid": key, "key": key, "t": "conveyor",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, ch),
 			"w": float(o.get("w", 4.0)) * GridMath.TILE, "h": ch * GridMath.TILE,
 			"belt_vx": float(o.get("beltVx", 135.0)),
@@ -213,23 +328,27 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "glass_panel":
 		var gph: float = float(o.get("h", 0.68))
 		eng.solids.append({
-			"key": key, "t": "glass_panel",
+			"uuid": key, "key": key, "t": "glass_panel",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, gph),
 			"w": float(o.get("w", 2.0)) * GridMath.TILE, "h": gph * GridMath.TILE,
 			"real": bool(o.get("real", true)),
+			"gaze_vanish": bool(o.get("gazeVanish", false)),
+			"schrodinger_ghost": false,
 			"tested": false, "revealed_fake": false,
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "time_slice_plat":
 		var tsh: float = float(o.get("h", 0.68))
 		var tsx: float = GridMath.gx_to_px(ox)
 		var tsy: float = GridMath.gy_to_py(oy, tsh)
 		eng.solids.append({
-			"key": key, "t": "time_slice_plat",
+			"uuid": key, "key": key, "t": "time_slice_plat",
 			"x": tsx, "y": tsy, "base_x": tsx, "base_y": tsy,
 			"dx_px": float(o.get("dx", 0.0)) * GridMath.TILE,
 			"dy_px": float(o.get("dy", 0.0)) * GridMath.TILE,
@@ -241,10 +360,11 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "beat_gate":
 		var bgh: float = float(o.get("h", 2.6))
 		eng.solids.append({
-			"key": key, "t": "beat_gate",
+			"uuid": key, "key": key, "t": "beat_gate",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, bgh),
 			"w": float(o.get("w", 0.72)) * GridMath.TILE, "h": bgh * GridMath.TILE,
 			"period": float(o.get("period", 5.5)),
@@ -254,10 +374,11 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "null_block":
 		var nbh: float = float(o.get("h", 1.0))
 		eng.solids.append({
-			"key": key, "t": "null_block",
+			"uuid": key, "key": key, "t": "null_block",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, nbh),
 			"w": float(o.get("w", 2.5)) * GridMath.TILE, "h": nbh * GridMath.TILE,
 			"period": float(o.get("period", 4.4)),
@@ -269,10 +390,11 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "shy_brick":
 		var sbh: float = float(o.get("h", 0.82))
 		eng.solids.append({
-			"key": key, "t": "shy_brick",
+			"uuid": key, "key": key, "t": "shy_brick",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, sbh),
 			"w": float(o.get("w", 2.1)) * GridMath.TILE, "h": sbh * GridMath.TILE,
 			"mode": str(o.get("mode", "shy")),
@@ -280,12 +402,13 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "moving_pit":
 		var mph: float = float(o.get("h", 0.85))
 		var mpx: float = GridMath.gx_to_px(ox)
 		var mpy: float = GridMath.gy_to_py(oy, mph)
 		eng.solids.append({
-			"key": key, "t": "moving_pit",
+			"uuid": key, "key": key, "t": "moving_pit",
 			"x": mpx, "y": mpy, "base_x": mpx, "base_y": mpy,
 			"w": float(o.get("w", 2.5)) * GridMath.TILE, "h": mph * GridMath.TILE,
 			"scoot_dx_px": float(o.get("scootDx", 2.8)) * GridMath.TILE,
@@ -296,12 +419,13 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "ceiling_crusher":
 		var cch: float = float(o.get("h", 1.5))
 		var ccx: float = GridMath.gx_to_px(ox)
 		var ccy: float = GridMath.gy_to_py(oy, cch)
 		eng.solids.append({
-			"key": key, "t": "ceiling_crusher",
+			"uuid": key, "key": key, "t": "ceiling_crusher",
 			"x": ccx, "y": ccy, "base_x": ccx, "base_y": ccy,
 			"w": float(o.get("w", 1.7)) * GridMath.TILE, "h": cch * GridMath.TILE,
 			"max_drop_px": float(o.get("dropTiles", 3.0)) * GridMath.TILE,
@@ -312,43 +436,47 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 			"layer": layer_val, "broken": false
 		})
 		return true
+
 	if t == "fake_error":
 		var feh: float = float(o.get("h", 2.1))
 		var already_broken: bool = bool(eng.broken_solid_keys.get(key, false))
+		var ptype: String = str(o.get("popupType", o.get("mode", "close_x")))
 		eng.solids.append({
-			"key": key, "t": "fake_error",
+			"uuid": key, "key": key, "t": "fake_error",
 			"x": GridMath.gx_to_px(ox), "y": GridMath.gy_to_py(oy, feh),
 			"w": float(o.get("w", 2.7)) * GridMath.TILE, "h": feh * GridMath.TILE,
-			"mode": str(o.get("mode", "close_x")),
+			"mode": ptype,
+			"pushable_block": false,
 			"unlock_group": str(o.get("unlockGroup", "")),
 			"title_text": str(o.get("titleText", "ERR_404")),
 			"hit_flash": 0.0,
 			"layer": layer_val, "broken": already_broken
 		})
 		return true
-	var s2_ent_types: Array[String] = [
-		"signal_node", "decoy_btn", "electric_arc", "polarity_node",
-		"wind_zone", "heat_vent", "cool_pad", "piston", "saw_track",
-		"signal_battery", "battery_slot", "echo_pad", "echo_rec_pad",
-		"layer_term", "portal", "time_bubble", "time_node", "beat_clock",
-		"root_term", "root_item", "root_slot", "mem_shard",
-		"mimic_chest", "mimic_flag", "betray_spring", "trojan_heart",
-		"curse_totem", "troll_hand", "fake_save", "peace_dove",
-		"s2_enemy", "s2_boss"
-	]
-	if not (t in s2_ent_types):
+
+	if not (t in S2_ENTITY_TYPES):
 		return false
+
 	var ent: Dictionary = o.duplicate(true)
+	ent["uuid"] = key
 	ent["key"] = key
+	ent["t"] = t
 	ent["layer"] = layer_val
 	ent["hit_cd"] = 0.0
-	if t in ["signal_node", "polarity_node", "time_node", "beat_clock"]:
+	if str(o.get("t", "")) == "forklift":
+		ent["kind"] = "forklift"
+
+	if t in ["signal_node", "polarity_node", "time_node", "beat_clock", "spotlight"]:
 		ent["x"] = GridMath.gx_to_px(ox)
 		ent["y"] = GridMath.gy_to_py(oy, 1.1)
 		ent["w"] = 1.1 * GridMath.TILE
 		ent["h"] = 1.1 * GridMath.TILE
 		ent["activated_once"] = false
-	elif t == "decoy_btn":
+		if t == "spotlight" or str(o.get("role", "")) == "spotlight":
+			ent["t"] = "spotlight"
+			ent["off"] = bool(o.get("startOff", false))
+			ent["destructible"] = bool(o.get("destructible", true))
+	elif t == "decoy_btn" or t == "return_slot":
 		ent["x"] = GridMath.gx_to_px(ox)
 		ent["y"] = GridMath.gy_to_py(oy, 0.85)
 		ent["w"] = 1.0 * GridMath.TILE
@@ -394,7 +522,7 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		ent["h"] = 1.25 * GridMath.TILE
 		ent["speed"] = float(o.get("speed", 2.0))
 		ent["phase"] = float(o.get("offset", 0.0))
-	elif t in ["signal_battery", "root_item", "mem_shard"]:
+	elif t in ["signal_battery", "root_item", "mem_shard", "patch_chip", "spore_key", "debt_tag", "control_orb"]:
 		ent["x"] = GridMath.gx_to_px(ox) + 4.0
 		ent["y"] = GridMath.gy_to_py(oy, 0.95)
 		ent["spawn_x"] = float(ent["x"])
@@ -405,13 +533,13 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		ent["inserted"] = false
 		if t == "mem_shard":
 			var sid: String = str(o.get("shardId", key))
-			ent["already_collected"] = bool(eng.save.shards.get(sid, false))
+			ent["already_collected"] = eng.save != null and bool(eng.save.shards.get(sid, false))
 		elif bool(eng.consumed_carry_keys.get(key, false)):
 			return true
 		elif not eng.active_checkpoint.is_empty() and str(eng.active_checkpoint.get("carrying_item_key", "")) == key:
 			ent["carried"] = true
 			eng.carrying_item = ent
-	elif t in ["battery_slot", "root_slot", "echo_pad", "echo_rec_pad"]:
+	elif t in ["battery_slot", "root_slot", "patch_slot", "echo_pad", "echo_rec_pad"]:
 		ent["x"] = GridMath.gx_to_px(ox)
 		ent["y"] = GridMath.gy_to_py(oy, 0.85)
 		ent["w"] = float(o.get("w", 1.2)) * GridMath.TILE
@@ -440,8 +568,14 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		ent["w"] = r_px * 2.0
 		ent["h"] = r_px * 2.0
 		ent["slow_factor"] = float(o.get("slowFactor", 0.28))
+	elif t == "white_flower":
+		ent["x"] = GridMath.gx_to_px(ox) + 4.0
+		ent["y"] = GridMath.gy_to_py(oy, 0.92)
+		ent["w"] = 0.85 * GridMath.TILE
+		ent["h"] = 0.92 * GridMath.TILE
+		ent["aggro"] = false
 	elif t == "s2_enemy":
-		var kind: String = str(o.get("kind", "patrol"))
+		var kind: String = str(ent.get("kind", "patrol"))
 		var is_large: bool = kind in LARGE_MECH_KINDS
 		ent["x"] = GridMath.gx_to_px(ox)
 		ent["spawn_x"] = float(ent["x"])
@@ -560,6 +694,8 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		ent["h"] = 1.15 * GridMath.TILE
 		ent["mode"] = str(o.get("mode", "ambush"))
 		ent["awake"] = bool(o.get("startAwake", false))
+		ent["swallowed_bomb"] = false
+		ent["swallowed_sign"] = false
 		ent["max_hp"] = int(o.get("hp", 6))
 		ent["hp"] = int(ent["max_hp"])
 		ent["vx"] = 0.0
@@ -605,6 +741,7 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		ent["curse_type"] = str(o.get("curseType", "mirror_lr"))
 		ent["can_disable"] = bool(o.get("canDisable", true))
 		ent["disable_timer"] = 0.0
+		ent["auto_fire_cd"] = 1.35
 	elif t == "troll_hand":
 		ent["base_x"] = GridMath.gx_to_px(ox)
 		ent["base_y"] = GridMath.gy_to_py(oy, 1.65)
@@ -647,8 +784,10 @@ static func spawn_obj(eng: RefCounted, o: Dictionary, idx: int, lv: Dictionary) 
 		var pgg: String = str(o.get("peaceGateGroup", ""))
 		if pgg != "" and not eng.signal_groups.has(pgg):
 			eng.signal_groups[pgg] = true
+
 	eng.entities.append(ent)
 	return true
+
 static func try_shift_dual_layer(eng: RefCounted, from_terminal: bool = false) -> bool:
 	if not is_dual_layer_stage(eng.lv_data):
 		return false
@@ -659,7 +798,7 @@ static func try_shift_dual_layer(eng: RefCounted, from_terminal: bool = false) -
 		return false
 	var lv_props: Dictionary = eng.lv_data.get("props", {})
 	var next_layer: int = 1 if eng.active_layer == 0 else 0
-	var p_box: Rect2 = Rect2(float(p["x"]) + 3.0, float(p["y"]) + 3.0, float(p["w"]) - 6.0, float(p["h"]) - 6.0)
+
 	var target_solids: Array = []
 	for s_var in eng.solids:
 		var s: Dictionary = s_var
@@ -672,60 +811,40 @@ static func try_shift_dual_layer(eng: RefCounted, from_terminal: bool = false) -
 			continue
 		if not is_solid_collidable(s, next_layer, eng.signal_groups):
 			continue
-		if eng.lv_id >= 101 and not Sector3Arcadia.is_solid_collidable(s, eng.s3_sundial_phase):
+		if not Sector3Arcadia.is_solid_collidable(s, eng.s3_sundial_phase):
 			continue
 		target_solids.append(s)
-	var hit_solids: Array = []
-	for ts_var in target_solids:
-		var ts: Dictionary = ts_var
-		if GridMath.aabb_overlap(p_box, Rect2(float(ts["x"]), float(ts["y"]), float(ts["w"]), float(ts["h"]))):
-			hit_solids.append(ts)
-	if hit_solids.size() > 0:
-		var hs0: Dictionary = hit_solids[0]
-		var only_lip: bool = hit_solids.size() == 1 and (float(p["y"]) + float(p["h"]) - float(hs0["y"])) <= 14.0 and (float(p["y"]) > float(hs0["y"]) - float(p["h"]) - 2.0)
-		var nudged_ok: bool = false
-		if only_lip:
-			var nudged_box: Rect2 = Rect2(float(p["x"]) + 3.0, float(hs0["y"]) - float(p["h"]) + 2.0, float(p["w"]) - 6.0, float(p["h"]) - 6.0)
-			nudged_ok = true
-			for ts2_var in target_solids:
-				var ts2: Dictionary = ts2_var
-				if ts2 != hs0 and GridMath.aabb_overlap(nudged_box, Rect2(float(ts2["x"]), float(ts2["y"]), float(ts2["w"]), float(ts2["h"]))):
-					nudged_ok = false
-					break
-		if nudged_ok:
-			p["y"] = float(hs0["y"]) - float(p["h"])
-		else:
-			eng.emit_sfx("layer_deny")
-			eng.layer_switch_cd = 0.25
-			eng.add_shock_ring(float(p["x"]) + float(p["w"]) * 0.5, float(p["y"]) + float(p["h"]) * 0.5, Color("#f43f5e"), 40.0, 0.25)
-			eng.emit_toast("目标层有墙体阻挡 · 禁止切层！", "TARGET LAYER BLOCKED!", "cat_nav_nervous", "#f43f5e")
-			return false
-	var target_grav: float = float(p.get("grav_dir", 1.0))
-	if bool(lv_props.get("layerInvertGrav", false)):
-		target_grav = -1.0 if next_layer == 1 else 1.0
-	var probe_h: float = GridMath.TILE * 4.0
-	var foot_probe: Rect2 = (
-		Rect2(float(p["x"]) - 10.0, float(p["y"]) + float(p["h"]) - 8.0, float(p["w"]) + 20.0, probe_h)
-		if target_grav > 0.0
-		else Rect2(float(p["x"]) - 10.0, float(p["y"]) - probe_h + 8.0, float(p["w"]) + 20.0, probe_h)
+
+	var p_rect: Rect2 = Rect2(float(p["x"]), float(p["y"]), float(p["w"]), float(p["h"]))
+	var preview: Dictionary = eng.world_state.preview_layer_shift(
+		p_rect,
+		target_solids,
+		next_layer,
+		bool(lv_props.get("layerInvertGrav", false)),
+		bool(lv_props.get("allowFreeLayerShift", false)) or from_terminal
 	)
-	var has_safe: bool = bool(lv_props.get("allowFreeLayerShift", false)) or from_terminal
-	if not has_safe:
-		for ts3_var in target_solids:
-			var ts3: Dictionary = ts3_var
-			if GridMath.aabb_overlap(foot_probe, Rect2(float(ts3["x"]), float(ts3["y"]), float(ts3["w"]), float(ts3["h"]))):
-				has_safe = true
-				break
-	if not has_safe:
+
+	if bool(preview.get("blocked", false)):
+		eng.emit_sfx("layer_deny")
+		eng.layer_switch_cd = 0.25
+		eng.add_shock_ring(float(p["x"]) + float(p["w"]) * 0.5, float(p["y"]) + float(p["h"]) * 0.5, Color("#f43f5e"), 40.0, 0.25)
+		eng.emit_toast("目标层有墙体阻挡 · 禁止切层！", "TARGET LAYER BLOCKED!", "cat_nav_nervous", "#f43f5e")
+		return false
+
+	if not bool(preview.get("has_floor", false)):
 		eng.emit_sfx("layer_deny")
 		eng.layer_switch_cd = 0.25
 		eng.add_shock_ring(float(p["x"]) + float(p["w"]) * 0.5, float(p["y"]) + float(p["h"]) * 0.5, Color("#f43f5e"), 40.0, 0.25)
 		eng.emit_toast("目标层下方无安全落点 · 请站安全台切层！", "NO SAFE FLOOR IN TARGET LAYER!", "cat_nav_shock", "#f43f5e")
 		return false
+
+	p["y"] = float(preview.get("nudge_y", p["y"]))
 	eng.active_layer = next_layer
+	eng.world_state.active_layer = next_layer
 	eng.layer_switch_cd = 0.28
 	if bool(lv_props.get("layerInvertGrav", false)):
 		p["grav_dir"] = -1.0 if next_layer == 1 else 1.0
+		eng.world_state.set_gravity_vector(Vector2(0.0, float(p["grav_dir"])))
 		p["vy"] = float(p["grav_dir"]) * 60.0
 		eng.unlock_ach("grav_walker")
 	eng.emit_sfx("layer_switch")
@@ -741,9 +860,8 @@ static func try_shift_dual_layer(eng: RefCounted, from_terminal: bool = false) -
 	)
 	eng.hud_dirty = true
 	return true
+
 static func notify_peace_doves(eng: RefCounted, px: float, py: float) -> void:
-	if eng.lv_id < 51:
-		return
 	for e_var in eng.entities:
 		var e: Dictionary = e_var
 		if str(e.get("t", "")) == "peace_dove" and is_in_active_layer(e, eng.active_layer):
@@ -754,17 +872,20 @@ static func notify_peace_doves(eng: RefCounted, px: float, py: float) -> void:
 				if pgg != "":
 					eng.signal_groups[pgg] = false
 				eng.emit_sfx("fake_buzz")
-				eng.emit_toast("违背停战协议！白鸽暴怒封门（收手3.4秒平息）！", "CEASEFIRE BROKEN! HOLD FIRE 3.4S!", "s2_peace_dove", "#f43f5e")
+				eng.emit_toast("违背停战协议！白鸽暴怒封门（收剑停火3.4秒平息）！", "CEASEFIRE BROKEN! SHEATHE & HOLD 3.4S!", "s2_peace_dove", "#f43f5e")
+
 static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 	var p: Dictionary = eng.player
-	if p.is_empty() or bool(p.get("dead", false)) or eng.lv_id < 51:
+	if p.is_empty() or bool(p.get("dead", false)):
 		return
+
 	if eng.portal_cooldown > 0.0:
 		eng.portal_cooldown = maxf(0.0, eng.portal_cooldown - dt)
 	if eng.layer_switch_cd > 0.0:
 		eng.layer_switch_cd = maxf(0.0, eng.layer_switch_cd - dt)
 	if eng.plat_freeze_timer > 0.0:
 		eng.plat_freeze_timer = maxf(0.0, eng.plat_freeze_timer - dt)
+
 	var p_rect: Rect2 = Rect2(float(p["x"]), float(p["y"]), float(p["w"]), float(p["h"]))
 	var p_scale: float = get_local_time_scale(p_rect.get_center().x, p_rect.get_center().y, eng.entities)
 	var now_bubble: bool = p_scale < 0.8
@@ -772,27 +893,24 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 		eng.emit_sfx("time_bubble_in")
 		eng.unlock_ach("chrono_drifter")
 	eng.in_time_bubble = now_bubble
+
+	var active_wind_sum: Vector2 = Vector2.ZERO
+	var in_cool_or_shade: bool = false
+	var spotlights: Array = []
+
 	for e_var in eng.entities:
 		var e: Dictionary = e_var
 		if not is_in_active_layer(e, eng.active_layer):
 			continue
 		var et: String = str(e.get("t", ""))
-		if et == "wind_zone":
+		if et == "spotlight":
+			spotlights.append(e)
+		elif et == "wind_zone":
 			var off_g: String = str(e.get("offGroup", ""))
 			if off_g != "" and bool(eng.signal_groups.get(off_g, false)):
 				continue
 			if GridMath.aabb_overlap(p_rect, Rect2(float(e["x"]), float(e["y"]), float(e["w"]), float(e["h"]))):
-				var heavy_mul: float = 0.16 if float(p.get("heavy_curse_timer", 0.0)) > 0.0 else 1.0
-				var wvx: float = float(e.get("vx", 0.0))
-				if absf(wvx) > 0.01:
-					var drift_vx: float = wvx if absf(wvx) <= 260.0 else clampf(wvx * 0.34, -220.0, 220.0)
-					p["x"] = float(p["x"]) + drift_vx * heavy_mul * dt
-					p_rect.position.x = float(p["x"])
-				var wvy: float = float(e.get("vy", 0.0))
-				if absf(wvy) > 0.01:
-					p["vy"] = float(p["vy"]) + wvy * heavy_mul * dt
-					if wvy < 0.0 and float(p["vy"]) < -430.0:
-						p["vy"] = -430.0
+				active_wind_sum += Vector2(float(e.get("vx", 0.0)), float(e.get("vy", 0.0)))
 		elif et == "heat_vent":
 			var fan_off: bool = str(e.get("offGroup", "")) != "" and bool(eng.signal_groups.get(str(e.get("offGroup", "")), false))
 			var cyc: float = fposmod(eng.time_elapsed + float(e.get("offset", 0.0)), 4.0)
@@ -802,19 +920,42 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				var plume: Rect2 = Rect2(float(e["x"]), float(e["y"]) - 3.4 * GridMath.TILE, float(e["w"]), 3.6 * GridMath.TILE)
 				if GridMath.aabb_overlap(p_rect, plume):
 					p["vy"] = maxf(-440.0, float(p["vy"]) - 980.0 * dt)
+					p["wing_fuel"] = minf(float(p.get("max_wing_fuel", 100.0)), float(p.get("wing_fuel", 100.0)) + 45.0 * dt)
 					p["heat_meter"] = minf(100.0, float(p.get("heat_meter", 0.0)) + 46.0 * dt)
 					if float(p["heat_meter"]) >= 100.0:
 						eng.kill_player(false, "heat")
 						return
 		elif et == "cool_pad":
-			if float(p.get("heat_meter", 0.0)) > 0.0:
-				var cbox: Rect2 = Rect2(float(e["x"]) - 4.0, float(e["y"]) - 16.0, float(e["w"]) + 8.0, float(e["h"]) + 20.0)
-				if GridMath.aabb_overlap(p_rect, cbox):
+			var cbox: Rect2 = Rect2(float(e["x"]) - 4.0, float(e["y"]) - 16.0, float(e["w"]) + 8.0, float(e["h"]) + 20.0)
+			if GridMath.aabb_overlap(p_rect, cbox):
+				in_cool_or_shade = true
+				if float(p.get("heat_meter", 0.0)) > 0.0:
 					p["heat_meter"] = 0.0
 					eng.emit_sfx("coin")
 					eng.emit_toast("冷却成功 · 过热清零！", "COOLED DOWN!", "ach_iceclock", "#67e8f9")
+		elif et == "curse_totem" and str(e.get("curse_type", "")) == "auto_fire" and float(e.get("disable_timer", 0.0)) <= 0.0:
+			e["auto_fire_cd"] = float(e.get("auto_fire_cd", 1.35)) - world_dt
+			if float(e["auto_fire_cd"]) <= 0.0:
+				e["auto_fire_cd"] = 1.45
+				PlayerController.fire_energy_shot(eng, p, eng.lv_data.get("props", {}))
+
+	# Update wind inertia & shadow metrics via WorldState
+	var heavy_mul: float = 0.16 if float(p.get("heavy_curse_timer", 0.0)) > 0.0 else 1.0
+	var wind_vel: Vector2 = eng.world_state.step_wind_inertia(dt, active_wind_sum, heavy_mul, bool(p.get("wings_folded", false)))
+	if absf(wind_vel.x) > 0.5:
+		p["x"] = float(p["x"]) + wind_vel.x * dt
+		p_rect.position.x = float(p["x"])
+	if absf(wind_vel.y) > 0.5:
+		p["vy"] = float(p["vy"]) + wind_vel.y * dt
+		if wind_vel.y < 0.0 and float(p["vy"]) < -430.0:
+			p["vy"] = -430.0
+
+	eng.world_state.compute_shadow_metrics(p_rect, spotlights)
+	eng.world_state.step_sun_heat(dt, in_cool_or_shade, false)
+
 	if float(p.get("heat_meter", 0.0)) > 0.0:
 		p["heat_meter"] = maxf(0.0, float(p["heat_meter"]) - 8.0 * dt)
+
 	for s_var in eng.solids:
 		var s: Dictionary = s_var
 		if bool(s.get("broken", false)):
@@ -822,7 +963,58 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 		var st: String = str(s.get("t", ""))
 		var local_mul: float = 0.0 if eng.plat_freeze_timer > 0.0 else get_local_time_scale(float(s["x"]) + float(s["w"]) * 0.5, float(s["y"]) + float(s["h"]) * 0.5, eng.entities)
 		var s_dt: float = world_dt * local_mul
-		if st == "phase_plat":
+
+		if st == "poison_fog_door" and not bool(s.get("unlocked", false)):
+			var near_door: bool = p_rect.grow(14.0).intersects(Rect2(float(s["x"]), float(s["y"]), float(s["w"]), float(s["h"])))
+			if near_door and (bool(p.get("has_spore_key", false)) or float(p.get("poison_timer", 0.0)) > 0.0):
+				s["unlocked"] = true
+				p["has_spore_key"] = false
+				eng.emit_sfx("node_on")
+				eng.emit_toast("孢子密钥已认证 · 毒雾门开启！", "SPORE KEY VERIFIED · FOG DOOR OPEN!", "v2_poison_fog_door", "#4ade80")
+
+		elif st == "weight_scale":
+			var w_total: int = 0
+			var scale_probe: Rect2 = Rect2(float(s["x"]) - 4.0, float(s["y"]) - 28.0, float(s["w"]) + 8.0, 36.0)
+			if is_in_active_layer(s, eng.active_layer) and GridMath.aabb_overlap(p_rect, scale_probe):
+				w_total += 1 + int(p.get("carried_coins", 0)) + (1 if bool(p.get("shield", false)) else 0)
+			for we_var in eng.entities:
+				var we: Dictionary = we_var
+				if bool(we.get("carried", false)):
+					continue
+				var wer: Rect2 = Rect2(float(we.get("x", 0.0)), float(we.get("y", 0.0)), float(we.get("w", 24.0)), float(we.get("h", 24.0)))
+				if GridMath.aabb_overlap(scale_probe, wer):
+					w_total += maxi(1, int(we.get("weight", 1)))
+			s["current_weight"] = w_total
+			var prev_wsy: float = float(s["y"])
+			var target_wsy: float = float(s["base_y"]) + float(w_total - int(s["target_weight"])) * 16.0
+			s["y"] = move_toward(prev_wsy, target_wsy, 165.0 * dt)
+			if bool(p["on_ground"]) and GridMath.aabb_overlap(p_rect, scale_probe):
+				p["y"] = float(p["y"]) + (float(s["y"]) - prev_wsy)
+			var balanced: bool = w_total == int(s["target_weight"])
+			var ug_ws: String = str(s.get("unlock_group", ""))
+			if ug_ws != "":
+				eng.signal_groups[ug_ws] = balanced
+			var lgu: String = str(s.get("linked_gate_uuid", ""))
+			if lgu != "" and balanced and eng.has_method("fire_logic_event"):
+				eng.fire_logic_event(str(s["uuid"]), "on_activate", { "weight": w_total })
+
+		elif st == "wood_crate":
+			if bool(s.get("gaze_move", false)):
+				var p_c: Vector2 = p_rect.get_center()
+				var s_r: Rect2 = Rect2(float(s["x"]), float(s["y"]), float(s["w"]), float(s["h"]))
+				if not GridMath.is_player_looking_at(p_c, int(p["facing"]), s_r, 420.0):
+					s["x"] = move_toward(float(s["x"]), float(s["base_x"]) + 96.0, 95.0 * s_dt)
+			if bool(s.get("pushable", true)) and is_in_active_layer(s, eng.active_layer):
+				var push_box: Rect2 = Rect2(float(s["x"]) - 4.0, float(s["y"]) + 4.0, float(s["w"]) + 8.0, float(s["h"]) - 8.0)
+				if GridMath.aabb_overlap(p_rect, push_box) and absf(float(p["vx"])) > 20.0:
+					s["x"] = float(s["x"]) + signf(float(p["vx"])) * 115.0 * dt
+
+		elif st == "glass_panel":
+			if bool(s.get("gaze_vanish", false)):
+				var gp_r: Rect2 = Rect2(float(s["x"]), float(s["y"]), float(s["w"]), float(s["h"]))
+				s["schrodinger_ghost"] = GridMath.is_player_looking_at(p_rect.get_center(), int(p["facing"]), gp_r, 400.0)
+
+		elif st == "phase_plat":
 			var lg: String = str(s.get("lock_group", ""))
 			if lg != "" and bool(eng.signal_groups.get(lg, false)):
 				s["phase_state"] = "solid"
@@ -841,6 +1033,7 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			else:
 				s["phase_state"] = desired
 				s["foot_hold_protected"] = false
+
 		elif st == "null_block":
 			var sg: String = str(s.get("stabilize_group", ""))
 			if bool(s.get("gold_safe", false)) or (sg != "" and bool(eng.signal_groups.get(sg, false))):
@@ -853,6 +1046,7 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			var des_n: String = "solid" if cyc_n < (solid_end - 0.85) else ("warn" if cyc_n < solid_end else "ghost")
 			var stand_n: bool = is_in_active_layer(s, eng.active_layer) and bool(p["on_ground"]) and float(p["x"]) + float(p["w"]) > float(s["x"]) + 2.0 and float(p["x"]) < float(s["x"]) + float(s["w"]) - 2.0 and absf(float(p["y"]) + float(p["h"]) - float(s["y"])) <= 10.0
 			s["phase_state"] = "warn" if (des_n == "ghost" and stand_n) else des_n
+
 		elif st == "polarity_block":
 			var mode_p: String = str(eng.polarity_groups.get(str(s.get("group", "m1")), "blue"))
 			var tx: float = float(s["orange_x"]) if mode_p == "orange" else float(s["blue_x"])
@@ -868,7 +1062,8 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				if is_in_active_layer(s, eng.active_layer) and bool(p["on_ground"]) and float(p["x"]) + float(p["w"]) > prev_x + 2.0 and float(p["x"]) < prev_x + float(s["w"]) - 2.0 and absf(float(p["y"]) + float(p["h"]) - prev_y) <= 10.0:
 					p["x"] = float(p["x"]) + (float(s["x"]) - prev_x)
 					p["y"] = float(p["y"]) + (float(s["y"]) - prev_y)
-		elif st == "rail_plat":
+
+		elif st == "rail_plat" or st == "ghost_train" or st == "ferry_plat":
 			var rg: String = str(s.get("req_group", ""))
 			var ag: String = str(s.get("anchor_group", ""))
 			if (rg != "" and not bool(eng.signal_groups.get(rg, false))) or (ag != "" and bool(eng.signal_groups.get(ag, false))):
@@ -878,23 +1073,24 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				continue
 			var rpx: float = float(s["x"])
 			var rpy: float = float(s["y"])
-			var span_r: float = maxf(1.0, Vector2(float(s["dx_px"]), float(s["dy_px"])).length())
-			var rate_r: float = (float(s["speed"]) * GridMath.TILE) / span_r
-			var prog_r: float = float(s["prog"]) + float(s["dir"]) * rate_r * s_dt
+			var span_r: float = maxf(1.0, Vector2(float(s.get("dx_px", 0.0)), float(s.get("dy_px", 0.0))).length())
+			var rate_r: float = (float(s.get("speed", 1.45)) * GridMath.TILE) / span_r
+			var prog_r: float = float(s.get("prog", 0.0)) + float(s.get("dir", 1.0)) * rate_r * s_dt
 			if prog_r >= 1.0:
 				prog_r = 1.0
 				s["dir"] = -1.0
-				s["wait_timer"] = float(s["dwell"])
+				s["wait_timer"] = float(s.get("dwell", 0.45))
 			elif prog_r <= 0.0:
 				prog_r = 0.0
 				s["dir"] = 1.0
-				s["wait_timer"] = float(s["dwell"])
+				s["wait_timer"] = float(s.get("dwell", 0.45))
 			s["prog"] = prog_r
-			s["x"] = float(s["base_x"]) + float(s["dx_px"]) * prog_r
-			s["y"] = float(s["base_y"]) - float(s["dy_px"]) * prog_r
+			s["x"] = float(s["base_x"]) + float(s.get("dx_px", 0.0)) * prog_r
+			s["y"] = float(s["base_y"]) - float(s.get("dy_px", 0.0)) * prog_r
 			if is_in_active_layer(s, eng.active_layer) and bool(p["on_ground"]) and float(p["x"]) + float(p["w"]) > rpx + 2.0 and float(p["x"]) < rpx + float(s["w"]) - 2.0 and absf(float(p["y"]) + float(p["h"]) - rpy) <= 10.0:
 				p["x"] = float(p["x"]) + (float(s["x"]) - rpx)
 				p["y"] = float(p["y"]) + (float(s["y"]) - rpy)
+
 		elif st == "time_slice_plat":
 			if float(s.get("solid_timer", 0.0)) > 0.0:
 				s["solid_timer"] = maxf(0.0, float(s["solid_timer"]) - dt)
@@ -907,6 +1103,7 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			if float(s.get("solid_timer", 0.0)) > 0.0 and is_in_active_layer(s, eng.active_layer) and bool(p["on_ground"]) and float(p["x"]) + float(p["w"]) > tspx + 2.0 and float(p["x"]) < tspx + float(s["w"]) - 2.0 and absf(float(p["y"]) + float(p["h"]) - tspy) <= 10.0:
 				p["x"] = float(p["x"]) + (float(s["x"]) - tspx)
 				p["y"] = float(p["y"]) + (float(s["y"]) - tspy)
+
 		elif st == "beat_gate":
 			s["local_clock"] = float(s.get("local_clock", 0.0)) + s_dt
 			var per_b: float = maxf(1.5, float(s["period"]))
@@ -917,11 +1114,12 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			s["warn"] = (not bool(s["is_open"])) and (cyc_b >= per_b - 0.85)
 			if bool(s["is_open"]) and not was_open and absf(float(s["x"]) - float(p["x"])) < 420.0:
 				eng.emit_sfx("beat_open")
+
 		elif st == "shy_brick":
 			if not is_in_active_layer(s, eng.active_layer):
 				continue
-			var dx_sb: float = (float(s["x"]) + float(s["w"]) * 0.5) - (float(p["x"]) + float(p["w"]) * 0.5)
-			var looking: bool = (dx_sb * float(p["facing"])) > 0.0 if absf(dx_sb) > 6.0 else false
+			var sb_r: Rect2 = Rect2(float(s["x"]), float(s["y"]), float(s["w"]), float(s["h"]))
+			var looking: bool = GridMath.is_player_looking_at(p_rect.get_center(), int(p["facing"]), sb_r, 480.0)
 			var want_s: bool = looking if str(s.get("mode", "shy")) == "stare" else (not looking)
 			if want_s:
 				s["shy_solid"] = true
@@ -931,6 +1129,7 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				s["shy_solid"] = true
 			else:
 				s["shy_solid"] = false
+
 		elif st == "moving_pit":
 			if not is_in_active_layer(s, eng.active_layer):
 				continue
@@ -961,6 +1160,7 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				if float(s["return_timer"]) <= 0.0:
 					s["triggered"] = false
 					s["scoot_done"] = false
+
 		elif st == "ceiling_crusher":
 			if not is_in_active_layer(s, eng.active_layer):
 				continue
@@ -1005,20 +1205,43 @@ static func step_pre_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				if float(s["y"]) <= float(s["base_y"]) + 0.5:
 					s["y"] = float(s["base_y"])
 					s["state"] = "idle"
+
 		elif st == "fake_error":
 			if float(s.get("hit_flash", 0.0)) > 0.0:
 				s["hit_flash"] = maxf(0.0, float(s["hit_flash"]) - dt)
+			if bool(s.get("pushable_block", false)) and is_in_active_layer(s, eng.active_layer):
+				var fe_push: Rect2 = Rect2(float(s["x"]) - 4.0, float(s["y"]) + 4.0, float(s["w"]) + 8.0, float(s["h"]) - 8.0)
+				if GridMath.aabb_overlap(p_rect, fe_push) and absf(float(p["vx"])) > 20.0:
+					s["x"] = float(s["x"]) + signf(float(p["vx"])) * 125.0 * dt
+					if str(s.get("mode", "")) == "load_bearing":
+						eng.world_state.safe_mode_active = true
+						if str(s.get("unlock_group", "")) != "":
+							eng.signal_groups[str(s["unlock_group"])] = true
+
 static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 	var b_rect: Rect2 = Rect2(float(b["x"]), float(b["y"]), float(b["w"]), float(b["h"]))
 	var b_vx: float = float(b.get("vx", 400.0))
+
 	for fe_var in eng.solids:
 		var fe: Dictionary = fe_var
 		if str(fe.get("t", "")) == "fake_error" and not bool(fe.get("broken", false)) and is_in_active_layer(fe, eng.active_layer):
 			var fe_rect: Rect2 = Rect2(float(fe["x"]), float(fe["y"]), float(fe["w"]), float(fe["h"]))
 			if GridMath.aabb_overlap(b_rect, fe_rect):
+				var fem: String = str(fe.get("mode", "close_x"))
 				var hit_top: bool = float(b["y"]) <= float(fe["y"]) + float(fe["h"]) * 0.44
-				var hit_back: bool = str(fe.get("mode", "")) == "back_slash" and b_vx < 0.0
-				if (str(fe.get("mode", "close_x")) == "close_x" and hit_top) or hit_back:
+				var hit_back: bool = fem == "back_slash" and b_vx < 0.0
+				if fem == "wire_pushable" and hit_top:
+					fe["pushable_block"] = true
+					fe["hit_flash"] = 0.25
+					eng.emit_sfx("node_on")
+					eng.emit_toast("弹窗信号线已切断 · 窗口化作可推动垫脚块！", "WIRE CUT · POPUP NOW PUSHABLE!", "s2_fake_error", "#38bdf8")
+					return true
+				if fem == "load_bearing":
+					fe["pushable_block"] = true
+					eng.emit_sfx("fake_buzz")
+					eng.emit_toast("承重错误窗不可关闭 · 推到控制台触发安全模式！", "LOAD-BEARING POPUP · PUSH TO CONSOLE!", "s2_fake_error", "#fde047")
+					return true
+				if ((fem == "close_x" or fem == "normal_x") and hit_top) or hit_back:
 					fe["broken"] = true
 					eng.broken_solid_keys[str(fe["key"])] = true
 					var ug_fe: String = str(fe.get("unlock_group", ""))
@@ -1031,10 +1254,11 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 					fe["hit_flash"] = 0.2
 					eng.emit_sfx("fake_buzz")
 					eng.emit_toast(
-						"关不掉的弹窗 · 直接跳上红标题栏当桥踩！" if str(fe.get("mode", "")) == "walk_top" else "跳起来瞄准弹窗顶部红栏 [X] 关闭它！",
+						"关不掉的弹窗 · 直接跳上红标题栏当桥踩！" if (fem == "walk_top" or fem == "rogue_walkable") else "跳起来瞄准弹窗顶部红栏 [X] 关闭它！",
 						"AIM AT THE TOP RED BAR [X]!", "s2_fake_error", "#fde047"
 					)
 				return true
+
 	for gs_var in eng.solids:
 		var gs: Dictionary = gs_var
 		if str(gs.get("t", "")) == "glass_panel" and is_in_active_layer(gs, eng.active_layer):
@@ -1046,6 +1270,7 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 				else:
 					gs["revealed_fake"] = true
 					eng.emit_sfx("fake_wall_shatter")
+
 	var props: Dictionary = eng.lv_data.get("props", {})
 	if bool(props.get("bulletDelayBubble", false)) and not bool(b.get("delayed_once", false)):
 		for tb_var in eng.entities:
@@ -1057,9 +1282,11 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 					b["hold_timer"] = 0.62
 					b["saved_vx"] = b_vx
 					b["vx"] = 0.0
-					b["life"] = float(b["life"]) + 1.2
+					b["solid_platform"] = true
+					b["life"] = float(b["life"]) + 1.4
 					eng.emit_sfx("time_bubble_in")
 					break
+
 	for j in range(eng.entities.size() - 1, -1, -1):
 		var e: Dictionary = eng.entities[j]
 		var et: String = str(e.get("t", ""))
@@ -1068,10 +1295,24 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 		var er: Rect2 = Rect2(float(e.get("x", 0.0)), float(e.get("y", 0.0)), float(e.get("w", 0.0)), float(e.get("h", 0.0)))
 		if er.size.x <= 0.0 or not GridMath.aabb_overlap(b_rect, er):
 			continue
+
+		if et == "spotlight":
+			e["off"] = not bool(e.get("off", false))
+			eng.emit_sfx("mirror_ping")
+			var sp_g: String = str(e.get("group", ""))
+			if sp_g != "":
+				eng.signal_groups[sp_g] = not bool(e["off"])
+			if eng.has_method("fire_logic_event"):
+				eng.fire_logic_event(str(e.get("uuid", "")), "on_hit", { "off": bool(e["off"]) })
+			return true
+
 		if et == "signal_node":
 			if float(e.get("hit_cd", 0.0)) > 0.0:
 				return true
 			e["hit_cd"] = 0.22
+			var wire_color: String = str(e.get("wireColor", ""))
+			if wire_color != "" and eng.boss_sm != null:
+				eng.boss_sm.on_puzzle_event(eng, "cut_" + wire_color.to_lower(), {})
 			if bool(e.get("fake", false)):
 				eng.emit_sfx("fake_buzz")
 				eng.emit_toast("伪信号节点 · 无光纤连接！", "DECOY NODE!", "cat_nav_taunt", "#ff2ab4")
@@ -1107,6 +1348,7 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 					eng.emit_sfx("fake_buzz")
 					eng.emit_toast("节点顺序错误 · 本组已重置！", "WRONG SEQUENCE!", "cat_nav_doubt", "#f43f5e")
 				return true
+
 			var cnt_g: String = str(e.get("countGroup", ""))
 			var grp_n: String = str(e.get("group", ""))
 			if cnt_g != "":
@@ -1124,7 +1366,10 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 			eng.unlock_ach("signal_hacker")
 			eng.add_shock_ring(er.get_center().x, er.get_center().y, Color("#00f5ff"), 40.0, 0.26)
 			eng.emit_toast("信号链路已接通！" if is_on else "信号节点已切换！", "SIGNAL NODE TOGGLED!", "s2_node_on", "#4ade80" if is_on else "#00f5ff")
+			if eng.has_method("fire_logic_event"):
+				eng.fire_logic_event(str(e.get("uuid", "")), "on_hit", { "active": is_on })
 			return true
+
 		if et == "polarity_node":
 			if float(e.get("hit_cd", 0.0)) > 0.0:
 				return true
@@ -1138,15 +1383,19 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 			eng.unlock_ach("polarity_pro")
 			eng.add_shock_ring(er.get_center().x, er.get_center().y, Color("#fb923c" if next_p == "orange" else "#3b82f6"), 42.0, 0.26)
 			return true
+
 		if et == "layer_term":
 			if float(e.get("hit_cd", 0.0)) <= 0.0:
 				e["hit_cd"] = 0.28
 				try_shift_dual_layer(eng, true)
 			return true
+
 		if et == "time_node":
 			if float(e.get("hit_cd", 0.0)) > 0.0:
 				return true
 			e["hit_cd"] = 0.25
+			if eng.boss_sm != null:
+				eng.boss_sm.on_puzzle_event(eng, "time_node_locked", {})
 			var sl_g: String = str(e.get("sliceGroup", ""))
 			if sl_g != "":
 				for s_ts_var in eng.solids:
@@ -1159,14 +1408,25 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 				eng.plat_freeze_timer = 0.0 if eng.plat_freeze_timer > 0.0 else 4.2
 				eng.emit_sfx("node_on" if eng.plat_freeze_timer > 0.0 else "node_off")
 			return true
+
 		if et == "beat_clock":
 			eng.beat_extend_bonus = 3.2
-			eng.emit_sfx("boom")
+			eng.emit_sfx("clock_gear")
 			eng.emit_toast("节拍闸开启窗口已延长 +3.2s！", "BEAT GATE +3.2S!", "clock_gear", "#fde047")
 			eng.entities.remove_at(j)
 			return true
-		if et == "root_term" and str(e.get("mode", "")) == "shoot":
-			if not bool(e.get("activated", false)):
+
+		if et == "root_term":
+			var pmodes: Array = e.get("permModes", []) if typeof(e.get("permModes", null)) == TYPE_ARRAY else []
+			if not pmodes.is_empty():
+				var cur_idx: int = pmodes.find(eng.world_state.root_permission)
+				var next_perm: String = str(pmodes[(cur_idx + 1) % pmodes.size()])
+				eng.world_state.set_permission(next_perm)
+				eng.emit_sfx("node_on")
+				eng.emit_toast("根源权限已切换至 [%s]！" % next_perm, "PERMISSION: %s!" % next_perm, "s2_root_term", "#00f5ff")
+				eng.hud_dirty = true
+				return true
+			if str(e.get("mode", "")) == "shoot" and not bool(e.get("activated", false)):
 				e["activated"] = true
 				var rt_g: String = str(e.get("group", ""))
 				var rt_cg: String = str(e.get("countGroup", ""))
@@ -1177,6 +1437,7 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 				eng.emit_sfx("node_on")
 				eng.emit_toast("根源权限终端已激活！", "ROOT TERMINAL ACTIVATED!", "s2_root_term", "#fde047")
 			return true
+
 		if et == "s2_enemy":
 			var off_ge: String = str(e.get("offGroup", ""))
 			if off_ge != "" and bool(eng.signal_groups.get(off_ge, false)):
@@ -1205,6 +1466,7 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 					return true
 			apply_monster_damage(eng, e, j, 2 if bool(b.get("upgraded", false)) else 1, int(signf(b_vx)), false)
 			return true
+
 		if et == "betray_spring" and str(e.get("mode", "")) == "calibrate":
 			if float(e.get("hit_cd", 0.0)) <= 0.0:
 				e["hit_cd"] = 0.25
@@ -1215,6 +1477,7 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 					eng.signal_groups[str(e["calibGroup"])] = next_cal
 				eng.emit_sfx("node_on" if next_cal else "node_off")
 			return true
+
 		if et == "trojan_heart" and float(e.get("respawn_cd", 0.0)) <= 0.0 and str(e.get("mode", "")) == "shoot_to_buff":
 			e["respawn_cd"] = 999.0
 			eng.player["shield"] = true
@@ -1223,12 +1486,14 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 			eng.emit_sfx("shield_up")
 			eng.hud_dirty = true
 			return true
+
 		if et == "curse_totem" and bool(e.get("can_disable", true)) and float(e.get("disable_timer", 0.0)) <= 0.0:
 			e["disable_timer"] = 9999.0 if bool(e.get("permanentOff", false)) else 5.5
 			if str(e.get("offGroup", "")) != "":
 				eng.signal_groups[str(e["offGroup"])] = true
 			eng.emit_sfx("node_off")
 			return true
+
 		if et == "fake_save" and not bool(e.get("purified", false)):
 			e["purified"] = true
 			eng.purified_save_keys[str(e["key"])] = true
@@ -1237,17 +1502,42 @@ static func handle_bullet_hit(eng: RefCounted, b: Dictionary) -> bool:
 			eng.emit_sfx("node_on")
 			eng.emit_toast("恶魔病毒已格式化 · 化作安全存档点！", "SAFE CHECKPOINT READY!", "checkpoint_on", "#4ade80")
 			return true
+
 		if et == "mimic_chest":
 			e["awake"] = true
-			if str(e.get("mode", "")) == "bomb_feed":
-				eng.emit_sfx("armor_clang")
-				eng.emit_toast("宝箱怪免疫刀枪 · 往它嘴里投颗炸弹！", "FEED IT A BOMB!", "bomb", "#fde047")
+			var mcm: String = str(e.get("mode", "ambush"))
+			if mcm == "bullet_spit":
+				var spit_dir: float = -signf(b_vx) if absf(b_vx) > 1.0 else -1.0
+				eng.bullets.append({
+					"x": (float(e["x"]) + float(e["w"]) + 6.0) if spit_dir > 0.0 else (float(e["x"]) - 30.0),
+					"y": float(e["y"]) + 10.0,
+					"w": 24.0, "h": 18.0,
+					"vx": spit_dir * 510.0, "vy": 0.0,
+					"upgraded": true, "reflected": true, "life": 1.8
+				})
+				eng.emit_sfx("spring")
+				return true
+			if mcm == "bomb_feed":
+				if bool(e.get("swallowed_bomb", false)):
+					e["swallowed_bomb"] = false
+					eng.explode_at(float(e["x"]) + float(e["w"]) * 0.5, float(e["y"]), 140.0, false)
+				else:
+					eng.emit_sfx("armor_clang")
+					eng.emit_toast("宝箱怪免疫刀枪 · 往它嘴里投颗炸弹！", "FEED IT A BOMB!", "bomb", "#fde047")
 			else:
 				apply_monster_damage(eng, e, j, 1, int(signf(b_vx)), false)
 			return true
+
 		if et == "s2_boss" and not bool(e.get("defeated", false)):
+			if eng.boss_sm != null and str(eng.boss_sm.state.get("boss_key", "")) == "lv070_mecha":
+				if bool(b.get("reflected", false)):
+					eng.boss_sm.on_puzzle_event(eng, "right_shoulder_reflect", {})
+				else:
+					eng.boss_sm.on_puzzle_event(eng, "left_shoulder_normal", {})
 			return damage_boss(eng, e, bool(b.get("reflected", false)), false, false, 1)
+
 	return false
+
 static func apply_monster_damage(eng: RefCounted, e: Dictionary, idx: int, dmg: int, hit_dir: int, is_melee: bool) -> void:
 	e["hp"] = maxi(0, int(e.get("hp", 5)) - dmg)
 	e["armor_flash"] = 0.20 if is_melee else 0.12
@@ -1259,85 +1549,104 @@ static func apply_monster_damage(eng: RefCounted, e: Dictionary, idx: int, dmg: 
 		eng.add_shock_ring(ecx, ecy, Color("#fde047"), 42.0, 0.20)
 	else:
 		eng.emit_sfx("block")
+
 	if int(e["hp"]) <= 0:
 		eng.emit_sfx("enemy_kill")
 		eng.trigger_shake(6.0, 0.20)
 		var is_lg: bool = str(e.get("tier", "small")) == "large"
 		var gain: int = 5 if is_lg else 2
-		eng.save.add_coins(gain)
+		if eng.save != null:
+			eng.save.add_coins(gain)
 		eng.hud_dirty = true
 		eng.add_float_text(float(e["x"]), float(e["y"]) - 22.0, "KO +%dG" % gain, "#4ade80")
 		eng.spawn_particles(ecx, ecy, Color("#fb923c" if is_lg else "#00f5ff"), 20)
 		var okg: String = str(e.get("onKillGroup", ""))
 		if okg != "":
 			eng.signal_groups[okg] = true
+		if eng.has_method("fire_logic_event"):
+			eng.fire_logic_event(str(e.get("uuid", "")), "on_kill", {})
 		if idx >= 0 and idx < eng.entities.size() and eng.entities[idx] == e:
 			eng.entities.remove_at(idx)
 		else:
 			eng.entities.erase(e)
+
 static func damage_boss(eng: RefCounted, boss: Dictionary, reflected: bool, is_melee: bool, is_bomb: bool, explicit_dmg: int) -> bool:
 	var dmg: int = explicit_dmg if explicit_dmg > 0 else (5 if is_bomb else (3 if is_melee else 1))
-	var bk: String = str(boss.get("bossKind", ""))
+	if eng.boss_sm != null and bool(eng.boss_sm.state.get("active", false)):
+		var intercepted: bool = eng.boss_sm.on_boss_hit(eng, boss, dmg, {
+			"reflected": reflected,
+			"is_melee": is_melee,
+			"is_bomb": is_bomb
+		})
+		if intercepted:
+			return true
+
+	var bk: String = str(boss.get("bossKind", boss.get("bossKey", "")))
 	var phase: int = int(boss.get("phase", 1))
-	var can_dmg: bool = float(boss.get("vuln_timer", 0.0)) > 0.0
-	if bk == "signal_storm":
+	var can_dmg: bool = float(boss.get("vuln_timer", 0.0)) > 0.0 or (eng.boss_sm != null and bool(eng.boss_sm.state.get("core_exposed", false)))
+
+	if bk == "signal_storm" or bk == "lv060_signal":
 		if phase == 1:
-			can_dmg = bool(eng.signal_groups.get("b60_n1", false)) and bool(eng.signal_groups.get("b60_n2", false)) and bool(eng.signal_groups.get("b60_n3", false))
+			can_dmg = can_dmg or (bool(eng.signal_groups.get("b60_n1", false)) and bool(eng.signal_groups.get("b60_n2", false)) and bool(eng.signal_groups.get("b60_n3", false)))
 		elif phase == 2:
-			can_dmg = float(boss.get("vuln_timer", 0.0)) > 0.0 or is_melee
+			can_dmg = can_dmg or float(boss.get("vuln_timer", 0.0)) > 0.0 or is_melee
 		else:
-			can_dmg = bool(eng.signal_groups.get("b60_cable", false))
-	elif bk == "reassembly_mech":
+			can_dmg = can_dmg or bool(eng.signal_groups.get("b60_cable", false))
+	elif bk == "reassembly_mech" or bk == "lv067_blindbox":
 		if phase == 1:
-			can_dmg = bool(eng.signal_groups.get("b67_wire", false))
+			can_dmg = can_dmg or bool(eng.signal_groups.get("b67_wire", false))
 		elif phase == 2:
 			can_dmg = true
 		else:
 			if (is_bomb or is_melee) and not bool(boss.get("armor_cracked", false)):
 				boss["armor_cracked"] = true
 			can_dmg = is_bomb or is_melee or bool(boss.get("armor_cracked", false))
-	elif bk == "mecha_sovereign":
+	elif bk == "mecha_sovereign" or bk == "lv070_mecha":
 		if phase == 1:
-			can_dmg = bool(eng.signal_groups.get("b70_p1", false)) and bool(eng.signal_groups.get("b70_p2", false))
+			can_dmg = can_dmg or (bool(eng.signal_groups.get("b70_p1", false)) and bool(eng.signal_groups.get("b70_p2", false)))
 		elif phase == 2:
-			can_dmg = float(eng.player.get("x", 0.0)) > float(boss["x"]) + float(boss["w"]) * 0.45 or float(boss.get("vuln_timer", 0.0)) > 0.0 or is_melee
+			can_dmg = can_dmg or float(eng.player.get("x", 0.0)) > float(boss["x"]) + float(boss["w"]) * 0.45 or is_melee
 		else:
-			can_dmg = reflected or is_melee or bool(eng.signal_groups.get("b70_side", false))
-	elif bk == "fracture_core":
+			can_dmg = can_dmg or reflected or is_melee or bool(eng.signal_groups.get("b70_side", false))
+	elif bk == "fracture_core" or bk == "lv080_fracture":
 		if phase == 1:
-			can_dmg = eng.active_layer == int(boss.get("active_core_layer", 0))
+			can_dmg = can_dmg or eng.active_layer == int(boss.get("active_core_layer", 0))
 		elif phase == 2:
-			can_dmg = float(boss.get("vuln_timer", 0.0)) > 0.0 or is_melee
+			can_dmg = can_dmg or is_melee
 		else:
-			can_dmg = bool(eng.signal_groups.get("b80_echo_lock", false)) and eng.active_layer == 1
-	elif bk == "chrono_skull":
+			can_dmg = can_dmg or (bool(eng.signal_groups.get("b80_echo_lock", false)) and eng.active_layer == 1)
+	elif bk == "chrono_skull" or bk == "lv088_reaper":
 		boss["stun_timer"] = 3.2 if is_melee else 1.8
 		boss["hp"] = maxi(1, int(boss.get("hp", 25)) - dmg)
 		eng.emit_sfx("node_on")
 		eng.add_float_text(float(boss["x"]) + 12.0, float(boss["y"]) - 12.0, "-%d STUN!" % dmg, "#fde047")
 		return true
-	elif bk == "chrono_regent":
+	elif bk == "chrono_regent" or bk == "lv090_chrono":
 		if phase == 1:
 			can_dmg = true
 		elif phase == 2:
-			can_dmg = bool(eng.signal_groups.get("b90_past_sw", false)) and eng.active_layer == 1
+			can_dmg = can_dmg or (bool(eng.signal_groups.get("b90_past_sw", false)) and eng.active_layer == 1)
 		else:
-			can_dmg = float(boss.get("vuln_timer", 0.0)) > 0.0 or is_melee or bool(eng.signal_groups.get("b90_final_sw", false))
-	elif bk == "admin_arena":
-		can_dmg = int(eng.signal_groups.get("b98_count", 0)) >= 3
-	elif bk == "null_admin":
+			can_dmg = can_dmg or is_melee or bool(eng.signal_groups.get("b90_final_sw", false))
+	elif bk == "admin_arena" or bk == "lv098_admin":
+		can_dmg = can_dmg or int(eng.signal_groups.get("b98_count", 0)) >= 3
+	elif bk == "null_admin" or bk == "lv100_null":
 		if phase == 1:
-			can_dmg = bool(eng.signal_groups.get("b100_p1", false))
+			can_dmg = can_dmg or bool(eng.signal_groups.get("b100_p1", false))
 		elif phase == 2:
-			can_dmg = bool(eng.signal_groups.get("b100_p2", false))
+			can_dmg = can_dmg or bool(eng.signal_groups.get("b100_p2", false))
 		else:
-			can_dmg = int(eng.signal_groups.get("b100_calm_count", 0)) >= 3
+			can_dmg = can_dmg or int(eng.signal_groups.get("b100_calm_count", 0)) >= 3 or bool(eng.signal_groups.get("b100_null_locked", false))
+
 	if not can_dmg:
 		eng.emit_sfx("armor_clang")
 		boss["armor_flash"] = 0.16
 		eng.add_float_text(float(boss["x"]) + 20.0, float(boss["y"]) - 12.0, "SHIELDED", "#94a3b8")
 		return true
+
 	boss["hp"] = maxi(0, int(boss.get("hp", 25)) - dmg)
+	if eng.boss_sm != null and bool(eng.boss_sm.state.get("active", false)):
+		eng.boss_sm.state["boss_hp"] = int(boss["hp"])
 	boss["armor_flash"] = 0.22
 	eng.emit_sfx("boss_phase_break")
 	eng.trigger_shake(6.5, 0.20)
@@ -1345,12 +1654,16 @@ static func damage_boss(eng: RefCounted, boss: Dictionary, reflected: bool, is_m
 	var bcy: float = float(boss["y"]) + float(boss["h"]) * 0.5
 	eng.add_shock_ring(bcx, bcy, Color("#fde047" if is_melee else "#00f5ff"), 58.0, 0.28)
 	eng.add_float_text(bcx - 10.0, float(boss["y"]) - 16.0, "-%d" % dmg, "#fde047")
+
 	var max_p: int = int(boss.get("max_phase", 3))
 	var p2_th: int = 12 if max_p == 2 else 17
 	var p3_th: int = 0 if max_p == 2 else 9
+
 	if int(boss["hp"]) <= 0:
 		boss["defeated"] = true
 		boss["phase"] = max_p
+		if eng.boss_sm != null and bool(eng.boss_sm.state.get("active", false)):
+			eng.boss_sm.state["defeated"] = true
 		var dgg: String = str(boss.get("defeatGateGroup", ""))
 		if dgg != "":
 			eng.signal_groups[dgg] = true
@@ -1360,38 +1673,32 @@ static func damage_boss(eng: RefCounted, boss: Dictionary, reflected: bool, is_m
 		if bool(boss.get("autoWinOnDefeat", false)):
 			eng.trigger_level_win()
 		return true
+
 	var hp_now: int = int(boss["hp"])
 	var target_phase: int = 3 if (max_p >= 3 and hp_now <= p3_th) else (2 if hp_now <= p2_th else 1)
 	if target_phase > phase:
 		boss["phase"] = target_phase
-		boss["vuln_timer"] = 2.6
+		if eng.boss_sm != null and bool(eng.boss_sm.state.get("active", false)):
+			eng.boss_sm.state["phase"] = target_phase
+		var assist_mul: float = 1.35 if (eng.save != null and bool(eng.save.assist_mode)) else 1.0
+		boss["vuln_timer"] = 2.6 * assist_mul
 		var spawn_d: Dictionary = eng.lv_data.get("spawn", { "x": 2.0, "y": 2.0 })
-		eng.active_checkpoint = {
-			"x": float(boss.get("safeRespawnGx", spawn_d.get("x", 2.0))),
-			"y": float(boss.get("safeRespawnGy", spawn_d.get("y", 2.0))),
-			"bullet_up": bool(eng.player.get("bullet_up", false)) and not bool(eng.player.get("from_shop_bullet", false)),
-			"max_jumps": 1 if bool(eng.player.get("from_shop_jump", false)) else int(eng.player.get("max_jumps", 1)),
-			"has_flight": bool(eng.player.get("has_flight", false)) and not bool(eng.player.get("from_shop_flight", false)),
-			"layer": eng.active_layer,
-			"boss_phase": target_phase,
-			"boss_hp": hp_now,
-			"signal_groups": eng.signal_groups.duplicate(true),
-			"polarity_groups": eng.polarity_groups.duplicate(true),
-			"seq_progress": eng.seq_progress.duplicate(true),
-			"filled_slot_keys": eng.filled_slot_keys.duplicate(true),
-			"consumed_carry_keys": eng.consumed_carry_keys.duplicate(true),
-			"carrying_item_key": str(eng.carrying_item.get("key", "")) if not eng.carrying_item.is_empty() else "",
-			"broken_solid_keys": eng.broken_solid_keys.duplicate(true),
-			"purified_save_keys": eng.purified_save_keys.duplicate(true)
-		}
+		eng.save_checkpoint_at(
+			float(boss.get("safeRespawnGx", spawn_d.get("x", 2.0))),
+			float(boss.get("safeRespawnGy", spawn_d.get("y", 2.0)))
+		)
+		eng.active_checkpoint["boss_phase"] = target_phase
+		eng.active_checkpoint["boss_hp"] = hp_now
 		eng.emit_toast("BOSS 阶段突破 (%d/%d)！" % [target_phase, max_p], "BOSS PHASE %d/%d!" % [target_phase, max_p], "cat_nav_cheer", "#fde047")
 	return true
+
 static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 	var p: Dictionary = eng.player
-	if p.is_empty() or bool(p.get("dead", false)) or eng.lv_id < 51:
+	if p.is_empty() or bool(p.get("dead", false)):
 		return
 	var props: Dictionary = eng.lv_data.get("props", {})
 	var p_rect: Rect2 = Rect2(float(p["x"]), float(p["y"]), float(p["w"]), float(p["h"]))
+
 	if bool(p["on_ground"]):
 		for s_var in eng.solids:
 			var s: Dictionary = s_var
@@ -1402,13 +1709,24 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				if float(p["x"]) + float(p["w"]) > float(s["x"]) + 2.0 and float(p["x"]) < float(s["x"]) + float(s["w"]) - 2.0 and absf((float(p["y"]) + float(p["h"])) - float(s["y"])) <= 10.0:
 					p["x"] = float(p["x"]) + float(s.get("belt_vx", 135.0)) * dt
 					p_rect.position.x = float(p["x"])
+
 	for b_var in eng.bullets:
 		var b: Dictionary = b_var
 		if float(b.get("hold_timer", 0.0)) > 0.0:
 			b["hold_timer"] = float(b["hold_timer"]) - dt
+			# Lv066 & Lv087: Suspended sword waves inside time bubbles act as temporary stepping stones!
+			if bool(b.get("solid_platform", false)) and float(p["vy"]) >= -20.0:
+				var wb: Rect2 = Rect2(float(b["x"]) - 6.0, float(b["y"]) - 8.0, float(b["w"]) + 12.0, 16.0)
+				var fb: Rect2 = Rect2(float(p["x"]), float(p["y"]) + float(p["h"]) - 8.0, float(p["w"]), 14.0)
+				if GridMath.aabb_overlap(fb, wb):
+					p["y"] = float(b["y"]) - float(p["h"])
+					p["vy"] = 0.0
+					p["on_ground"] = true
 			if float(b["hold_timer"]) <= 0.0:
 				b["vx"] = float(b.get("saved_vx", 480.0))
+				b["solid_platform"] = false
 				eng.emit_sfx("shoot")
+
 	eng.echo_clones = []
 	var echo_mode: String = str(props.get("echoMode", ""))
 	if echo_mode != "":
@@ -1436,6 +1754,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 						if GridMath.aabb_overlap(p_rect, hz_rect):
 							eng.kill_player(false, "shadow")
 							return
+
 	var pad_counts: Dictionary = {}
 	var pad_totals: Dictionary = {}
 	for ep_var in eng.entities:
@@ -1459,12 +1778,13 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			if not pressed:
 				for sb_var in eng.solids:
 					var sb: Dictionary = sb_var
-					if str(sb.get("t", "")) == "polarity_block" and GridMath.aabb_overlap(Rect2(float(sb["x"]), float(sb["y"]), float(sb["w"]), float(sb["h"])), pad_box):
+					if str(sb.get("t", "")) in ["polarity_block", "wood_crate", "tanuki_log"] and GridMath.aabb_overlap(Rect2(float(sb["x"]), float(sb["y"]), float(sb["w"]), float(sb["h"])), pad_box):
 						pressed = true
 						break
 			ep["depressed"] = pressed
 			if pressed:
 				pad_counts[pg] = int(pad_counts.get(pg, 0)) + 1
+
 	for pg_k in pad_totals.keys():
 		var pg_str: String = str(pg_k)
 		if int(pad_counts.get(pg_str, 0)) >= int(pad_totals[pg_str]) and not bool(eng.signal_groups.get(pg_str, false)):
@@ -1475,9 +1795,11 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					ep2["latched"] = true
 			eng.emit_sfx("node_on")
 			eng.emit_toast("回声踏板同步激活 · 通路开启！", "ECHO SWITCHES SYNCHRONIZED!", "cat_nav_cheer", "#4ade80")
+
 	if not eng.carrying_item.is_empty():
 		eng.carrying_item["x"] = float(p["x"]) + (-14.0 if int(p["facing"]) > 0 else 18.0)
 		eng.carrying_item["y"] = float(p["y"]) - 18.0
+
 	var s2_needs_bomb: bool = false
 	for s_nb_var in eng.solids:
 		var s_nb: Dictionary = s_nb_var
@@ -1505,6 +1827,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				var o_bp: Dictionary = o_bp_var
 				if str(o_bp.get("t", "")) == "bomb_pickup":
 					eng.entities.append({
+						"uuid": "s2_regen_bomb_" + str(Time.get_ticks_msec()),
 						"key": "s2_regen_bomb_" + str(Time.get_ticks_msec()),
 						"t": "bomb_pickup",
 						"x": GridMath.gx_to_px(float(o_bp.get("x", 2.0))) + 4.0,
@@ -1515,6 +1838,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					break
 	else:
 		eng.s2_bomb_regen = 0.0
+
 	for i in range(eng.entities.size() - 1, -1, -1):
 		if i >= eng.entities.size():
 			continue
@@ -1524,6 +1848,42 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 		var et: String = str(e.get("t", ""))
 		var e_mul: float = get_local_time_scale(float(e.get("x", 0.0)) + float(e.get("w", 32.0)) * 0.5, float(e.get("y", 0.0)) + float(e.get("h", 32.0)) * 0.5, eng.entities)
 		var e_dt: float = world_dt * e_mul
+
+		if et == "white_flower":
+			# Lv004: White flower stays calm while poisoned, lunges if player cured poison early!
+			var cured: bool = float(p.get("poison_timer", 0.0)) <= 0.0
+			e["aggro"] = cured
+			if cured and is_in_active_layer(e, eng.active_layer):
+				var wf_r: Rect2 = Rect2(float(e["x"]) + 6.0, float(e["y"]) + 6.0, float(e["w"]) - 12.0, float(e["h"]) - 8.0)
+				if absf(float(p["x"]) - float(e["x"])) < 160.0:
+					e["x"] = float(e["x"]) + signf(float(p["x"]) - float(e["x"])) * 145.0 * e_dt
+				if GridMath.aabb_overlap(p_rect, wf_r):
+					eng.kill_player(false, "flower")
+					return
+			continue
+
+		if et == "spore_key":
+			if not bool(e.get("carried", false)) and is_in_active_layer(e, eng.active_layer):
+				if GridMath.aabb_overlap(p_rect, Rect2(float(e["x"]), float(e["y"]), float(e["w"]), float(e["h"]))):
+					p["has_spore_key"] = true
+					eng.emit_sfx("coin")
+					eng.emit_toast("获得孢子通行密钥！", "SPORE KEY ACQUIRED!", "v2_spore_key", "#4ade80")
+					eng.entities.remove_at(i)
+					eng.hud_dirty = true
+			continue
+
+		if et == "return_slot":
+			if is_in_active_layer(e, eng.active_layer) and GridMath.aabb_overlap(p_rect, Rect2(float(e["x"]), float(e["y"]), float(e["w"]), float(e["h"]))):
+				if not bool(e.get("pressed", false)) and eng.shop != null:
+					var ref_res: Dictionary = eng.shop.return_slot_refund(p)
+					if bool(ref_res.get("unlocked_exit", false)):
+						e["pressed"] = true
+						if str(e.get("group", "")) != "":
+							eng.signal_groups[str(e["group"])] = true
+						eng.emit_sfx("real_win")
+						eng.emit_toast("退货槽已回收假币/误购品 · 密道开启！", "RETURN SLOT ACCEPTED · EXIT UNLOCKED!", "shop_frame", "#4ade80")
+			continue
+
 		if et == "piston":
 			var off_gp: String = str(e.get("offGroup", ""))
 			if off_gp != "" and bool(eng.signal_groups.get(off_gp, false)):
@@ -1549,6 +1909,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					eng.kill_player(false, "piston")
 					return
 			continue
+
 		if et == "saw_track":
 			var off_gs: String = str(e.get("offGroup", ""))
 			if off_gs != "" and bool(eng.signal_groups.get(off_gs, false)):
@@ -1561,6 +1922,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				eng.kill_player(false, "saw")
 				return
 			continue
+
 		if et == "electric_arc":
 			var off_ga: String = str(e.get("offGroup", ""))
 			if off_ga != "" and bool(eng.signal_groups.get(off_ga, false)):
@@ -1580,16 +1942,19 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				eng.kill_player(false, "arc")
 				return
 			continue
+
 		if et == "s2_enemy":
 			_step_s2_enemy(eng, e, p, p_rect, dt, e_dt)
 			if bool(p.get("dead", false)):
 				return
 			continue
+
 		if et == "curse_totem":
 			var dt_ct: float = float(e.get("disable_timer", 0.0))
 			if dt_ct > 0.0 and dt_ct < 9000.0:
 				e["disable_timer"] = maxf(0.0, dt_ct - dt)
 			continue
+
 		if et == "trojan_heart":
 			var rcd: float = float(e.get("respawn_cd", 0.0))
 			if rcd > 0.0 and rcd < 500.0:
@@ -1598,9 +1963,23 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				continue
 			if is_in_active_layer(e, eng.active_layer) and GridMath.aabb_overlap(p_rect, Rect2(float(e["x"]), float(e["y"]), float(e["w"]), float(e["h"]))):
 				var th_m: String = str(e.get("mode", "heavy_curse"))
+				if float(p.get("poison_timer", 0.0)) > 0.0:
+					# Lv065: Poison converts Trojan Heart into Debt Tag!
+					p["poison_timer"] = 0.0
+					p["has_debt_tag"] = true
+					e["respawn_cd"] = 999.0
+					eng.emit_sfx("coin")
+					eng.emit_toast("毒态转化黑心奖励 · 获得【债务标签】！", "TOXIN CONVERTED HEART TO DEBT TAG!", "s2_trojan_heart", "#4ade80")
+					continue
 				if th_m == "shoot_to_buff":
 					eng.kill_player(true, "trojan")
 					return
+				elif th_m == "debt_trap":
+					e["respawn_cd"] = 4.0
+					if eng.shop != null:
+						eng.shop.siphon_coins_for_debt(5)
+					eng.emit_sfx("fake_buzz")
+					eng.emit_toast("拾取免费爱心触发高利贷吸金 · 用毒态交换债务标签！", "DEBT HEART SIPHONED COINS!", "s2_trojan_heart", "#f43f5e")
 				elif th_m == "heavy_curse":
 					e["respawn_cd"] = 3.2
 					p["heavy_curse_timer"] = 4.6
@@ -1612,6 +1991,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					eng.emit_sfx("poison")
 					eng.emit_toast("中计：左右脑互搏 (4.5s) · 方向反转！", "CONTROLS REVERSED (4.5S)!", "s2_trojan_heart", "#e879f9")
 			continue
+
 		if et == "betray_spring":
 			if float(e.get("spring_anim", 0.0)) > 0.0:
 				e["spring_anim"] = maxf(0.0, float(e["spring_anim"]) - dt * 2.5)
@@ -1644,8 +2024,20 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 							"s2_betray_spring", "#fb7185"
 						)
 			continue
+
 		if et == "mimic_chest":
 			var mc_rect: Rect2 = Rect2(float(e["x"]), float(e["y"]), float(e["w"]), float(e["h"]))
+			# Swallow nearby live bomb safely (Lv009, Lv030, Lv058, Lv063, Lv083)
+			for bm_idx in range(eng.bombs.size() - 1, -1, -1):
+				var bm_d: Dictionary = eng.bombs[bm_idx]
+				var bmr_c: Rect2 = Rect2(float(bm_d["x"]) - 12.0, float(bm_d["y"]) - 12.0, 24.0, 24.0)
+				if GridMath.aabb_overlap(mc_rect.grow(10.0), bmr_c):
+					eng.bombs.remove_at(bm_idx)
+					e["swallowed_bomb"] = true
+					eng.emit_sfx("coin")
+					eng.emit_toast("宝箱怪已吞下炸弹 · 引至目标墙后触发吐弹爆破！", "MIMIC SWALLOWED BOMB!", "s2_mimic_chest", "#fde047")
+					break
+
 			if not bool(e.get("awake", false)) and is_in_active_layer(e, eng.active_layer) and p_rect.get_center().distance_to(mc_rect.get_center()) < 2.5 * GridMath.TILE:
 				e["awake"] = true
 				eng.emit_sfx("fake_buzz")
@@ -1668,6 +2060,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					eng.kill_player(false, "mimic")
 					return
 			continue
+
 		if et == "mimic_flag":
 			if not is_in_active_layer(e, eng.active_layer):
 				continue
@@ -1693,6 +2086,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					eng.kill_player(true, "mimic_flag")
 				return
 			continue
+
 		if et == "troll_hand":
 			var off_gh: String = str(e.get("offGroup", ""))
 			if bool(e.get("parried", false)) or (off_gh != "" and bool(eng.signal_groups.get(off_gh, false))):
@@ -1708,6 +2102,8 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					p["y"] = float(e["y"]) - float(p["h"]) + 4.0
 					p["vy"] = minf(float(p["vy"]), (float(e["y"]) - prev_thy) / maxf(0.008, dt))
 					p["on_ground"] = true
+					if eng.boss_sm != null and str(eng.boss_sm.state.get("boss_key", "")) == "lv070_mecha":
+						eng.boss_sm.on_puzzle_event(eng, "lifted_over_furnace", {})
 			else:
 				if cyc_th < 0.75:
 					e["state"] = "idle"
@@ -1736,6 +2132,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					eng.kill_player(false, "slap")
 					return
 			continue
+
 		if et == "fake_save":
 			if is_in_active_layer(e, eng.active_layer) and GridMath.aabb_overlap(p_rect, Rect2(float(e["x"]) + 6.0, float(e["y"]) + 6.0, float(e["w"]) - 12.0, float(e["h"]) - 8.0)):
 				if not bool(e.get("purified", false)):
@@ -1749,6 +2146,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					e["active"] = true
 					eng.save_checkpoint_at(float(e["gx"]), float(e["gy"]))
 			continue
+
 		if et == "peace_dove":
 			e["x"] = float(e["x"]) + float(e["vx"]) * e_dt
 			if float(e["x"]) <= float(e["min_px"]):
@@ -1759,7 +2157,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				e["vx"] = -absf(float(e["vx"]))
 			e["y"] = float(e["base_y"]) + sin(eng.time_elapsed * 3.6 + float(e["x"]) * 0.02) * 10.0
 			if float(e.get("angry_timer", 0.0)) > 0.0:
-				e["angry_timer"] = float(e["angry_timer"]) - dt
+				e["angry_timer"] = float(e["angry_timer"]) - (dt * 1.6 if bool(p.get("sheathed", false)) else dt)
 				e["bomb_cd"] = float(e.get("bomb_cd", 0.0)) - e_dt
 				if float(e["bomb_cd"]) <= 0.0 and is_in_active_layer(e, eng.active_layer) and absf(float(p["x"]) - float(e["x"])) < 440.0:
 					e["bomb_cd"] = 0.72
@@ -1782,27 +2180,31 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				eng.emit_sfx("shield_up")
 				eng.hud_dirty = true
 			continue
+
 		if et == "s2_boss" and not bool(e.get("defeated", false)):
 			_update_s2_boss_ai(eng, e, p, p_rect, dt, e_dt)
 			if bool(p.get("dead", false)):
 				return
 			continue
+
 		if et != "layer_term" and not is_in_active_layer(e, eng.active_layer):
 			continue
 		var er_post: Rect2 = Rect2(float(e.get("x", 0.0)), float(e.get("y", 0.0)), float(e.get("w", 0.0)), float(e.get("h", 0.0)))
 		if er_post.size.x <= 0.0 or not GridMath.aabb_overlap(p_rect, er_post):
 			continue
+
 		if et == "decoy_btn" and not bool(e.get("pressed", false)):
 			e["pressed"] = true
+			eng.anti_troll_disqualified = true
 			eng.emit_sfx("fake_buzz")
 			eng.emit_toast("红钮是装饰诱饵！去找发光青色节点！", "RED BUTTON IS A DECOY!", "cat_nav_taunt", "#ff2ab4")
-		elif et == "signal_battery" or et == "root_item":
+		elif et in ["signal_battery", "root_item", "patch_chip", "debt_tag", "control_orb"]:
 			if not bool(e.get("carried", false)) and eng.carrying_item.is_empty():
 				e["carried"] = true
 				eng.carrying_item = e
 				eng.emit_sfx("coin")
 				eng.hud_dirty = true
-		elif et == "battery_slot" or et == "root_slot":
+		elif et in ["battery_slot", "root_slot", "patch_slot"]:
 			if not bool(e.get("filled", false)) and not eng.carrying_item.is_empty():
 				var req_c: String = str(e.get("reqCode", ""))
 				var badge_c: String = str(eng.carrying_item.get("badgeCode", ""))
@@ -1810,6 +2212,10 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					e["filled"] = true
 					eng.filled_slot_keys[str(e["key"])] = true
 					eng.consumed_carry_keys[str(eng.carrying_item["key"])] = true
+					if et == "patch_slot":
+						eng.world_state.install_patch(str(e["key"]), badge_c if badge_c != "" else "patch_a")
+					if eng.boss_sm != null and str(eng.boss_sm.state.get("boss_key", "")) == "lv050_author":
+						eng.boss_sm.on_puzzle_event(eng, "key_slotted", {})
 					eng.carrying_item["carried"] = false
 					eng.carrying_item["inserted"] = true
 					eng.carrying_item["x"] = -99999.0
@@ -1819,6 +2225,8 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 					if str(e.get("countGroup", "")) != "":
 						eng.signal_groups[str(e["countGroup"])] = int(eng.signal_groups.get(str(e["countGroup"]), 0)) + 1
 					eng.emit_sfx("node_on")
+					if eng.has_method("fire_logic_event"):
+						eng.fire_logic_event(str(e.get("uuid", "")), "on_slot_fill", {})
 					eng.hud_dirty = true
 		elif et == "echo_rec_pad":
 			if float(e.get("hit_cd", 0.0)) <= 0.0:
@@ -1830,6 +2238,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			eng.emit_sfx("portal_warp")
 			if e.has("destLayer") and e["destLayer"] != null:
 				eng.active_layer = int(e["destLayer"])
+				eng.world_state.active_layer = eng.active_layer
 			if e.has("destX"):
 				p["x"] = GridMath.gx_to_px(float(e["destX"])) + 6.0
 				p["y"] = GridMath.gy_to_py(float(e.get("destY", 2.0)), 0.0) - float(p["h"])
@@ -1838,6 +2247,7 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 			eng.hud_dirty = true
 		elif et == "root_term":
 			var rtm: String = str(e.get("mode", ""))
+			var req_sheathe: bool = bool(e.get("sheatheRequired", false))
 			if rtm == "jump_touch" and not bool(e.get("activated", false)):
 				e["activated"] = true
 				if str(e.get("group", "")) != "":
@@ -1845,28 +2255,34 @@ static func step_post_move(eng: RefCounted, dt: float, world_dt: float) -> void:
 				if str(e.get("countGroup", "")) != "":
 					eng.signal_groups[str(e["countGroup"])] = int(eng.signal_groups.get(str(e["countGroup"]), 0)) + 1
 				eng.emit_sfx("node_on")
-			elif rtm == "calm_touch" and not bool(e.get("activated", false)):
-				if float(p.get("attack_anim", 0.0)) <= 0.0 and eng.bullets.is_empty():
+			elif (rtm == "calm_touch" or req_sheathe) and not bool(e.get("activated", false)):
+				var is_calm: bool = float(p.get("attack_anim", 0.0)) <= 0.0 and eng.bullets.is_empty() and (not req_sheathe or bool(p.get("sheathed", false)))
+				if is_calm:
 					e["activated"] = true
 					if str(e.get("group", "")) != "":
 						eng.signal_groups[str(e["group"])] = true
 					if str(e.get("countGroup", "")) != "":
 						eng.signal_groups[str(e["countGroup"])] = int(eng.signal_groups.get(str(e["countGroup"]), 0)) + 1
+					if eng.boss_sm != null and str(eng.boss_sm.state.get("boss_key", "")) == "lv100_null":
+						eng.boss_sm.on_puzzle_event(eng, "calm_terminal_lit", {})
 					eng.emit_sfx("real_win")
 					if bool(e.get("winOnCalm", false)):
 						eng.trigger_level_win()
 						return
 		elif et == "mem_shard":
 			var sid2: String = str(e.get("shardId", e["key"]))
-			eng.save.shards[sid2] = true
-			eng.save.persist()
+			if eng.save != null:
+				eng.save.shards[sid2] = true
+				eng.save.persist()
+			eng.collected_shard_this_run = true
 			eng.emit_sfx("ach_unlock")
 			if eng.lv_id == 69 and not bool(p.get("shield", false)):
 				p["shield"] = true
 				eng.hud_dirty = true
-			if eng.save.shards.size() >= 3:
+			if eng.save != null and eng.save.shards.size() >= 3:
 				eng.unlock_ach("shard_hunter")
 			eng.entities.remove_at(i)
+
 static func _step_s2_enemy(eng: RefCounted, e: Dictionary, p: Dictionary, p_rect: Rect2, dt: float, e_dt: float) -> void:
 	var off_g: String = str(e.get("offGroup", ""))
 	if off_g != "" and bool(eng.signal_groups.get(off_g, false)):
@@ -1874,15 +2290,30 @@ static func _step_s2_enemy(eng: RefCounted, e: Dictionary, p: Dictionary, p_rect
 	if float(e.get("armor_flash", 0.0)) > 0.0:
 		e["armor_flash"] = maxf(0.0, float(e["armor_flash"]) - dt)
 	e["jolt_x"] = float(e.get("jolt_x", 0.0)) * pow(0.04, dt)
+
 	var kind: String = str(e.get("kind", "patrol"))
 	if kind == "forklift":
+		var prev_fk_x: float = float(e["x"])
 		e["x"] = float(e["x"]) + float(e["vx"]) * e_dt
+		var hit_bound: bool = false
 		if float(e["x"]) <= float(e["min_px"]):
 			e["x"] = float(e["min_px"])
 			e["vx"] = absf(float(e["vx"]))
+			hit_bound = true
 		elif float(e["x"]) + float(e["w"]) >= float(e["max_px"]):
 			e["x"] = float(e["max_px"]) - float(e["w"])
 			e["vx"] = -absf(float(e["vx"]))
+			hit_bound = true
+		# Lv063: Forklift carries mimic_chest on its forks and triggers bomb spit on wall bump!
+		var fk_top: Rect2 = Rect2(float(e["x"]) - 6.0, float(e["y"]) - 32.0, float(e["w"]) + 12.0, 38.0)
+		for mc_var in eng.entities:
+			var mc: Dictionary = mc_var
+			if str(mc.get("t", "")) == "mimic_chest" and GridMath.aabb_overlap(fk_top, Rect2(float(mc["x"]), float(mc["y"]), float(mc["w"]), float(mc["h"]))):
+				mc["x"] = float(mc["x"]) + (float(e["x"]) - prev_fk_x)
+				mc["y"] = float(e["y"]) - float(mc["h"]) + 2.0
+				if hit_bound and bool(mc.get("swallowed_bomb", false)):
+					mc["swallowed_bomb"] = false
+					eng.explode_at(float(mc["x"]) + float(mc["w"]) * 0.5, float(mc["y"]), 145.0, false)
 		if is_in_active_layer(e, eng.active_layer) and GridMath.aabb_overlap(p_rect, Rect2(float(e["x"]) + 6.0, float(e["y"]) + 6.0, float(e["w"]) - 12.0, float(e["h"]) - 10.0)):
 			if float(p["vy"]) >= 0.0 and float(p["y"]) + float(p["h"]) <= float(e["y"]) + 18.0:
 				p["y"] = float(e["y"]) - float(p["h"])
@@ -1892,6 +2323,7 @@ static func _step_s2_enemy(eng: RefCounted, e: Dictionary, p: Dictionary, p_rect
 			else:
 				eng.kill_player(false, "forklift")
 		return
+
 	if kind == "turret":
 		e["cycle"] = float(e.get("cycle", 0.0)) + e_dt
 		var per_t: float = float(e.get("period", 2.8))
@@ -1912,6 +2344,7 @@ static func _step_s2_enemy(eng: RefCounted, e: Dictionary, p: Dictionary, p_rect
 		elif ap != "fire":
 			e["fired_this_beat"] = false
 		return
+
 	if kind == "mech_wisp":
 		e["phase_clock"] = float(e.get("phase_clock", 0.0)) + e_dt
 		var cyc_w: float = fposmod(float(e["phase_clock"]), 4.6)
@@ -2047,6 +2480,7 @@ static func _step_s2_enemy(eng: RefCounted, e: Dictionary, p: Dictionary, p_rect
 					e["facing"] = -1 if float(p["x"]) < float(e["x"]) else 1
 			else:
 				e["facing"] = -1 if float(p["x"]) < float(e["x"]) else 1
+
 		if kind == "mech_shroom" and is_in_active_layer(e, eng.active_layer) and abs_dx < 380.0:
 			e["atk_cd"] = float(e.get("atk_cd", 2.9)) - e_dt
 			if float(e["atk_cd"]) <= 0.0:
@@ -2077,10 +2511,12 @@ static func _step_s2_enemy(eng: RefCounted, e: Dictionary, p: Dictionary, p_rect
 						"vx": d_lg * 255.0, "vy": 0.0, "kind": "bolt", "layer": int(e.get("layer", -1)), "life": 3.0
 					})
 				eng.emit_sfx("shoot")
+
 	if is_in_active_layer(e, eng.active_layer):
 		var hit_r: Rect2 = Rect2(float(e["x"]) + 7.0, float(e["y"]) + 7.0, maxf(12.0, float(e["w"]) - 14.0), maxf(12.0, float(e["h"]) - 12.0))
 		if GridMath.aabb_overlap(p_rect, hit_r):
 			eng.kill_player(false, "enemy")
+
 static func _update_s2_boss_ai(eng: RefCounted, boss: Dictionary, p: Dictionary, p_rect: Rect2, dt: float, e_dt: float) -> void:
 	if float(boss.get("vuln_timer", 0.0)) > 0.0:
 		boss["vuln_timer"] = maxf(0.0, float(boss["vuln_timer"]) - dt)
@@ -2089,8 +2525,9 @@ static func _update_s2_boss_ai(eng: RefCounted, boss: Dictionary, p: Dictionary,
 	if float(boss.get("stun_timer", 0.0)) > 0.0:
 		boss["stun_timer"] = maxf(0.0, float(boss["stun_timer"]) - dt)
 		return
-	var bk: String = str(boss.get("bossKind", ""))
-	if bk == "chrono_skull":
+
+	var bk: String = str(boss.get("bossKind", boss.get("bossKey", "")))
+	if bk == "chrono_skull" or bk == "lv088_reaper":
 		var max_lead: float = 8.2 * GridMath.TILE
 		if float(boss["x"]) < float(p["x"]) - max_lead:
 			boss["x"] = float(p["x"]) - max_lead
@@ -2107,16 +2544,19 @@ static func _update_s2_boss_ai(eng: RefCounted, boss: Dictionary, p: Dictionary,
 		if GridMath.aabb_overlap(p_rect, Rect2(float(boss["x"]) + 14.0, float(boss["y"]) + 14.0, float(boss["w"]) - 28.0, float(boss["h"]) - 28.0)):
 			eng.kill_player(false, "boss_s2")
 		return
+
 	boss["atk_timer"] = float(boss.get("atk_timer", 1.6)) - e_dt
-	if bk == "fracture_core":
+	if bk == "fracture_core" or bk == "lv080_fracture":
 		boss["active_core_layer"] = int(floor(eng.time_elapsed / 3.4)) % 2
-	if bk == "mecha_sovereign" and int(boss.get("phase", 1)) == 2:
+	if (bk == "mecha_sovereign" or bk == "lv070_mecha") and int(boss.get("phase", 1)) == 2:
 		boss["x"] = float(boss["base_x"]) + sin(eng.time_elapsed * 1.35) * (3.2 * GridMath.TILE)
 	else:
 		boss["y"] = float(boss["base_y"]) + sin(eng.time_elapsed * 2.6) * 8.0
+
 	if float(boss["atk_timer"]) <= 0.0:
 		boss["atk_timer"] = float(boss.get("atkInterval", 2.9))
-		boss["vuln_timer"] = 2.2
+		var assist_mul: float = 1.35 if (eng.save != null and bool(eng.save.assist_mode)) else 1.0
+		boss["vuln_timer"] = 2.2 * assist_mul
 		boss["mode_idx"] = (int(boss.get("mode_idx", 0)) + 1) % 4
 		if absf(float(boss["x"]) - float(p["x"])) < 760.0:
 			var dir_b: float = -1.0 if float(p["x"]) < float(boss["x"]) else 1.0
@@ -2125,10 +2565,10 @@ static func _update_s2_boss_ai(eng: RefCounted, boss: Dictionary, p: Dictionary,
 				"x": float(boss["x"]) + float(boss["w"]) * 0.5,
 				"y": (GridMath.WORLD_ORIGIN_Y - 2.35 * GridMath.TILE) if aim_low else (GridMath.WORLD_ORIGIN_Y - 4.2 * GridMath.TILE),
 				"w": 20.0, "h": 12.0, "vx": dir_b * 235.0, "vy": 0.0,
-				"layer": int(boss["active_core_layer"]) if bk == "fracture_core" else -1,
+				"layer": int(boss["active_core_layer"]) if (bk == "fracture_core" or bk == "lv080_fracture") else -1,
 				"life": 3.6
 			})
-			if bk == "reassembly_mech" and int(boss.get("phase", 1)) == 3 and not bool(boss.get("armor_cracked", false)) and int(p.get("bombs", 0)) <= 0:
+			if (bk == "reassembly_mech" or bk == "lv067_blindbox") and int(boss.get("phase", 1)) == 3 and not bool(boss.get("armor_cracked", false)) and int(p.get("bombs", 0)) <= 0:
 				var any_b: bool = false
 				for x_var in eng.entities:
 					var x_d: Dictionary = x_var
@@ -2137,6 +2577,7 @@ static func _update_s2_boss_ai(eng: RefCounted, boss: Dictionary, p: Dictionary,
 						break
 				if not any_b:
 					eng.entities.append({
+						"uuid": "b67_bomb_" + str(Time.get_ticks_msec()),
 						"key": "b67_bomb_" + str(Time.get_ticks_msec()),
 						"t": "bomb_pickup",
 						"x": float(boss["x"]) - 5.5 * GridMath.TILE,
@@ -2144,8 +2585,12 @@ static func _update_s2_boss_ai(eng: RefCounted, boss: Dictionary, p: Dictionary,
 						"w": 0.82 * GridMath.TILE, "h": 0.88 * GridMath.TILE,
 						"layer": -1
 					})
+
 	if is_in_active_layer(boss, eng.active_layer):
-		if bk == "fracture_core" and int(boss.get("phase", 1)) == 1 and eng.active_layer != int(boss.get("active_core_layer", 0)):
+		if (bk == "fracture_core" or bk == "lv080_fracture") and int(boss.get("phase", 1)) == 1 and eng.active_layer != int(boss.get("active_core_layer", 0)):
+			return
+		# Lv080 Phase 3: standing inside Fracture Core's shield dome while sheathed is safe so player can aim 4 mirrors inward!
+		if (bk == "fracture_core" or bk == "lv080_fracture") and bool(p.get("sheathed", false)):
 			return
 		if GridMath.aabb_overlap(p_rect, Rect2(float(boss["x"]) + 16.0, float(boss["y"]) + 16.0, float(boss["w"]) - 32.0, float(boss["h"]) - 28.0)):
 			eng.kill_player(false, "boss_s2")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c815qbmugs1h0"
-path="res://.godot/imported/sword_wave.png-0d29aee87fe9ee58b41d8140d0db68cb.ctex"
+uid="uid://gv4_785ba700bf3c"
+path="res://.godot/imported/sword_wave.png-785ba700bf3c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/sword_wave.png"
-dest_files=["res://.godot/imported/sword_wave.png-0d29aee87fe9ee58b41d8140d0db68cb.ctex"]
+dest_files=["res://.godot/imported/sword_wave.png-785ba700bf3c.ctex"]
 
 [params]
 

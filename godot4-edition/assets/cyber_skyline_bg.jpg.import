@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bst8fqqdpc52e"
-path="res://.godot/imported/cyber_skyline_bg.jpg-2c2f9d9458703948fbeaba9217fa3ac1.ctex"
+uid="uid://gv4_543557f62be1"
+path="res://.godot/imported/cyber_skyline_bg.jpg-543557f62be1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cyber_skyline_bg.jpg"
-dest_files=["res://.godot/imported/cyber_skyline_bg.jpg-2c2f9d9458703948fbeaba9217fa3ac1.ctex"]
+dest_files=["res://.godot/imported/cyber_skyline_bg.jpg-543557f62be1.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjddam6d3f0be"
-path="res://.godot/imported/platform_steel.png-97e7a243dadb9f796431506ff3b11a6a.ctex"
+uid="uid://gv4_d360f28a06a6"
+path="res://.godot/imported/platform_steel.png-d360f28a06a6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/platform_steel.png"
-dest_files=["res://.godot/imported/platform_steel.png-97e7a243dadb9f796431506ff3b11a6a.ctex"]
+dest_files=["res://.godot/imported/platform_steel.png-d360f28a06a6.ctex"]
 
 [params]
 

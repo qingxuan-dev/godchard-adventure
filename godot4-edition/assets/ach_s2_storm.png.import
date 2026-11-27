@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kp4g7mbmulac"
-path="res://.godot/imported/ach_s2_storm.png-b057e5c97e91291d042158fff663082d.ctex"
+uid="uid://gv4_f7a11ad4a92c"
+path="res://.godot/imported/ach_s2_storm.png-f7a11ad4a92c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_storm.png"
-dest_files=["res://.godot/imported/ach_s2_storm.png-b057e5c97e91291d042158fff663082d.ctex"]
+dest_files=["res://.godot/imported/ach_s2_storm.png-f7a11ad4a92c.ctex"]
 
 [params]
 

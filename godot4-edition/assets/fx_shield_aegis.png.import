@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvhd7todusasi"
-path="res://.godot/imported/fx_shield_aegis.png-e62c04d61c45fcc756922865f6d86155.ctex"
+uid="uid://gv4_f9cca54f97f6"
+path="res://.godot/imported/fx_shield_aegis.png-f9cca54f97f6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/fx_shield_aegis.png"
-dest_files=["res://.godot/imported/fx_shield_aegis.png-e62c04d61c45fcc756922865f6d86155.ctex"]
+dest_files=["res://.godot/imported/fx_shield_aegis.png-f9cca54f97f6.ctex"]
 
 [params]
 

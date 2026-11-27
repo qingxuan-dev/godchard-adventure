@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgbt75govalr8"
-path="res://.godot/imported/ui_hand_swap.png-b1e2a19b4984dc44d4a7700aabb1c09d.ctex"
+uid="uid://gv4_ac682da544fc"
+path="res://.godot/imported/ui_hand_swap.png-ac682da544fc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_hand_swap.png"
-dest_files=["res://.godot/imported/ui_hand_swap.png-b1e2a19b4984dc44d4a7700aabb1c09d.ctex"]
+dest_files=["res://.godot/imported/ui_hand_swap.png-ac682da544fc.ctex"]
 
 [params]
 

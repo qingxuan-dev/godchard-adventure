@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3e3mvr1lri5p"
-path="res://.godot/imported/cyber_floor.png-fb49617e26715a9f502a947d23359f13.ctex"
+uid="uid://gv4_c1318e344717"
+path="res://.godot/imported/cyber_floor.png-c1318e344717.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cyber_floor.png"
-dest_files=["res://.godot/imported/cyber_floor.png-fb49617e26715a9f502a947d23359f13.ctex"]
+dest_files=["res://.godot/imported/cyber_floor.png-c1318e344717.ctex"]
 
 [params]
 

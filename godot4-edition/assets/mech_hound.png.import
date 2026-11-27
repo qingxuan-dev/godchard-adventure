@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2fr8awpk2kbg"
-path="res://.godot/imported/mech_hound.png-a3bd9cdeeaa2e457f704280531f14f1d.ctex"
+uid="uid://gv4_7bcea2c2ca18"
+path="res://.godot/imported/mech_hound.png-7bcea2c2ca18.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_hound.png"
-dest_files=["res://.godot/imported/mech_hound.png-a3bd9cdeeaa2e457f704280531f14f1d.ctex"]
+dest_files=["res://.godot/imported/mech_hound.png-7bcea2c2ca18.ctex"]
 
 [params]
 

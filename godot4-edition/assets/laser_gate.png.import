@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn3sqpojx2cgk"
-path="res://.godot/imported/laser_gate.png-1ddca6a63070b752a0b1b5409e60be89.ctex"
+uid="uid://gv4_f2360602c305"
+path="res://.godot/imported/laser_gate.png-f2360602c305.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/laser_gate.png"
-dest_files=["res://.godot/imported/laser_gate.png-1ddca6a63070b752a0b1b5409e60be89.ctex"]
+dest_files=["res://.godot/imported/laser_gate.png-f2360602c305.ctex"]
 
 [params]
 

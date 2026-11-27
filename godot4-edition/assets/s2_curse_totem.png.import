@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cejg84r4iwmqe"
-path="res://.godot/imported/s2_curse_totem.png-3485422f6cb43664ef3eef5d8fc38255.ctex"
+uid="uid://gv4_7f5e35f63ff4"
+path="res://.godot/imported/s2_curse_totem.png-7f5e35f63ff4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_curse_totem.png"
-dest_files=["res://.godot/imported/s2_curse_totem.png-3485422f6cb43664ef3eef5d8fc38255.ctex"]
+dest_files=["res://.godot/imported/s2_curse_totem.png-7f5e35f63ff4.ctex"]
 
 [params]
 

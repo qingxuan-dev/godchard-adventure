@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkwxrphyjemly"
-path="res://.godot/imported/hint_ill_reverse.jpg-dbe77ce01c525e80580d00c0314d9f94.ctex"
+uid="uid://gv4_cedf5bcb107f"
+path="res://.godot/imported/hint_ill_reverse.jpg-cedf5bcb107f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_reverse.jpg"
-dest_files=["res://.godot/imported/hint_ill_reverse.jpg-dbe77ce01c525e80580d00c0314d9f94.ctex"]
+dest_files=["res://.godot/imported/hint_ill_reverse.jpg-cedf5bcb107f.ctex"]
 
 [params]
 

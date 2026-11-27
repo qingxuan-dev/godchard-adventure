@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwv5v7xctmqec"
-path="res://.godot/imported/s2_phase_warn.png-c7f8aca901c1d343bf31c70f6cc662e9.ctex"
+uid="uid://gv4_3964b6bd7802"
+path="res://.godot/imported/s2_phase_warn.png-3964b6bd7802.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_phase_warn.png"
-dest_files=["res://.godot/imported/s2_phase_warn.png-c7f8aca901c1d343bf31c70f6cc662e9.ctex"]
+dest_files=["res://.godot/imported/s2_phase_warn.png-3964b6bd7802.ctex"]
 
 [params]
 

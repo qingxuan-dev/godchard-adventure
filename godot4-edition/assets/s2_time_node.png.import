@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbytx6i82g7rs"
-path="res://.godot/imported/s2_time_node.png-b102c85069ea90f2ac6d8818c8cb6f40.ctex"
+uid="uid://gv4_33e139b69b02"
+path="res://.godot/imported/s2_time_node.png-33e139b69b02.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_time_node.png"
-dest_files=["res://.godot/imported/s2_time_node.png-b102c85069ea90f2ac6d8818c8cb6f40.ctex"]
+dest_files=["res://.godot/imported/s2_time_node.png-33e139b69b02.ctex"]
 
 [params]
 

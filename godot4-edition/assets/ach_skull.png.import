@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cocd8n4vg8m7o"
-path="res://.godot/imported/ach_skull.png-9d87a630e9cf3419888d8d070be2b1ab.ctex"
+uid="uid://gv4_c2d938e18400"
+path="res://.godot/imported/ach_skull.png-c2d938e18400.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_skull.png"
-dest_files=["res://.godot/imported/ach_skull.png-9d87a630e9cf3419888d8d070be2b1ab.ctex"]
+dest_files=["res://.godot/imported/ach_skull.png-c2d938e18400.ctex"]
 
 [params]
 

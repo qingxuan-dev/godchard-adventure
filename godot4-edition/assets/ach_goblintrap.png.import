@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d8g4gcdqkeea"
-path="res://.godot/imported/ach_goblintrap.png-41f01c241eb787d48c2e784c23743036.ctex"
+uid="uid://gv4_8ced690eb71d"
+path="res://.godot/imported/ach_goblintrap.png-8ced690eb71d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_goblintrap.png"
-dest_files=["res://.godot/imported/ach_goblintrap.png-41f01c241eb787d48c2e784c23743036.ctex"]
+dest_files=["res://.godot/imported/ach_goblintrap.png-8ced690eb71d.ctex"]
 
 [params]
 

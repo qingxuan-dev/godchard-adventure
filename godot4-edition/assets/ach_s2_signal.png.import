@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://57qp6iy7enme"
-path="res://.godot/imported/ach_s2_signal.png-a001a6a489bba60bd15d1ae27bcbbba3.ctex"
+uid="uid://gv4_5e5b76f97ca5"
+path="res://.godot/imported/ach_s2_signal.png-5e5b76f97ca5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_signal.png"
-dest_files=["res://.godot/imported/ach_s2_signal.png-a001a6a489bba60bd15d1ae27bcbbba3.ctex"]
+dest_files=["res://.godot/imported/ach_s2_signal.png-5e5b76f97ca5.ctex"]
 
 [params]
 

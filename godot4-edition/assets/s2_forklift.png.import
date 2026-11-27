@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bux6sbns10x57"
-path="res://.godot/imported/s2_forklift.png-6e8e5890c8825debf2b2565dd142da8e.ctex"
+uid="uid://gv4_6a4b5a75c12c"
+path="res://.godot/imported/s2_forklift.png-6a4b5a75c12c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_forklift.png"
-dest_files=["res://.godot/imported/s2_forklift.png-6e8e5890c8825debf2b2565dd142da8e.ctex"]
+dest_files=["res://.godot/imported/s2_forklift.png-6a4b5a75c12c.ctex"]
 
 [params]
 

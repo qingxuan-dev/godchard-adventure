@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://os8bj4v5d5fe"
-path="res://.godot/imported/s3_pink_flower_angry.png-7ecdc2ede9037e1fb445948990c380ef.ctex"
+uid="uid://gv4_7576f3596075"
+path="res://.godot/imported/s3_pink_flower_angry.png-7576f3596075.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_pink_flower_angry.png"
-dest_files=["res://.godot/imported/s3_pink_flower_angry.png-7ecdc2ede9037e1fb445948990c380ef.ctex"]
+dest_files=["res://.godot/imported/s3_pink_flower_angry.png-7576f3596075.ctex"]
 
 [params]
 

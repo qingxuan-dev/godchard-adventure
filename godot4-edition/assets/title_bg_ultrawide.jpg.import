@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqtmq6x6nad0l"
-path="res://.godot/imported/title_bg_ultrawide.jpg-b70e309510d444327da9087a92e143be.ctex"
+uid="uid://gv4_afdb10ba6991"
+path="res://.godot/imported/title_bg_ultrawide.jpg-afdb10ba6991.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/title_bg_ultrawide.jpg"
-dest_files=["res://.godot/imported/title_bg_ultrawide.jpg-b70e309510d444327da9087a92e143be.ctex"]
+dest_files=["res://.godot/imported/title_bg_ultrawide.jpg-afdb10ba6991.ctex"]
 
 [params]
 

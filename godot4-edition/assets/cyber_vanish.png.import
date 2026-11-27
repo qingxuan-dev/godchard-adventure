@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpomsggvtud32"
-path="res://.godot/imported/cyber_vanish.png-588fee57a9199f433e82cdddf30eacdc.ctex"
+uid="uid://gv4_0ff54feaa1c7"
+path="res://.godot/imported/cyber_vanish.png-0ff54feaa1c7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cyber_vanish.png"
-dest_files=["res://.godot/imported/cyber_vanish.png-588fee57a9199f433e82cdddf30eacdc.ctex"]
+dest_files=["res://.godot/imported/cyber_vanish.png-0ff54feaa1c7.ctex"]
 
 [params]
 

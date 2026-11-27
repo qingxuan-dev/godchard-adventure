@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmveh8maa7yx5"
-path="res://.godot/imported/mirror_wall.png-2fd741f3681e3e31435ff2b13cf56193.ctex"
+uid="uid://gv4_60c4af708989"
+path="res://.godot/imported/mirror_wall.png-60c4af708989.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mirror_wall.png"
-dest_files=["res://.godot/imported/mirror_wall.png-2fd741f3681e3e31435ff2b13cf56193.ctex"]
+dest_files=["res://.godot/imported/mirror_wall.png-60c4af708989.ctex"]
 
 [params]
 

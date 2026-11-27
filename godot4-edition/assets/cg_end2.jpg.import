@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmrwe7khr2l3n"
-path="res://.godot/imported/cg_end2.jpg-37ef895d20ecf9a9a9c6930634a9b09a.ctex"
+uid="uid://gv4_c6ab1ee64e3b"
+path="res://.godot/imported/cg_end2.jpg-c6ab1ee64e3b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cg_end2.jpg"
-dest_files=["res://.godot/imported/cg_end2.jpg-37ef895d20ecf9a9a9c6930634a9b09a.ctex"]
+dest_files=["res://.godot/imported/cg_end2.jpg-c6ab1ee64e3b.ctex"]
 
 [params]
 

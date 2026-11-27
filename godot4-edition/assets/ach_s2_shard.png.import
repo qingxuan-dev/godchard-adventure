@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dslxpg1ah3ha6"
-path="res://.godot/imported/ach_s2_shard.png-fc553f5184aa1a2b04a5302daccceabf.ctex"
+uid="uid://gv4_5624b81a490e"
+path="res://.godot/imported/ach_s2_shard.png-5624b81a490e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_shard.png"
-dest_files=["res://.godot/imported/ach_s2_shard.png-fc553f5184aa1a2b04a5302daccceabf.ctex"]
+dest_files=["res://.godot/imported/ach_s2_shard.png-5624b81a490e.ctex"]
 
 [params]
 

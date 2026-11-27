@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1dflt11ptbti"
-path="res://.godot/imported/chest_closed.png-b08513cb046434c518d91e13f7390982.ctex"
+uid="uid://gv4_76cf513d3fa1"
+path="res://.godot/imported/chest_closed.png-76cf513d3fa1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/chest_closed.png"
-dest_files=["res://.godot/imported/chest_closed.png-b08513cb046434c518d91e13f7390982.ctex"]
+dest_files=["res://.godot/imported/chest_closed.png-76cf513d3fa1.ctex"]
 
 [params]
 

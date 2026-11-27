@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs6pgbx0vowph"
-path="res://.godot/imported/ui_audio.png-3b7c5e99240d2ff0743c4cb86463e7a8.ctex"
+uid="uid://gv4_fa7db37fc7a0"
+path="res://.godot/imported/ui_audio.png-fa7db37fc7a0.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_audio.png"
-dest_files=["res://.godot/imported/ui_audio.png-3b7c5e99240d2ff0743c4cb86463e7a8.ctex"]
+dest_files=["res://.godot/imported/ui_audio.png-fa7db37fc7a0.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxcr7e2p312fk"
-path="res://.godot/imported/s3_mon_tanuki_log.png-320dc2b6f868c99d0261e2285cec901e.ctex"
+uid="uid://gv4_ec631c8083ce"
+path="res://.godot/imported/s3_mon_tanuki_log.png-ec631c8083ce.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_mon_tanuki_log.png"
-dest_files=["res://.godot/imported/s3_mon_tanuki_log.png-320dc2b6f868c99d0261e2285cec901e.ctex"]
+dest_files=["res://.godot/imported/s3_mon_tanuki_log.png-ec631c8083ce.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmduhbve8s1k2"
-path="res://.godot/imported/flower_skull.png-a9d9adef4c1398bafd411d221383a738.ctex"
+uid="uid://gv4_15505b603d15"
+path="res://.godot/imported/flower_skull.png-15505b603d15.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/flower_skull.png"
-dest_files=["res://.godot/imported/flower_skull.png-a9d9adef4c1398bafd411d221383a738.ctex"]
+dest_files=["res://.godot/imported/flower_skull.png-15505b603d15.ctex"]
 
 [params]
 

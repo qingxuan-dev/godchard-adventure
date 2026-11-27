@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bup87cmujuh70"
-path="res://.godot/imported/bullet_cyan.png-cc29fbd0c5bcb49bcb908f003f075936.ctex"
+uid="uid://gv4_59062d6c9bab"
+path="res://.godot/imported/bullet_cyan.png-59062d6c9bab.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bullet_cyan.png"
-dest_files=["res://.godot/imported/bullet_cyan.png-cc29fbd0c5bcb49bcb908f003f075936.ctex"]
+dest_files=["res://.godot/imported/bullet_cyan.png-59062d6c9bab.ctex"]
 
 [params]
 

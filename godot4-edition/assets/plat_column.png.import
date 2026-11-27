@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcsgc2wt0xsj2"
-path="res://.godot/imported/plat_column.png-ff6c6bf19419435104c0627b1baf94a5.ctex"
+uid="uid://gv4_24832b023fd7"
+path="res://.godot/imported/plat_column.png-24832b023fd7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/plat_column.png"
-dest_files=["res://.godot/imported/plat_column.png-ff6c6bf19419435104c0627b1baf94a5.ctex"]
+dest_files=["res://.godot/imported/plat_column.png-24832b023fd7.ctex"]
 
 [params]
 

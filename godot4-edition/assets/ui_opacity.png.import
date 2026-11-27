@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cws4bnb1iihv"
-path="res://.godot/imported/ui_opacity.png-505c9e239bbc24cee2f3e36099e0b16b.ctex"
+uid="uid://gv4_0eadb51c8525"
+path="res://.godot/imported/ui_opacity.png-0eadb51c8525.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_opacity.png"
-dest_files=["res://.godot/imported/ui_opacity.png-505c9e239bbc24cee2f3e36099e0b16b.ctex"]
+dest_files=["res://.godot/imported/ui_opacity.png-0eadb51c8525.ctex"]
 
 [params]
 

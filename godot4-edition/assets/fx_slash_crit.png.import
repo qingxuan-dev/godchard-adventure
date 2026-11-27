@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crsg0q6wutb4v"
-path="res://.godot/imported/fx_slash_crit.png-21ad2ebd0801e3cca621c108e3f07e28.ctex"
+uid="uid://gv4_f905707276b5"
+path="res://.godot/imported/fx_slash_crit.png-f905707276b5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/fx_slash_crit.png"
-dest_files=["res://.godot/imported/fx_slash_crit.png-21ad2ebd0801e3cca621c108e3f07e28.ctex"]
+dest_files=["res://.godot/imported/fx_slash_crit.png-f905707276b5.ctex"]
 
 [params]
 

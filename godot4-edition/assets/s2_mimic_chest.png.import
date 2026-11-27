@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxr53mowha2aq"
-path="res://.godot/imported/s2_mimic_chest.png-1961d0f45329485cd0a1e15377efac71.ctex"
+uid="uid://gv4_b1aca181fd1c"
+path="res://.godot/imported/s2_mimic_chest.png-b1aca181fd1c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_mimic_chest.png"
-dest_files=["res://.godot/imported/s2_mimic_chest.png-1961d0f45329485cd0a1e15377efac71.ctex"]
+dest_files=["res://.godot/imported/s2_mimic_chest.png-b1aca181fd1c.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yu6uoj8n04m4"
-path="res://.godot/imported/ach_s2_arena98.png-951fd0799dff765575796ec690695d28.ctex"
+uid="uid://gv4_5470aedc01bb"
+path="res://.godot/imported/ach_s2_arena98.png-5470aedc01bb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_s2_arena98.png"
-dest_files=["res://.godot/imported/ach_s2_arena98.png-951fd0799dff765575796ec690695d28.ctex"]
+dest_files=["res://.godot/imported/ach_s2_arena98.png-5470aedc01bb.ctex"]
 
 [params]
 

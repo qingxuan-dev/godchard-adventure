@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1s80fqkhql7c"
-path="res://.godot/imported/clock_gear.png-8433fc0f187d036f6cd287465389d99f.ctex"
+uid="uid://gv4_04f6ec18544e"
+path="res://.godot/imported/clock_gear.png-04f6ec18544e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/clock_gear.png"
-dest_files=["res://.godot/imported/clock_gear.png-8433fc0f187d036f6cd287465389d99f.ctex"]
+dest_files=["res://.godot/imported/clock_gear.png-04f6ec18544e.ctex"]
 
 [params]
 

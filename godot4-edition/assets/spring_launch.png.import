@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1liapbgw2hlf"
-path="res://.godot/imported/spring_launch.png-31589f7415a85b55b18765f3a3ac8bfc.ctex"
+uid="uid://gv4_f0b9f8d31147"
+path="res://.godot/imported/spring_launch.png-f0b9f8d31147.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/spring_launch.png"
-dest_files=["res://.godot/imported/spring_launch.png-31589f7415a85b55b18765f3a3ac8bfc.ctex"]
+dest_files=["res://.godot/imported/spring_launch.png-f0b9f8d31147.ctex"]
 
 [params]
 

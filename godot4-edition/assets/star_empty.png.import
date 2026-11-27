@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1xrr3wcay0c0"
-path="res://.godot/imported/star_empty.png-de2d715b74e2181ce5dfd70e91222164.ctex"
+uid="uid://gv4_e7a75c2e2e4d"
+path="res://.godot/imported/star_empty.png-e7a75c2e2e4d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/star_empty.png"
-dest_files=["res://.godot/imported/star_empty.png-de2d715b74e2181ce5dfd70e91222164.ctex"]
+dest_files=["res://.godot/imported/star_empty.png-e7a75c2e2e4d.ctex"]
 
 [params]
 

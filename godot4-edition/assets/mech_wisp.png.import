@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5yjk75qu7tm3"
-path="res://.godot/imported/mech_wisp.png-d37c72d88d5d7faf7fded4a9b3358e7b.ctex"
+uid="uid://gv4_8198c6edf39f"
+path="res://.godot/imported/mech_wisp.png-8198c6edf39f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_wisp.png"
-dest_files=["res://.godot/imported/mech_wisp.png-d37c72d88d5d7faf7fded4a9b3358e7b.ctex"]
+dest_files=["res://.godot/imported/mech_wisp.png-8198c6edf39f.ctex"]
 
 [params]
 

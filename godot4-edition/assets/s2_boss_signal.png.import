@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdvj5mqepe3vd"
-path="res://.godot/imported/s2_boss_signal.png-f38b172d4318d0e37cf5f1f7d77568b4.ctex"
+uid="uid://gv4_215fdacfd518"
+path="res://.godot/imported/s2_boss_signal.png-215fdacfd518.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_boss_signal.png"
-dest_files=["res://.godot/imported/s2_boss_signal.png-f38b172d4318d0e37cf5f1f7d77568b4.ctex"]
+dest_files=["res://.godot/imported/s2_boss_signal.png-215fdacfd518.ctex"]
 
 [params]
 

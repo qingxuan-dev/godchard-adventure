@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://godchard_main_150"]
+[gd_scene load_steps=3 format=3 uid="uid://godchard_main_150"]
 
 [ext_resource type="Script" path="res://scripts/game_main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://godchard_debug_overlay_v4" path="res://scenes/DebugOverlay.tscn" id="2_dbg"]
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -20,3 +21,8 @@ texture_filter = 1
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 10
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="DebugOverlay" parent="DebugLayer" instance=ExtResource("2_dbg")]

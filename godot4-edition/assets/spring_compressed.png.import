@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbuv71hxxjiog"
-path="res://.godot/imported/spring_compressed.png-fdc4fff01d37103ec37dea7eb5458aae.ctex"
+uid="uid://gv4_db2d9a0626df"
+path="res://.godot/imported/spring_compressed.png-db2d9a0626df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/spring_compressed.png"
-dest_files=["res://.godot/imported/spring_compressed.png-fdc4fff01d37103ec37dea7eb5458aae.ctex"]
+dest_files=["res://.godot/imported/spring_compressed.png-db2d9a0626df.ctex"]
 
 [params]
 

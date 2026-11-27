@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4hb7y7r2fjec"
-path="res://.godot/imported/badge_clear.png-9b4fb098ddf7f19f997a1acac054464b.ctex"
+uid="uid://gv4_ba3521b19e22"
+path="res://.godot/imported/badge_clear.png-ba3521b19e22.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/badge_clear.png"
-dest_files=["res://.godot/imported/badge_clear.png-9b4fb098ddf7f19f997a1acac054464b.ctex"]
+dest_files=["res://.godot/imported/badge_clear.png-ba3521b19e22.ctex"]
 
 [params]
 

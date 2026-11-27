@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cthra56qtwmq3"
-path="res://.godot/imported/mech_tank.png-7ed3f506a095e634f2847f28f0e0bfad.ctex"
+uid="uid://gv4_66e2af030c0c"
+path="res://.godot/imported/mech_tank.png-66e2af030c0c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_tank.png"
-dest_files=["res://.godot/imported/mech_tank.png-7ed3f506a095e634f2847f28f0e0bfad.ctex"]
+dest_files=["res://.godot/imported/mech_tank.png-66e2af030c0c.ctex"]
 
 [params]
 

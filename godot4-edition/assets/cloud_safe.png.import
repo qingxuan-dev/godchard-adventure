@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jsrqggj5fwho"
-path="res://.godot/imported/cloud_safe.png-c88dc15c54e39b44aa7b087bf924ccc0.ctex"
+uid="uid://gv4_da4aa527a4df"
+path="res://.godot/imported/cloud_safe.png-da4aa527a4df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/cloud_safe.png"
-dest_files=["res://.godot/imported/cloud_safe.png-c88dc15c54e39b44aa7b087bf924ccc0.ctex"]
+dest_files=["res://.godot/imported/cloud_safe.png-da4aa527a4df.ctex"]
 
 [params]
 

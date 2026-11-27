@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u3qwmrvkh2og"
-path="res://.godot/imported/ui_next_lv.png-aceed615a8869d3a2016fef6ed6be033.ctex"
+uid="uid://gv4_8c582c47e6f7"
+path="res://.godot/imported/ui_next_lv.png-8c582c47e6f7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_next_lv.png"
-dest_files=["res://.godot/imported/ui_next_lv.png-aceed615a8869d3a2016fef6ed6be033.ctex"]
+dest_files=["res://.godot/imported/ui_next_lv.png-8c582c47e6f7.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhyic2khphmhl"
-path="res://.godot/imported/s2_mimic_flag.png-4a8cb05ebdcb7b22029b6738412dddc9.ctex"
+uid="uid://gv4_763b7513d8a8"
+path="res://.godot/imported/s2_mimic_flag.png-763b7513d8a8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_mimic_flag.png"
-dest_files=["res://.godot/imported/s2_mimic_flag.png-4a8cb05ebdcb7b22029b6738412dddc9.ctex"]
+dest_files=["res://.godot/imported/s2_mimic_flag.png-763b7513d8a8.ctex"]
 
 [params]
 

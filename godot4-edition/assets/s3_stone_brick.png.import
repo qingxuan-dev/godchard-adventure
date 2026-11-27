@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc84evxc174l7"
-path="res://.godot/imported/s3_stone_brick.png-d144ea8b506cd1ff3701f377696d9171.ctex"
+uid="uid://gv4_ac3bf1d9ed24"
+path="res://.godot/imported/s3_stone_brick.png-ac3bf1d9ed24.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_stone_brick.png"
-dest_files=["res://.godot/imported/s3_stone_brick.png-d144ea8b506cd1ff3701f377696d9171.ctex"]
+dest_files=["res://.godot/imported/s3_stone_brick.png-ac3bf1d9ed24.ctex"]
 
 [params]
 

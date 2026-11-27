@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwuhrn2od2mpk"
-path="res://.godot/imported/s2_mem_shard.png-8b9f79e8d2e7403b7fdc6e7a538e4ffb.ctex"
+uid="uid://gv4_a9ba3454516e"
+path="res://.godot/imported/s2_mem_shard.png-a9ba3454516e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_mem_shard.png"
-dest_files=["res://.godot/imported/s2_mem_shard.png-8b9f79e8d2e7403b7fdc6e7a538e4ffb.ctex"]
+dest_files=["res://.godot/imported/s2_mem_shard.png-a9ba3454516e.ctex"]
 
 [params]
 

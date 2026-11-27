@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh032aq0n5711"
-path="res://.godot/imported/ui_skull.png-2458c778424c944d3a9d41a626c3b322.ctex"
+uid="uid://gv4_2b26349b4a5d"
+path="res://.godot/imported/ui_skull.png-2b26349b4a5d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_skull.png"
-dest_files=["res://.godot/imported/ui_skull.png-2458c778424c944d3a9d41a626c3b322.ctex"]
+dest_files=["res://.godot/imported/ui_skull.png-2b26349b4a5d.ctex"]
 
 [params]
 

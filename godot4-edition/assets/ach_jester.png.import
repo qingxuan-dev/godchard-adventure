@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djpxiyt21r0cx"
-path="res://.godot/imported/ach_jester.png-4c60ebb868270c127a9bedf8c89e8c8d.ctex"
+uid="uid://gv4_536ae8dc365f"
+path="res://.godot/imported/ach_jester.png-536ae8dc365f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_jester.png"
-dest_files=["res://.godot/imported/ach_jester.png-4c60ebb868270c127a9bedf8c89e8c8d.ctex"]
+dest_files=["res://.godot/imported/ach_jester.png-536ae8dc365f.ctex"]
 
 [params]
 

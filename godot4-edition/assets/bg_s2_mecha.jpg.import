@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3yeuynlk7j70"
-path="res://.godot/imported/bg_s2_mecha.jpg-c6e3ee0df4d87e206250b0115278b3c1.ctex"
+uid="uid://gv4_466aa370ea12"
+path="res://.godot/imported/bg_s2_mecha.jpg-466aa370ea12.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bg_s2_mecha.jpg"
-dest_files=["res://.godot/imported/bg_s2_mecha.jpg-c6e3ee0df4d87e206250b0115278b3c1.ctex"]
+dest_files=["res://.godot/imported/bg_s2_mecha.jpg-466aa370ea12.ctex"]
 
 [params]
 

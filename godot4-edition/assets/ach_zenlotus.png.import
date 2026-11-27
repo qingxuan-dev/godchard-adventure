@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6eies5gn2yul"
-path="res://.godot/imported/ach_zenlotus.png-d9acbec8800e153a4a4a4682841c12ab.ctex"
+uid="uid://gv4_a93780ba4d04"
+path="res://.godot/imported/ach_zenlotus.png-a93780ba4d04.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_zenlotus.png"
-dest_files=["res://.godot/imported/ach_zenlotus.png-d9acbec8800e153a4a4a4682841c12ab.ctex"]
+dest_files=["res://.godot/imported/ach_zenlotus.png-a93780ba4d04.ctex"]
 
 [params]
 

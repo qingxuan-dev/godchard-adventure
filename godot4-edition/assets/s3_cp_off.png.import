@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cehisv3u7tnut"
-path="res://.godot/imported/s3_cp_off.png-72528cc6bcbad05d9a2a2da709b5c419.ctex"
+uid="uid://gv4_7a112565fee7"
+path="res://.godot/imported/s3_cp_off.png-7a112565fee7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_cp_off.png"
-dest_files=["res://.godot/imported/s3_cp_off.png-72528cc6bcbad05d9a2a2da709b5c419.ctex"]
+dest_files=["res://.godot/imported/s3_cp_off.png-7a112565fee7.ctex"]
 
 [params]
 

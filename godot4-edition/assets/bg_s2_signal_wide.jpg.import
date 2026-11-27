@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlfowpy3xswlc"
-path="res://.godot/imported/bg_s2_signal_wide.jpg-5c9a8200bbe8dc07e316a6751ca6d664.ctex"
+uid="uid://gv4_b34bf1b8d805"
+path="res://.godot/imported/bg_s2_signal_wide.jpg-b34bf1b8d805.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bg_s2_signal_wide.jpg"
-dest_files=["res://.godot/imported/bg_s2_signal_wide.jpg-5c9a8200bbe8dc07e316a6751ca6d664.ctex"]
+dest_files=["res://.godot/imported/bg_s2_signal_wide.jpg-b34bf1b8d805.ctex"]
 
 [params]
 

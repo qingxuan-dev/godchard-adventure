@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bann5iv6a2u48"
-path="res://.godot/imported/hint_ill_paradox.jpg-7f4fd0d45551e379e5ca905065df8fd9.ctex"
+uid="uid://gv4_fa8db8165a57"
+path="res://.godot/imported/hint_ill_paradox.jpg-fa8db8165a57.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hint_ill_paradox.jpg"
-dest_files=["res://.godot/imported/hint_ill_paradox.jpg-7f4fd0d45551e379e5ca905065df8fd9.ctex"]
+dest_files=["res://.godot/imported/hint_ill_paradox.jpg-fa8db8165a57.ctex"]
 
 [params]
 

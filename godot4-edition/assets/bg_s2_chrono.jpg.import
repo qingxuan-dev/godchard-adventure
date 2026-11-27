@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btiuyvrx7052p"
-path="res://.godot/imported/bg_s2_chrono.jpg-17cf524f856cbcf015c0143022956f13.ctex"
+uid="uid://gv4_3b8dcc273c01"
+path="res://.godot/imported/bg_s2_chrono.jpg-3b8dcc273c01.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bg_s2_chrono.jpg"
-dest_files=["res://.godot/imported/bg_s2_chrono.jpg-17cf524f856cbcf015c0143022956f13.ctex"]
+dest_files=["res://.godot/imported/bg_s2_chrono.jpg-3b8dcc273c01.ctex"]
 
 [params]
 

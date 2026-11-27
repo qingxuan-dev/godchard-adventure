@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjnc0npg1lo65"
-path="res://.godot/imported/gravity_pad.png-a44a60f908196271cd1392370c53a3ba.ctex"
+uid="uid://gv4_e0eb6f15861a"
+path="res://.godot/imported/gravity_pad.png-e0eb6f15861a.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/gravity_pad.png"
-dest_files=["res://.godot/imported/gravity_pad.png-a44a60f908196271cd1392370c53a3ba.ctex"]
+dest_files=["res://.godot/imported/gravity_pad.png-e0eb6f15861a.ctex"]
 
 [params]
 

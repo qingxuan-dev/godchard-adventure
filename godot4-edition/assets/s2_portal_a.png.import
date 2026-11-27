@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qi8ln3yjq5o5"
-path="res://.godot/imported/s2_portal_a.png-2862f27b31736498c7cce63746e2155a.ctex"
+uid="uid://gv4_6309824c4348"
+path="res://.godot/imported/s2_portal_a.png-6309824c4348.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_portal_a.png"
-dest_files=["res://.godot/imported/s2_portal_a.png-2862f27b31736498c7cce63746e2155a.ctex"]
+dest_files=["res://.godot/imported/s2_portal_a.png-6309824c4348.ctex"]
 
 [params]
 

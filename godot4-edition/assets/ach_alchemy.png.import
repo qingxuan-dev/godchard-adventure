@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xo8fcwxs24w7"
-path="res://.godot/imported/ach_alchemy.png-edd1ed77121f52d5000cf28eca87f4bc.ctex"
+uid="uid://gv4_8b77d05505da"
+path="res://.godot/imported/ach_alchemy.png-8b77d05505da.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_alchemy.png"
-dest_files=["res://.godot/imported/ach_alchemy.png-edd1ed77121f52d5000cf28eca87f4bc.ctex"]
+dest_files=["res://.godot/imported/ach_alchemy.png-8b77d05505da.ctex"]
 
 [params]
 

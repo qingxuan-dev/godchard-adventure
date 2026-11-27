@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3qlq2oncrb82"
-path="res://.godot/imported/s3_flag_win.png-3394906ca0e1a30073a0dfe8b3e0f62a.ctex"
+uid="uid://gv4_8609c1aedb4e"
+path="res://.godot/imported/s3_flag_win.png-8609c1aedb4e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_flag_win.png"
-dest_files=["res://.godot/imported/s3_flag_win.png-3394906ca0e1a30073a0dfe8b3e0f62a.ctex"]
+dest_files=["res://.godot/imported/s3_flag_win.png-8609c1aedb4e.ctex"]
 
 [params]
 

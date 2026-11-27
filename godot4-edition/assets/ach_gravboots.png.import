@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blkcaosr80knq"
-path="res://.godot/imported/ach_gravboots.png-ee8e21765f3ec10a70025aa217e0b3cc.ctex"
+uid="uid://gv4_6b5b65df3d50"
+path="res://.godot/imported/ach_gravboots.png-6b5b65df3d50.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_gravboots.png"
-dest_files=["res://.godot/imported/ach_gravboots.png-ee8e21765f3ec10a70025aa217e0b3cc.ctex"]
+dest_files=["res://.godot/imported/ach_gravboots.png-6b5b65df3d50.ctex"]
 
 [params]
 

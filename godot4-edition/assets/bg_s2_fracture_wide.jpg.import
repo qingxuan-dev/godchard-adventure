@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfly62fmecldl"
-path="res://.godot/imported/bg_s2_fracture_wide.jpg-78f7aaa2bb819747729efea8283dc113.ctex"
+uid="uid://gv4_e05c398bdf3b"
+path="res://.godot/imported/bg_s2_fracture_wide.jpg-e05c398bdf3b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bg_s2_fracture_wide.jpg"
-dest_files=["res://.godot/imported/bg_s2_fracture_wide.jpg-78f7aaa2bb819747729efea8283dc113.ctex"]
+dest_files=["res://.godot/imported/bg_s2_fracture_wide.jpg-e05c398bdf3b.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8pwblktiknx7"
-path="res://.godot/imported/ui_btn_right.png-bb74ac81a2850c0fcccc1de71de7184b.ctex"
+uid="uid://gv4_23eb12b7cbd7"
+path="res://.godot/imported/ui_btn_right.png-23eb12b7cbd7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_btn_right.png"
-dest_files=["res://.godot/imported/ui_btn_right.png-bb74ac81a2850c0fcccc1de71de7184b.ctex"]
+dest_files=["res://.godot/imported/ui_btn_right.png-23eb12b7cbd7.ctex"]
 
 [params]
 

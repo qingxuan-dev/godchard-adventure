@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfr30xab3wstf"
-path="res://.godot/imported/hero_grave.png-74d5fb8bbb35524572641c2efdc8f187.ctex"
+uid="uid://gv4_5088dbd65057"
+path="res://.godot/imported/hero_grave.png-5088dbd65057.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/hero_grave.png"
-dest_files=["res://.godot/imported/hero_grave.png-74d5fb8bbb35524572641c2efdc8f187.ctex"]
+dest_files=["res://.godot/imported/hero_grave.png-5088dbd65057.ctex"]
 
 [params]
 

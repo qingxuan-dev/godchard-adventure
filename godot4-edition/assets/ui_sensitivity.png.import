@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o55ygj6rwhh3"
-path="res://.godot/imported/ui_sensitivity.png-3e4cb1158fc46e10e745bb76d2587094.ctex"
+uid="uid://gv4_36909a26ad1b"
+path="res://.godot/imported/ui_sensitivity.png-36909a26ad1b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_sensitivity.png"
-dest_files=["res://.godot/imported/ui_sensitivity.png-3e4cb1158fc46e10e745bb76d2587094.ctex"]
+dest_files=["res://.godot/imported/ui_sensitivity.png-36909a26ad1b.ctex"]
 
 [params]
 

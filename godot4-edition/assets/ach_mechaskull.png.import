@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6egjlsnkx0gj"
-path="res://.godot/imported/ach_mechaskull.png-8908d73cce31611781f3b9a10dce24ff.ctex"
+uid="uid://gv4_c30e72540be1"
+path="res://.godot/imported/ach_mechaskull.png-c30e72540be1.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_mechaskull.png"
-dest_files=["res://.godot/imported/ach_mechaskull.png-8908d73cce31611781f3b9a10dce24ff.ctex"]
+dest_files=["res://.godot/imported/ach_mechaskull.png-c30e72540be1.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqao5rvngo45w"
-path="res://.godot/imported/death_taunt_banner.png-bfc5dbedcd5bcf33bfbea63e2d5a912f.ctex"
+uid="uid://gv4_534323532c43"
+path="res://.godot/imported/death_taunt_banner.png-534323532c43.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/death_taunt_banner.png"
-dest_files=["res://.godot/imported/death_taunt_banner.png-bfc5dbedcd5bcf33bfbea63e2d5a912f.ctex"]
+dest_files=["res://.godot/imported/death_taunt_banner.png-534323532c43.ctex"]
 
 [params]
 

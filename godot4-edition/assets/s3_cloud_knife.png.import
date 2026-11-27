@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d23hq45keui3h"
-path="res://.godot/imported/s3_cloud_knife.png-fab42cb1206ab14455ae5464bc7ad118.ctex"
+uid="uid://gv4_43e39bf658e0"
+path="res://.godot/imported/s3_cloud_knife.png-43e39bf658e0.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_cloud_knife.png"
-dest_files=["res://.godot/imported/s3_cloud_knife.png-fab42cb1206ab14455ae5464bc7ad118.ctex"]
+dest_files=["res://.godot/imported/s3_cloud_knife.png-43e39bf658e0.ctex"]
 
 [params]
 

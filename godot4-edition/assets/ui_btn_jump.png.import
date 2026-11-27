@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cokfmay1guonx"
-path="res://.godot/imported/ui_btn_jump.png-8b4e3b51c58bdb805c156f95091912de.ctex"
+uid="uid://gv4_17110947258b"
+path="res://.godot/imported/ui_btn_jump.png-17110947258b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_btn_jump.png"
-dest_files=["res://.godot/imported/ui_btn_jump.png-8b4e3b51c58bdb805c156f95091912de.ctex"]
+dest_files=["res://.godot/imported/ui_btn_jump.png-17110947258b.ctex"]
 
 [params]
 

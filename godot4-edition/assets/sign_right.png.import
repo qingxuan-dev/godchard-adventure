@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c41h2c3i5is14"
-path="res://.godot/imported/sign_right.png-f0235000ae2fae703695ae243348e671.ctex"
+uid="uid://gv4_d10b11024d9e"
+path="res://.godot/imported/sign_right.png-d10b11024d9e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/sign_right.png"
-dest_files=["res://.godot/imported/sign_right.png-f0235000ae2fae703695ae243348e671.ctex"]
+dest_files=["res://.godot/imported/sign_right.png-d10b11024d9e.ctex"]
 
 [params]
 

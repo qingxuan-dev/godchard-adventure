@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyjnjqtpyugh6"
-path="res://.godot/imported/ach_trophy.png-9259f5915e39ddae0755d0cb8eb73819.ctex"
+uid="uid://gv4_c0edd9c4ce9f"
+path="res://.godot/imported/ach_trophy.png-c0edd9c4ce9f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_trophy.png"
-dest_files=["res://.godot/imported/ach_trophy.png-9259f5915e39ddae0755d0cb8eb73819.ctex"]
+dest_files=["res://.godot/imported/ach_trophy.png-c0edd9c4ce9f.ctex"]
 
 [params]
 

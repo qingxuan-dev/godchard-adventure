@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7s278rdh1pxc"
-path="res://.godot/imported/s3_catapult_trap.png-7455bd7fe2470d02e9ca148be6e99eef.ctex"
+uid="uid://gv4_53e5ffc21ef2"
+path="res://.godot/imported/s3_catapult_trap.png-53e5ffc21ef2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_catapult_trap.png"
-dest_files=["res://.godot/imported/s3_catapult_trap.png-7455bd7fe2470d02e9ca148be6e99eef.ctex"]
+dest_files=["res://.godot/imported/s3_catapult_trap.png-53e5ffc21ef2.ctex"]
 
 [params]
 

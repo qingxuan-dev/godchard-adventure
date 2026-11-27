@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://debhtnpiwt6i"
-path="res://.godot/imported/enemy_follower.png-ccd472724ae7c195ec9ed46d5fd5dc43.ctex"
+uid="uid://gv4_5937594274aa"
+path="res://.godot/imported/enemy_follower.png-5937594274aa.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/enemy_follower.png"
-dest_files=["res://.godot/imported/enemy_follower.png-ccd472724ae7c195ec9ed46d5fd5dc43.ctex"]
+dest_files=["res://.godot/imported/enemy_follower.png-5937594274aa.ctex"]
 
 [params]
 

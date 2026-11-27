@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8jndqnbdbofo"
-path="res://.godot/imported/mech_crab.png-f76832084fcc1ac060b67a5507255ebe.ctex"
+uid="uid://gv4_a8899f86dd6e"
+path="res://.godot/imported/mech_crab.png-a8899f86dd6e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mech_crab.png"
-dest_files=["res://.godot/imported/mech_crab.png-f76832084fcc1ac060b67a5507255ebe.ctex"]
+dest_files=["res://.godot/imported/mech_crab.png-a8899f86dd6e.ctex"]
 
 [params]
 

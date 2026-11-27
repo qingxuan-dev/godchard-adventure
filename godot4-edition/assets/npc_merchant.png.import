@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i2ajg5p2o7fq"
-path="res://.godot/imported/npc_merchant.png-7f99c5c0abead9b694e03c6291f9860b.ctex"
+uid="uid://gv4_7f095563ab34"
+path="res://.godot/imported/npc_merchant.png-7f095563ab34.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/npc_merchant.png"
-dest_files=["res://.godot/imported/npc_merchant.png-7f99c5c0abead9b694e03c6291f9860b.ctex"]
+dest_files=["res://.godot/imported/npc_merchant.png-7f095563ab34.ctex"]
 
 [params]
 

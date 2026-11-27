@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqqgh0dcjjqif"
-path="res://.godot/imported/flag_idle.png-4ecb3fc83bd681b1e4ffdc5192fc41a6.ctex"
+uid="uid://gv4_b9ad40ec5a68"
+path="res://.godot/imported/flag_idle.png-b9ad40ec5a68.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/flag_idle.png"
-dest_files=["res://.godot/imported/flag_idle.png-4ecb3fc83bd681b1e4ffdc5192fc41a6.ctex"]
+dest_files=["res://.godot/imported/flag_idle.png-b9ad40ec5a68.ctex"]
 
 [params]
 

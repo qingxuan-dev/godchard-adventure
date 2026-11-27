@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://idm0pfg8o85d"
-path="res://.godot/imported/s3_mon_manju.png-79eeff3c33967d6535a729439f7b17a4.ctex"
+uid="uid://gv4_d45341083a86"
+path="res://.godot/imported/s3_mon_manju.png-d45341083a86.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_mon_manju.png"
-dest_files=["res://.godot/imported/s3_mon_manju.png-79eeff3c33967d6535a729439f7b17a4.ctex"]
+dest_files=["res://.godot/imported/s3_mon_manju.png-d45341083a86.ctex"]
 
 [params]
 

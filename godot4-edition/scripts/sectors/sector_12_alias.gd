@@ -1,0 +1,2 @@
+class_name Sector12Mechanics
+extends Sector1And2Mechanics

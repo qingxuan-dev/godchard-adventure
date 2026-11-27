@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cog8uopvvg3n4"
-path="res://.godot/imported/s2_shield_mech.png-65519748f57b8f95ccae9363e48d1c39.ctex"
+uid="uid://gv4_63a0116cff6e"
+path="res://.godot/imported/s2_shield_mech.png-63a0116cff6e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_shield_mech.png"
-dest_files=["res://.godot/imported/s2_shield_mech.png-65519748f57b8f95ccae9363e48d1c39.ctex"]
+dest_files=["res://.godot/imported/s2_shield_mech.png-63a0116cff6e.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdgdgpok7xide"
-path="res://.godot/imported/poop.png-f3e85af573d21d619be32e6d8f1a17f9.ctex"
+uid="uid://gv4_9d69933b7f70"
+path="res://.godot/imported/poop.png-9d69933b7f70.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/poop.png"
-dest_files=["res://.godot/imported/poop.png-f3e85af573d21d619be32e6d8f1a17f9.ctex"]
+dest_files=["res://.godot/imported/poop.png-9d69933b7f70.ctex"]
 
 [params]
 

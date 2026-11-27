@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq1uv4luuo6ap"
-path="res://.godot/imported/enemy_flying.png-2250b22e48830c2722889d95cec03367.ctex"
+uid="uid://gv4_946bf7b7c11e"
+path="res://.godot/imported/enemy_flying.png-946bf7b7c11e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/enemy_flying.png"
-dest_files=["res://.godot/imported/enemy_flying.png-2250b22e48830c2722889d95cec03367.ctex"]
+dest_files=["res://.godot/imported/enemy_flying.png-946bf7b7c11e.ctex"]
 
 [params]
 

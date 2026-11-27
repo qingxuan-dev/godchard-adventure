@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biou2ssyevvbi"
-path="res://.godot/imported/icon_poison.png-497778f26eb5c7d59f46f1d3ba397147.ctex"
+uid="uid://gv4_4bffa37fb942"
+path="res://.godot/imported/icon_poison.png-4bffa37fb942.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/icon_poison.png"
-dest_files=["res://.godot/imported/icon_poison.png-497778f26eb5c7d59f46f1d3ba397147.ctex"]
+dest_files=["res://.godot/imported/icon_poison.png-4bffa37fb942.ctex"]
 
 [params]
 

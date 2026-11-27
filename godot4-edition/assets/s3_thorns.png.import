@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvbj02s4bc2od"
-path="res://.godot/imported/s3_thorns.png-0a5cd38fb89973da9f8e49f875127da0.ctex"
+uid="uid://gv4_28f633f01493"
+path="res://.godot/imported/s3_thorns.png-28f633f01493.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_thorns.png"
-dest_files=["res://.godot/imported/s3_thorns.png-0a5cd38fb89973da9f8e49f875127da0.ctex"]
+dest_files=["res://.godot/imported/s3_thorns.png-28f633f01493.ctex"]
 
 [params]
 

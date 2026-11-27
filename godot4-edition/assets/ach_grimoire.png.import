@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://devp4n848e576"
-path="res://.godot/imported/ach_grimoire.png-4b0980c432e43df7af071248995d65b0.ctex"
+uid="uid://gv4_bd1c10065c32"
+path="res://.godot/imported/ach_grimoire.png-bd1c10065c32.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_grimoire.png"
-dest_files=["res://.godot/imported/ach_grimoire.png-4b0980c432e43df7af071248995d65b0.ctex"]
+dest_files=["res://.godot/imported/ach_grimoire.png-bd1c10065c32.ctex"]
 
 [params]
 

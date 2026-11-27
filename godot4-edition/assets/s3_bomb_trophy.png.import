@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c44bj0l84gfql"
-path="res://.godot/imported/s3_bomb_trophy.png-d9552a6525aab8ee6a6c05264556e006.ctex"
+uid="uid://gv4_acdcf7d82d96"
+path="res://.godot/imported/s3_bomb_trophy.png-acdcf7d82d96.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_bomb_trophy.png"
-dest_files=["res://.godot/imported/s3_bomb_trophy.png-d9552a6525aab8ee6a6c05264556e006.ctex"]
+dest_files=["res://.godot/imported/s3_bomb_trophy.png-acdcf7d82d96.ctex"]
 
 [params]
 

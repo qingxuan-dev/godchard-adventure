@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmm31i7mj5usf"
-path="res://.godot/imported/plat_copper_destruct.png-938c80e5ee0864cf0d01bc527d0d008e.ctex"
+uid="uid://gv4_8d36a944467d"
+path="res://.godot/imported/plat_copper_destruct.png-8d36a944467d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/plat_copper_destruct.png"
-dest_files=["res://.godot/imported/plat_copper_destruct.png-938c80e5ee0864cf0d01bc527d0d008e.ctex"]
+dest_files=["res://.godot/imported/plat_copper_destruct.png-8d36a944467d.ctex"]
 
 [params]
 

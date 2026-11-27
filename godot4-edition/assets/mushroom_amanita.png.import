@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnqjwmxtukhp"
-path="res://.godot/imported/mushroom_amanita.png-f974642dfc754cecf0403741a4eb8304.ctex"
+uid="uid://gv4_2cfbdcc3cd4b"
+path="res://.godot/imported/mushroom_amanita.png-2cfbdcc3cd4b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/mushroom_amanita.png"
-dest_files=["res://.godot/imported/mushroom_amanita.png-f974642dfc754cecf0403741a4eb8304.ctex"]
+dest_files=["res://.godot/imported/mushroom_amanita.png-2cfbdcc3cd4b.ctex"]
 
 [params]
 

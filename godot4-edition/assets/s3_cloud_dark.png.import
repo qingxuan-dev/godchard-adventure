@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmcq46irp3ufc"
-path="res://.godot/imported/s3_cloud_dark.png-0f813696540f58653d6fde43dce23372.ctex"
+uid="uid://gv4_df5d80b88529"
+path="res://.godot/imported/s3_cloud_dark.png-df5d80b88529.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_cloud_dark.png"
-dest_files=["res://.godot/imported/s3_cloud_dark.png-0f813696540f58653d6fde43dce23372.ctex"]
+dest_files=["res://.godot/imported/s3_cloud_dark.png-df5d80b88529.ctex"]
 
 [params]
 

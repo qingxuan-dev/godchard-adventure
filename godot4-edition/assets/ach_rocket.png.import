@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1eeinktx4w75"
-path="res://.godot/imported/ach_rocket.png-1b3b45c1493b514c32a40e056e182e47.ctex"
+uid="uid://gv4_e421f4889814"
+path="res://.godot/imported/ach_rocket.png-e421f4889814.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_rocket.png"
-dest_files=["res://.godot/imported/ach_rocket.png-1b3b45c1493b514c32a40e056e182e47.ctex"]
+dest_files=["res://.godot/imported/ach_rocket.png-e421f4889814.ctex"]
 
 [params]
 

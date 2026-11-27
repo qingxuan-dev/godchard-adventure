@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqhm3bgc6y75p"
-path="res://.godot/imported/ach_pipe.png-31084c38e27ff97581de4eee98f5a4b3.ctex"
+uid="uid://gv4_bc6a3c6cffdd"
+path="res://.godot/imported/ach_pipe.png-bc6a3c6cffdd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_pipe.png"
-dest_files=["res://.godot/imported/ach_pipe.png-31084c38e27ff97581de4eee98f5a4b3.ctex"]
+dest_files=["res://.godot/imported/ach_pipe.png-bc6a3c6cffdd.ctex"]
 
 [params]
 

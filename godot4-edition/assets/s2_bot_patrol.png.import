@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b62wnrk8opj5n"
-path="res://.godot/imported/s2_bot_patrol.png-393c59e8d31a468ed585f08ac2b87fcc.ctex"
+uid="uid://gv4_f352a6815afb"
+path="res://.godot/imported/s2_bot_patrol.png-f352a6815afb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_bot_patrol.png"
-dest_files=["res://.godot/imported/s2_bot_patrol.png-393c59e8d31a468ed585f08ac2b87fcc.ctex"]
+dest_files=["res://.godot/imported/s2_bot_patrol.png-f352a6815afb.ctex"]
 
 [params]
 

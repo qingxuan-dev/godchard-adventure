@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cckcp3paoic3k"
-path="res://.godot/imported/ui_pipe_down.png-1b9263ce3b6bf949a63f9c674c66610a.ctex"
+uid="uid://gv4_fcfba07ecdad"
+path="res://.godot/imported/ui_pipe_down.png-fcfba07ecdad.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ui_pipe_down.png"
-dest_files=["res://.godot/imported/ui_pipe_down.png-1b9263ce3b6bf949a63f9c674c66610a.ctex"]
+dest_files=["res://.godot/imported/ui_pipe_down.png-fcfba07ecdad.ctex"]
 
 [params]
 

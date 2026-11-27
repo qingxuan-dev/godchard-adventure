@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bssaj6m7e675t"
-path="res://.godot/imported/s3_sun_angry.png-06c982e05fd83c6ba39c729df8fb0900.ctex"
+uid="uid://gv4_9caf67123424"
+path="res://.godot/imported/s3_sun_angry.png-9caf67123424.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s3_sun_angry.png"
-dest_files=["res://.godot/imported/s3_sun_angry.png-06c982e05fd83c6ba39c729df8fb0900.ctex"]
+dest_files=["res://.godot/imported/s3_sun_angry.png-9caf67123424.ctex"]
 
 [params]
 

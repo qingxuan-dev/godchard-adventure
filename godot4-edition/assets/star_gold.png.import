@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbwwodigxw08v"
-path="res://.godot/imported/star_gold.png-0796c44d52d95ee8aef67221cc3599b3.ctex"
+uid="uid://gv4_ed464d33f13d"
+path="res://.godot/imported/star_gold.png-ed464d33f13d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/star_gold.png"
-dest_files=["res://.godot/imported/star_gold.png-0796c44d52d95ee8aef67221cc3599b3.ctex"]
+dest_files=["res://.godot/imported/star_gold.png-ed464d33f13d.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsp47butvkyiv"
-path="res://.godot/imported/ach_shield.png-b1bcf35c001b3171ad90869d3b3aab38.ctex"
+uid="uid://gv4_e6b1ac9ba21c"
+path="res://.godot/imported/ach_shield.png-e6b1ac9ba21c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/ach_shield.png"
-dest_files=["res://.godot/imported/ach_shield.png-b1bcf35c001b3171ad90869d3b3aab38.ctex"]
+dest_files=["res://.godot/imported/ach_shield.png-e6b1ac9ba21c.ctex"]
 
 [params]
 

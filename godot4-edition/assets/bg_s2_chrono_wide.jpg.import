@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqb8u1f0i2eyu"
-path="res://.godot/imported/bg_s2_chrono_wide.jpg-e295cfe142fb30e358999f7d815319ee.ctex"
+uid="uid://gv4_987f7cead4cc"
+path="res://.godot/imported/bg_s2_chrono_wide.jpg-987f7cead4cc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/bg_s2_chrono_wide.jpg"
-dest_files=["res://.godot/imported/bg_s2_chrono_wide.jpg-e295cfe142fb30e358999f7d815319ee.ctex"]
+dest_files=["res://.godot/imported/bg_s2_chrono_wide.jpg-987f7cead4cc.ctex"]
 
 [params]
 

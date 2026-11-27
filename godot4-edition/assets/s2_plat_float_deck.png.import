@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b08j1on44v82v"
-path="res://.godot/imported/s2_plat_float_deck.png-e4fb718e5edec6ac3ea599f11c769c02.ctex"
+uid="uid://gv4_6f079033c38b"
+path="res://.godot/imported/s2_plat_float_deck.png-6f079033c38b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/s2_plat_float_deck.png"
-dest_files=["res://.godot/imported/s2_plat_float_deck.png-e4fb718e5edec6ac3ea599f11c769c02.ctex"]
+dest_files=["res://.godot/imported/s2_plat_float_deck.png-6f079033c38b.ctex"]
 
 [params]
 
