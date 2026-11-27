@@ -1,0 +1,47 @@
+name: Build Godchard v4.2.0 Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/build_apk_v42.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Compile Android APK and Publish v4.2.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO_ROOT: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          python3 -m pip install -q -U gdown
+          rm -f /tmp/payload.zip
+          for FID in 1SpYWc1gUw6AKFjQ9SrZdaDj_tAnWrDCW 1Xin4426ieW_UYDJ4TP85Qn0KfAzq401I 1DCGAnV9dlCEvOGmuP2Eb4qquc3QQzSbm 1CT7qbXvCIbRHoi1vzb91RDDAuCMDVTAR 1TUEJA4BA900_4BDMpmoq6-6bvYrjHHl6 1gIXU9gt7ni2Uj2Mm0zQDT_pOlHKR6lS5 1_HK2bjVdXkNEEinHHEBz05FPclhWqqm_; do
+            gdown "${FID}" -O /tmp/chunk.bin
+            cat /tmp/chunk.bin >> /tmp/payload.zip
+          done
+          echo "6b10190deaa3b401dfb42784bef286e9b5b88f8ecbf25872b4fbc3e788ffac01  /tmp/payload.zip" | sha256sum -c -
+          unzip -oq /tmp/payload.zip -d /tmp/v4_src
+          gdown 1dbDLabAXXg38wpSGiTEGf1K9_Y-Tjdym -O /tmp/v42_overlay.zip
+          echo "81a9e18e5c38605384251da7a470e19179c5da7a3aa249d63c4c763ad06365ff  /tmp/v42_overlay.zip" | sha256sum -c -
+          unzip -oq /tmp/v42_overlay.zip -d /tmp/v4_src/Godchard_v4_Project
+          bash /tmp/v4_src/Godchard_v4_Project/ci_compile_godot4_v4.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GodchardAdventure-v4.2.0-AllPlatforms
+          path: /tmp/v4_src/Godchard_v4_Project/dist/*
